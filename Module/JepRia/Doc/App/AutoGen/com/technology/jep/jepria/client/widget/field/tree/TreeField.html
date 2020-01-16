@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10,"i28":10,"i29":10,"i30":10,"i31":10,"i32":10,"i33":10,"i34":10,"i35":10,"i36":10,"i37":10,"i38":10,"i39":10,"i40":10,"i41":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10,"i27":10,"i28":10,"i29":10,"i30":10,"i31":10,"i32":10,"i33":10,"i34":10,"i35":10,"i36":10,"i37":10,"i38":10,"i39":10,"i40":10,"i41":10,"i42":10,"i43":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -258,40 +258,44 @@ implements <a href="../../../../../../../../com/technology/jep/jepria/client/wid
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#isRefreshInProgress">isRefreshInProgress</a></span></code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
+<td class="colFirst"><code>private boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#isRefreshNeeded">isRefreshNeeded</a></span></code>&nbsp;</td>
+</tr>
+<tr class="altColor">
 <td class="colFirst"><code>private static java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#JEP_RIA_TREE_FIELD_STYLE">JEP_RIA_TREE_FIELD_STYLE</a></span></code>
 <div class="block">Наименование селектора (класса стилей) для данного компонента</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>private <a href="../../../../../../../../com/technology/jep/jepria/client/async/DataLoader.html" title="interface in com.technology.jep.jepria.client.async">DataLoader</a>&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#loader">loader</a></span></code>
 <div class="block">Загрузчик данных для данного компонента.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>private static <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeFieldMessages.html" title="class in com.technology.jep.jepria.client.widget.field.tree">TreeFieldMessages</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#messages">messages</a></span></code>&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>private java.util.Map&lt;java.lang.Object,<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="class in com.technology.jep.jepria.client.widget.field.tree">TreeNodeInfo</a>&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</a>&gt;&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#nodeMapOfDisplay">nodeMapOfDisplay</a></span></code>
 <div class="block">Карта соответствия узла дерева с его логическим представлением.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>private <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#openingNode">openingNode</a></span></code>
 <div class="block">Раскрываемый узел</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>private com.google.gwt.user.client.ui.HorizontalPanel</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#panel">panel</a></span></code>
 <div class="block">Панель для горизонтального размещения панели с виджетами и индикатора загрузки.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>private java.util.Set&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#partialSelectedNodes">partialSelectedNodes</a></span></code>
 <div class="block">Список частично выбранных узлов, позволяющий снизить 
@@ -299,43 +303,43 @@ implements <a href="../../../../../../../../com/technology/jep/jepria/client/wid
  списка детей родительского узла</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>private static java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#SELECT_ALL_CHECK_BOX_STYLE">SELECT_ALL_CHECK_BOX_STYLE</a></span></code>
 <div class="block">Наименование класса стилей для флага "Выделить все".</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>protected com.google.gwt.user.client.ui.CheckBox</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#selectAllCheckBox">selectAllCheckBox</a></span></code>
 <div class="block">Флаг "Выбрать все".</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>private <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.TreeFieldSelectionModel.html" title="class in com.technology.jep.jepria.client.widget.field.tree">TreeField.TreeFieldSelectionModel</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#selectionModel">selectionModel</a></span></code>
 <div class="block">Модель множественного выбора узлов дерева.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>private static <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.Template.html" title="interface in com.technology.jep.jepria.client.widget.field.tree">TreeField.Template</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#template">template</a></span></code>
 <div class="block">Интерфейс стилизации дерева.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>private com.google.gwt.user.cellview.client.CellTree</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#tree">tree</a></span></code>
 <div class="block">Виджет, позволяющий представить иерархию выбора в виде дерева.</div>
 </td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>protected com.google.gwt.user.client.ui.ScrollPanel</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#treePanel">treePanel</a></span></code>
 <div class="block">Панель прокручивания для дерева.</div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>protected com.google.gwt.user.client.ui.VerticalPanel</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#widgetPanel">widgetPanel</a></span></code>
 <div class="block">Панель для размещения дерева и флага "Выделить все".</div>
@@ -501,78 +505,91 @@ implements <a href="../../../../../../../../com/technology/jep/jepria/client/wid
 </tr>
 <tr id="i20" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#refresh-boolean-">refresh</a></span>(boolean&nbsp;clearNodeMap)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#refresh--">refresh</a></span>()</code>
 <div class="block">Refresh state of tree</div>
 </td>
 </tr>
 <tr id="i21" class="rowColor">
 <td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#refresh-boolean-">refresh</a></span>(boolean&nbsp;clearNodeMap)</code>
+<div class="block">Refresh state of tree</div>
+</td>
+</tr>
+<tr id="i22" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#refresh-boolean-boolean-">refresh</a></span>(boolean&nbsp;clearNodeMap,
+       boolean&nbsp;blockRefresh)</code>
+<div class="block">Refresh state of tree</div>
+</td>
+</tr>
+<tr id="i23" class="rowColor">
+<td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#refreshNode-V-">refreshNode</a></span>(<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</a>&nbsp;node)</code>
 <div class="block">Refresh state of node with specified value</div>
 </td>
 </tr>
-<tr id="i22" class="altColor">
+<tr id="i24" class="altColor">
 <td class="colFirst"><code>private void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#refreshTree--">refreshTree</a></span>()</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#refreshTree-boolean-">refreshTree</a></span>(boolean&nbsp;blockRefresh)</code>
 <div class="block">Обновляет информацию о структуре дерева.</div>
 </td>
 </tr>
-<tr id="i23" class="rowColor">
+<tr id="i25" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#scrollToTop--">scrollToTop</a></span>()</code>
 <div class="block">Прокручивает дерево к первоначальному состоянию.</div>
 </td>
 </tr>
-<tr id="i24" class="altColor">
+<tr id="i26" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#setBackgroundColor-java.lang.String-">setBackgroundColor</a></span>(java.lang.String&nbsp;backgroundColor)</code>
 <div class="block">Установка цвета фона для панели дерева.</div>
 </td>
 </tr>
-<tr id="i25" class="rowColor">
+<tr id="i27" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#setBorders-boolean-">setBorders</a></span>(boolean&nbsp;borders)</code>
 <div class="block">Устанавливает или снимает границы компонента.</div>
 </td>
 </tr>
-<tr id="i26" class="altColor">
+<tr id="i28" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#setCheckable-boolean-">setCheckable</a></span>(boolean&nbsp;checkable)</code>
 <div class="block">Устанавливает или блокирует выбор узлов дерева.</div>
 </td>
 </tr>
-<tr id="i27" class="rowColor">
+<tr id="i29" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#setChecked-V-boolean-">setChecked</a></span>(<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</a>&nbsp;value,
           boolean&nbsp;checked)</code>
 <div class="block">Устанавливает или снимает выбор для заданного узла дерева.</div>
 </td>
 </tr>
-<tr id="i28" class="altColor">
+<tr id="i30" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#setCheckNodes-com.technology.jep.jepria.client.widget.field.tree.TreeField.CheckNodes-">setCheckNodes</a></span>(<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.CheckNodes.html" title="enum in com.technology.jep.jepria.client.widget.field.tree">TreeField.CheckNodes</a>&nbsp;checkNodes)</code>
 <div class="block">Устанавливает признак возможного выбора узлов в дереве.</div>
 </td>
 </tr>
-<tr id="i29" class="rowColor">
+<tr id="i31" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#setCheckStyle-com.technology.jep.jepria.client.widget.field.tree.TreeField.CheckCascade-">setCheckStyle</a></span>(<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.CheckCascade.html" title="enum in com.technology.jep.jepria.client.widget.field.tree">TreeField.CheckCascade</a>&nbsp;checkStyle)</code>
 <div class="block">Устанавливает стиль выбора узлов в дереве.</div>
 </td>
 </tr>
-<tr id="i30" class="altColor">
+<tr id="i32" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#setCompositeWebIds-java.lang.String-">setCompositeWebIds</a></span>(java.lang.String&nbsp;fieldIdAsWebEl)</code>
 <div class="block">Установка ID внутренних компонентов TreeField: кнопки "выделить все"</div>
 </td>
 </tr>
-<tr id="i31" class="rowColor">
+<tr id="i33" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#setEnabled-boolean-">setEnabled</a></span>(boolean&nbsp;enabled)</code>
 <div class="block">Установка признака доступности/недоступности элемента.</div>
 </td>
 </tr>
-<tr id="i32" class="altColor">
+<tr id="i34" class="altColor">
 <td class="colFirst"><code>com.google.gwt.user.cellview.client.TreeNode</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#setExpanded-com.google.gwt.user.cellview.client.TreeNode-V-boolean-">setExpanded</a></span>(com.google.gwt.user.cellview.client.TreeNode&nbsp;node,
            <a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</a>&nbsp;value,
@@ -580,54 +597,54 @@ implements <a href="../../../../../../../../com/technology/jep/jepria/client/wid
 <div class="block">Search specified node in the tree.</div>
 </td>
 </tr>
-<tr id="i33" class="rowColor">
+<tr id="i35" class="rowColor">
 <td class="colFirst"><code>com.google.gwt.user.cellview.client.TreeNode</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#setExpanded-V-boolean-">setExpanded</a></span>(<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</a>&nbsp;value,
            boolean&nbsp;expand)</code>
 <div class="block">Search specified node in the tree beginning from root.</div>
 </td>
 </tr>
-<tr id="i34" class="altColor">
+<tr id="i36" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#setHeight-java.lang.String-">setHeight</a></span>(java.lang.String&nbsp;height)</code>
 <div class="block">Установка высоты.</div>
 </td>
 </tr>
-<tr id="i35" class="rowColor">
+<tr id="i37" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#setImageResources-com.technology.jep.jepria.client.widget.field.tree.images.TreeFieldResources-">setImageResources</a></span>(<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/images/TreeFieldResources.html" title="interface in com.technology.jep.jepria.client.widget.field.tree.images">TreeFieldResources</a>&nbsp;resources)</code>&nbsp;</td>
 </tr>
-<tr id="i36" class="altColor">
+<tr id="i38" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#setLoader-com.technology.jep.jepria.client.async.DataLoader-">setLoader</a></span>(<a href="../../../../../../../../com/technology/jep/jepria/client/async/DataLoader.html" title="interface in com.technology.jep.jepria.client.async">DataLoader</a>&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</a>&gt;&nbsp;dataLoader)</code>
 <div class="block">Устанавливает значение текущего загрузчика данных.</div>
 </td>
 </tr>
-<tr id="i37" class="rowColor">
+<tr id="i39" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#setPartialSelected-java.util.List-">setPartialSelected</a></span>(java.util.List&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</a>&gt;&nbsp;list)</code>
 <div class="block">Устанавливает список частично выбранных узлов дерева (без необходимости получения информации о его потомках).</div>
 </td>
 </tr>
-<tr id="i38" class="altColor">
+<tr id="i40" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#setSelectAllCheckBoxVisible-boolean-">setSelectAllCheckBoxVisible</a></span>(boolean&nbsp;visible)</code>
 <div class="block">Установка видимости флага "Выделить все".</div>
 </td>
 </tr>
-<tr id="i39" class="rowColor">
+<tr id="i41" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#setWidth-java.lang.String-">setWidth</a></span>(java.lang.String&nbsp;width)</code>
 <div class="block">Установка ширины.</div>
 </td>
 </tr>
-<tr id="i40" class="altColor">
+<tr id="i42" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#showTree--">showTree</a></span>()</code>
 <div class="block">Показывает текущий компонент.</div>
 </td>
 </tr>
-<tr id="i41" class="rowColor">
+<tr id="i43" class="rowColor">
 <td class="colFirst"><code>protected com.google.gwt.view.client.DefaultSelectionEventManager.SelectAction</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html#translateSelectionEvent-com.google.gwt.view.client.CellPreviewEvent-">translateSelectionEvent</a></span>(com.google.gwt.view.client.CellPreviewEvent&lt;<a href="../../../../../../../../com/technology/jep/jepria/client/widget/field/tree/TreeField.html" title="type parameter in TreeField">V</a>&gt;&nbsp;event)</code>
 <div class="block">Определяем поведение выбора узла дерева.</div>
@@ -725,6 +742,15 @@ implements <a href="../../../../../../../../com/technology/jep/jepria/client/wid
 <li class="blockList">
 <h4>isRefreshInProgress</h4>
 <pre>private&nbsp;boolean isRefreshInProgress</pre>
+</li>
+</ul>
+<a name="isRefreshNeeded">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isRefreshNeeded</h4>
+<pre>private&nbsp;boolean isRefreshNeeded</pre>
 </li>
 </ul>
 <a name="JEP_RIA_TREE_FIELD_STYLE">
@@ -1301,6 +1327,16 @@ implements <a href="../../../../../../../../com/technology/jep/jepria/client/wid
 </dl>
 </li>
 </ul>
+<a name="refresh--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>refresh</h4>
+<pre>public&nbsp;void&nbsp;refresh()</pre>
+<div class="block">Refresh state of tree</div>
+</li>
+</ul>
 <a name="refresh-boolean-">
 <!--   -->
 </a>
@@ -1315,13 +1351,29 @@ implements <a href="../../../../../../../../com/technology/jep/jepria/client/wid
 </dl>
 </li>
 </ul>
-<a name="refreshTree--">
+<a name="refresh-boolean-boolean-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>refresh</h4>
+<pre>public&nbsp;void&nbsp;refresh(boolean&nbsp;clearNodeMap,
+                    boolean&nbsp;blockRefresh)</pre>
+<div class="block">Refresh state of tree</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>clearNodeMap</code> - Clear cashed nodes</dd>
+<dd><code>blockRefresh</code> - Block any another attempts to refresh tree until current is finished</dd>
+</dl>
+</li>
+</ul>
+<a name="refreshTree-boolean-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>refreshTree</h4>
-<pre>private&nbsp;void&nbsp;refreshTree()</pre>
+<pre>private&nbsp;void&nbsp;refreshTree(boolean&nbsp;blockRefresh)</pre>
 <div class="block">Обновляет информацию о структуре дерева.</div>
 </li>
 </ul>

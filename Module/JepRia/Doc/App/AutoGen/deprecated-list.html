@@ -72,11 +72,68 @@
 <h1 title="Deprecated API" class="title">Deprecated API</h1>
 <h2 title="Contents">Contents</h2>
 <ul>
+<li><a href="#interface">Deprecated Interfaces</a></li>
+<li><a href="#class">Deprecated Classes</a></li>
 <li><a href="#method">Deprecated Methods</a></li>
 <li><a href="#constructor">Deprecated Constructors</a></li>
 </ul>
 </div>
-<div class="contentContainer"><a name="method">
+<div class="contentContainer"><a name="interface">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<table class="deprecatedSummary" border="0" cellpadding="3" cellspacing="0" summary="Deprecated Interfaces table, listing deprecated interfaces, and an explanation">
+<caption><span>Deprecated Interfaces</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Interface and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="com/technology/jep/jepria/server/dao/JepDataStandard.html" title="interface in com.technology.jep.jepria.server.dao">com.technology.jep.jepria.server.dao.JepDataStandard</a>
+<div class="block"><span class="deprecationComment">for Rest use <a href="org/jepria/server/data/Dao.html" title="interface in org.jepria.server.data"><code>Dao</code></a> instead</span></div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<a name="class">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<table class="deprecatedSummary" border="0" cellpadding="3" cellspacing="0" summary="Deprecated Classes table, listing deprecated classes, and an explanation">
+<caption><span>Deprecated Classes</span><span class="tabEnd">&nbsp;</span></caption>
+<tr>
+<th class="colOne" scope="col">Class and Description</th>
+</tr>
+<tbody>
+<tr class="altColor">
+<td class="colOne"><a href="com/technology/jep/jepria/server/dao/DaoSupport.html" title="class in com.technology.jep.jepria.server.dao">com.technology.jep.jepria.server.dao.DaoSupport</a>
+<div class="block"><span class="deprecationComment">for Rest use <a href="org/jepria/server/data/DaoSupport.html" title="interface in org.jepria.server.data"><code>DaoSupport</code></a> instead</span></div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="com/technology/jep/jepria/shared/record/lob/JepLobRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record.lob">com.technology.jep.jepria.shared.record.lob.JepLobRecordDefinition</a>
+<div class="block"><span class="deprecationComment">for Rest use <a href="org/jepria/server/data/RecordDefinition.html" title="interface in org.jepria.server.data"><code>RecordDefinition</code></a> instead</span></div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colOne"><a href="com/technology/jep/jepria/shared/record/JepRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record">com.technology.jep.jepria.shared.record.JepRecordDefinition</a>
+<div class="block"><span class="deprecationComment">for Rest use <a href="org/jepria/server/data/RecordDefinition.html" title="interface in org.jepria.server.data"><code>RecordDefinition</code></a> instead</span></div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colOne"><a href="com/technology/jep/jepria/server/ServerFactory.html" title="class in com.technology.jep.jepria.server">com.technology.jep.jepria.server.ServerFactory</a>
+<div class="block"><span class="deprecationComment">for Rest use <a href="org/jepria/server/ServerFactory.html" title="class in org.jepria.server"><code>ServerFactory</code></a> instead</span></div>
+</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+<a name="method">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -119,23 +176,26 @@
 <td class="colOne"><a href="com/technology/jep/jepria/server/dao/ResultSetWrapper.html#getUnicodeStream-java.lang.String-">com.technology.jep.jepria.server.dao.ResultSetWrapper.getUnicodeStream(String)</a></td>
 </tr>
 <tr class="altColor">
-<td class="colOne"><a href="com/technology/jep/jepria/auto/model/user/User.html#login-com.technology.jep.jepria.auto.application.entrance.EntranceAuto-">com.technology.jep.jepria.auto.model.user.User.login(EntranceAuto)</a></td>
+<td class="colOne"><a href="com/technology/jep/jepria/server/security/TokenRequestWrapper.html#isUserInRoles-java.lang.String:A-">com.technology.jep.jepria.server.security.TokenRequestWrapper.isUserInRoles(String[])</a></td>
 </tr>
 <tr class="rowColor">
+<td class="colOne"><a href="com/technology/jep/jepria/auto/model/user/User.html#login-com.technology.jep.jepria.auto.application.entrance.EntranceAuto-">com.technology.jep.jepria.auto.model.user.User.login(EntranceAuto)</a></td>
+</tr>
+<tr class="altColor">
 <td class="colOne"><a href="com/technology/jep/jepria/auto/module/JepRiaModuleAuto.html#selectItem-java.util.Map-">com.technology.jep.jepria.auto.module.JepRiaModuleAuto.selectItem(Map&lt;String, String&gt;)</a>
 <div class="block"><span class="deprecationComment">выполняйте поиск вручную в прикладном тестовом классе instead.</span></div>
 </td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colOne"><a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormViewImpl.html#setPresenter-com.technology.jep.jepria.client.ui.JepPresenter-">com.technology.jep.jepria.client.ui.form.detail.DetailFormViewImpl.setPresenter(JepPresenter)</a></td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colOne"><a href="com/technology/jep/jepria/client/ui/form/list/ListFormViewImpl.html#setPresenter-com.technology.jep.jepria.client.ui.JepPresenter-">com.technology.jep.jepria.client.ui.form.list.ListFormViewImpl.setPresenter(JepPresenter)</a></td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colOne"><a href="com/technology/jep/jepria/server/dao/CallableStatementWrapper.html#setUnicodeStream-int-java.io.InputStream-int-">com.technology.jep.jepria.server.dao.CallableStatementWrapper.setUnicodeStream(int, InputStream, int)</a></td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colOne"><a href="com/technology/jep/jepria/client/util/JepClientUtil.html#showLoadingPanel-java.lang.String-java.lang.String-java.lang.String-">com.technology.jep.jepria.client.util.JepClientUtil.showLoadingPanel(String, String, String)</a></td>
 </tr>
 </tbody>

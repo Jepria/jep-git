@@ -18,8 +18,8 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var methods = {"i0":42,"i1":42,"i2":42,"i3":42,"i4":42,"i5":42,"i6":42};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"],32:["t6","Deprecated Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -115,8 +115,12 @@ var activeTableTab = "activeTableTab";
 <dd><a href="../../../../../../com/technology/jep/jepria/shared/record/lob/JepLobRecordDefinition.html" title="class in com.technology.jep.jepria.shared.record.lob">JepLobRecordDefinition</a></dd>
 </dl>
 <hr>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;
+<div class="block"><span class="deprecationComment">for Rest use <a href="../../../../../../org/jepria/server/data/RecordDefinition.html" title="interface in org.jepria.server.data"><code>RecordDefinition</code></a> instead</span></div>
+</div>
 <br>
-<pre>public class <span class="typeNameLabel">JepRecordDefinition</span>
+<pre>@Deprecated
+public class <span class="typeNameLabel">JepRecordDefinition</span>
 extends java.lang.Object
 implements com.google.gwt.user.client.rpc.IsSerializable</pre>
 </li>
@@ -140,16 +144,21 @@ implements com.google.gwt.user.client.rpc.IsSerializable</pre>
 <tr class="altColor">
 <td class="colFirst"><code>private java.util.Map&lt;java.lang.String,<a href="../../../../../../com/technology/jep/jepria/shared/field/JepLikeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepLikeEnum</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html#likeMap">likeMap</a></span></code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Карта полей формы с режимом поиска по текстовым полям.</div>
 </td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>private java.lang.String[]</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html#primaryKey">primaryKey</a></span></code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html#primaryKey">primaryKey</a></span></code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
+&nbsp;</td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>private java.util.Map&lt;java.lang.String,<a href="../../../../../../com/technology/jep/jepria/shared/field/JepTypeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepTypeEnum</a>&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html#typeMap">typeMap</a></span></code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html#typeMap">typeMap</a></span></code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
+&nbsp;</td>
 </tr>
 </table>
 </li>
@@ -169,7 +178,9 @@ implements com.google.gwt.user.client.rpc.IsSerializable</pre>
 <tr class="altColor">
 <td class="colFirst"><code>protected </code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html#JepRecordDefinition-java.util.Map-java.lang.String:A-">JepRecordDefinition</a></span>(java.util.Map&lt;java.lang.String,<a href="../../../../../../com/technology/jep/jepria/shared/field/JepTypeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepTypeEnum</a>&gt;&nbsp;typeMap,
-                   java.lang.String[]&nbsp;primaryKey)</code>&nbsp;</td>
+                   java.lang.String[]&nbsp;primaryKey)</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
+&nbsp;</td>
 </tr>
 </table>
 </li>
@@ -181,42 +192,54 @@ implements com.google.gwt.user.client.rpc.IsSerializable</pre>
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t6" class="tableTab"><span><a href="javascript:show(32);">Deprecated Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>java.util.Map&lt;java.lang.String,java.lang.Object&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html#buildPrimaryKeyMap-com.technology.jep.jepria.shared.record.JepRecord-">buildPrimaryKeyMap</a></span>(<a href="../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&nbsp;record)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html#buildPrimaryKeyMap-com.technology.jep.jepria.shared.record.JepRecord-">buildPrimaryKeyMap</a></span>(<a href="../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&nbsp;record)</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
+&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>java.util.Map&lt;java.lang.String,<a href="../../../../../../com/technology/jep/jepria/shared/field/JepLikeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepLikeEnum</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html#getLikeMap--">getLikeMap</a></span>()</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Получение карты полей формы с режимом поиска по текстовым полям.</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>java.lang.String[]</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html#getPrimaryKey--">getPrimaryKey</a></span>()</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html#getPrimaryKey--">getPrimaryKey</a></span>()</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
+&nbsp;</td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code><a href="../../../../../../com/technology/jep/jepria/shared/field/JepTypeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepTypeEnum</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html#getType-java.lang.String-">getType</a></span>(java.lang.String&nbsp;fieldName)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html#getType-java.lang.String-">getType</a></span>(java.lang.String&nbsp;fieldName)</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
+&nbsp;</td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>java.util.Map&lt;java.lang.String,<a href="../../../../../../com/technology/jep/jepria/shared/field/JepTypeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepTypeEnum</a>&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html#getTypeMap--">getTypeMap</a></span>()</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html#getTypeMap--">getTypeMap</a></span>()</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
+&nbsp;</td>
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html#setLikeMap-java.util.Map-">setLikeMap</a></span>(java.util.Map&lt;java.lang.String,<a href="../../../../../../com/technology/jep/jepria/shared/field/JepLikeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepLikeEnum</a>&gt;&nbsp;likeMap)</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Установка карты полей формы с режимом поиска по текстовым полям.</div>
 </td>
 </tr>
 <tr id="i6" class="altColor">
 <td class="colFirst"><code>protected void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html#setTypeMap-java.util.Map-">setTypeMap</a></span>(java.util.Map&lt;java.lang.String,<a href="../../../../../../com/technology/jep/jepria/shared/field/JepTypeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepTypeEnum</a>&gt;&nbsp;typeMap)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/shared/record/JepRecordDefinition.html#setTypeMap-java.util.Map-">setTypeMap</a></span>(java.util.Map&lt;java.lang.String,<a href="../../../../../../com/technology/jep/jepria/shared/field/JepTypeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepTypeEnum</a>&gt;&nbsp;typeMap)</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
+&nbsp;</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -247,6 +270,7 @@ implements com.google.gwt.user.client.rpc.IsSerializable</pre>
 <li class="blockList">
 <h4>primaryKey</h4>
 <pre>private&nbsp;java.lang.String[] primaryKey</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </li>
 </ul>
 <a name="typeMap">
@@ -256,6 +280,7 @@ implements com.google.gwt.user.client.rpc.IsSerializable</pre>
 <li class="blockList">
 <h4>typeMap</h4>
 <pre>private&nbsp;java.util.Map&lt;java.lang.String,<a href="../../../../../../com/technology/jep/jepria/shared/field/JepTypeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepTypeEnum</a>&gt; typeMap</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </li>
 </ul>
 <a name="likeMap">
@@ -265,6 +290,7 @@ implements com.google.gwt.user.client.rpc.IsSerializable</pre>
 <li class="blockList">
 <h4>likeMap</h4>
 <pre>private&nbsp;java.util.Map&lt;java.lang.String,<a href="../../../../../../com/technology/jep/jepria/shared/field/JepLikeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepLikeEnum</a>&gt; likeMap</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Карта полей формы с режимом поиска по текстовым полям.</div>
 </li>
 </ul>
@@ -284,6 +310,7 @@ implements com.google.gwt.user.client.rpc.IsSerializable</pre>
 <h4>JepRecordDefinition</h4>
 <pre>protected&nbsp;JepRecordDefinition(java.util.Map&lt;java.lang.String,<a href="../../../../../../com/technology/jep/jepria/shared/field/JepTypeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepTypeEnum</a>&gt;&nbsp;typeMap,
                               java.lang.String[]&nbsp;primaryKey)</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </li>
 </ul>
 </li>
@@ -301,6 +328,7 @@ implements com.google.gwt.user.client.rpc.IsSerializable</pre>
 <li class="blockList">
 <h4>setTypeMap</h4>
 <pre>protected&nbsp;void&nbsp;setTypeMap(java.util.Map&lt;java.lang.String,<a href="../../../../../../com/technology/jep/jepria/shared/field/JepTypeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepTypeEnum</a>&gt;&nbsp;typeMap)</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </li>
 </ul>
 <a name="getTypeMap--">
@@ -310,6 +338,7 @@ implements com.google.gwt.user.client.rpc.IsSerializable</pre>
 <li class="blockList">
 <h4>getTypeMap</h4>
 <pre>public&nbsp;java.util.Map&lt;java.lang.String,<a href="../../../../../../com/technology/jep/jepria/shared/field/JepTypeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepTypeEnum</a>&gt;&nbsp;getTypeMap()</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </li>
 </ul>
 <a name="getType-java.lang.String-">
@@ -319,6 +348,7 @@ implements com.google.gwt.user.client.rpc.IsSerializable</pre>
 <li class="blockList">
 <h4>getType</h4>
 <pre>public&nbsp;<a href="../../../../../../com/technology/jep/jepria/shared/field/JepTypeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepTypeEnum</a>&nbsp;getType(java.lang.String&nbsp;fieldName)</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </li>
 </ul>
 <a name="buildPrimaryKeyMap-com.technology.jep.jepria.shared.record.JepRecord-">
@@ -328,6 +358,7 @@ implements com.google.gwt.user.client.rpc.IsSerializable</pre>
 <li class="blockList">
 <h4>buildPrimaryKeyMap</h4>
 <pre>public&nbsp;java.util.Map&lt;java.lang.String,java.lang.Object&gt;&nbsp;buildPrimaryKeyMap(<a href="../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&nbsp;record)</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </li>
 </ul>
 <a name="getPrimaryKey--">
@@ -337,6 +368,7 @@ implements com.google.gwt.user.client.rpc.IsSerializable</pre>
 <li class="blockList">
 <h4>getPrimaryKey</h4>
 <pre>public&nbsp;java.lang.String[]&nbsp;getPrimaryKey()</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </li>
 </ul>
 <a name="getLikeMap--">
@@ -346,6 +378,7 @@ implements com.google.gwt.user.client.rpc.IsSerializable</pre>
 <li class="blockList">
 <h4>getLikeMap</h4>
 <pre>public&nbsp;java.util.Map&lt;java.lang.String,<a href="../../../../../../com/technology/jep/jepria/shared/field/JepLikeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepLikeEnum</a>&gt;&nbsp;getLikeMap()</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Получение карты полей формы с режимом поиска по текстовым полям.</div>
 </li>
 </ul>
@@ -356,6 +389,7 @@ implements com.google.gwt.user.client.rpc.IsSerializable</pre>
 <li class="blockList">
 <h4>setLikeMap</h4>
 <pre>public&nbsp;void&nbsp;setLikeMap(java.util.Map&lt;java.lang.String,<a href="../../../../../../com/technology/jep/jepria/shared/field/JepLikeEnum.html" title="enum in com.technology.jep.jepria.shared.field">JepLikeEnum</a>&gt;&nbsp;likeMap)</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Установка карты полей формы с режимом поиска по текстовым полям.</div>
 </li>
 </ul>

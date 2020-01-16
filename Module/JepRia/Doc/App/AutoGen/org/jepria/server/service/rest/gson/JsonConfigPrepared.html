@@ -96,7 +96,32 @@
  @Retention(value=RUNTIME)
 public @interface <span class="memberNameLabel">JsonConfigPrepared</span></pre>
 <div class="block">Configures HTTP request/response serialization using <code>Gson</code>
- by supplying a prepared <code>Gson</code> instance.</div>
+ by supplying a prepared <code>Gson</code> instance.
+ <br/>
+ Example usage:
+ <pre>
+
+ public class ResourceJaxrsAdapter {
+
+   // Пример сложной настройки формата json-ответа метода с помощью аннотации &#064;JsonConfigPrepared
+   // и отдельного класса с конфигурацией Gson
+   &#064;GET
+   &#064;JsonConfigPrepared(JsonConfigComplex.class)
+   public Object jsonConfigComplex() {
+     Object response = createResponse();
+     return response;
+   }
+
+   public static class JsonConfigComplex implements Supplier<Gson> {
+     &#064;Override
+     public Gson get() {
+       GsonBuilder gsonBuilder = new GsonBuilder();
+       complexSetup(gsonBuilder); // сколь угодно сложная настройка
+       return gsonBuilder.create();
+     }
+   }
+ }
+ </pre></div>
 </li>
 </ul>
 </div>

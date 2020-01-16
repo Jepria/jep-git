@@ -18,8 +18,8 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var methods = {"i0":42,"i1":42,"i2":42,"i3":42};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"],32:["t6","Deprecated Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -115,8 +115,12 @@ var activeTableTab = "activeTableTab";
 <dd><a href="../../../../../com/technology/jep/jepria/server/DaoProvider.html" title="interface in com.technology.jep.jepria.server">DaoProvider</a>&lt;D&gt;</dd>
 </dl>
 <hr>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;
+<div class="block"><span class="deprecationComment">for Rest use <a href="../../../../../org/jepria/server/ServerFactory.html" title="class in org.jepria.server"><code>ServerFactory</code></a> instead</span></div>
+</div>
 <br>
-<pre>public abstract class <span class="typeNameLabel">ServerFactory&lt;D&gt;</span>
+<pre>@Deprecated
+public abstract class <span class="typeNameLabel">ServerFactory&lt;D&gt;</span>
 extends java.lang.Object
 implements <a href="../../../../../com/technology/jep/jepria/server/DaoProvider.html" title="interface in com.technology.jep.jepria.server">DaoProvider</a>&lt;D&gt;</pre>
 <div class="block">Серверная фабрика.</div>
@@ -141,24 +145,28 @@ implements <a href="../../../../../com/technology/jep/jepria/server/DaoProvider.
 <tr class="altColor">
 <td class="colFirst"><code>private <a href="../../../../../com/technology/jep/jepria/server/ServerFactory.html" title="type parameter in ServerFactory">D</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepria/server/ServerFactory.html#dao">dao</a></span></code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Исходный объект Dao.</div>
 </td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>private java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepria/server/ServerFactory.html#dataSourceJndiName">dataSourceJndiName</a></span></code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">JNDI-имя источника данных.</div>
 </td>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>private java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepria/server/ServerFactory.html#moduleName">moduleName</a></span></code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Имя модуля (module_name), передаваемое в DB.</div>
 </td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>private <a href="../../../../../com/technology/jep/jepria/server/ServerFactory.html" title="type parameter in ServerFactory">D</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepria/server/ServerFactory.html#proxyDao">proxyDao</a></span></code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Прокси для Dao, обеспечивающий транзакционность.</div>
 </td>
 </tr>
@@ -179,6 +187,7 @@ implements <a href="../../../../../com/technology/jep/jepria/server/DaoProvider.
 <tr class="altColor">
 <td class="colOne"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepria/server/ServerFactory.html#ServerFactory-D-java.lang.String-">ServerFactory</a></span>(<a href="../../../../../com/technology/jep/jepria/server/ServerFactory.html" title="type parameter in ServerFactory">D</a>&nbsp;dao,
              java.lang.String&nbsp;dataSourceJndiName)</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Создаёт серверную фабрику.</div>
 </td>
 </tr>
@@ -192,7 +201,7 @@ implements <a href="../../../../../com/technology/jep/jepria/server/DaoProvider.
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t6" class="tableTab"><span><a href="javascript:show(32);">Deprecated Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colLast" scope="col">Method and Description</th>
@@ -200,24 +209,28 @@ implements <a href="../../../../../com/technology/jep/jepria/server/DaoProvider.
 <tr id="i0" class="altColor">
 <td class="colFirst"><code><a href="../../../../../com/technology/jep/jepria/server/ServerFactory.html" title="type parameter in ServerFactory">D</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepria/server/ServerFactory.html#getDao--">getDao</a></span>()</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Возвращает прокси для Dao, обеспечивающий транзакционность.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepria/server/ServerFactory.html#getDataSourceJndiName--">getDataSourceJndiName</a></span>()</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Возвращает JNDI-имя источника данных.</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepria/server/ServerFactory.html#getModuleName--">getModuleName</a></span>()</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Возвращает имя модуля для передачи в DB.</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../com/technology/jep/jepria/server/ServerFactory.html#setModuleName-java.lang.String-">setModuleName</a></span>(java.lang.String&nbsp;moduleName)</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Устанавливает имя модуля для передачи в DB.</div>
 </td>
 </tr>
@@ -250,6 +263,7 @@ implements <a href="../../../../../com/technology/jep/jepria/server/DaoProvider.
 <li class="blockList">
 <h4>dao</h4>
 <pre>private final&nbsp;<a href="../../../../../com/technology/jep/jepria/server/ServerFactory.html" title="type parameter in ServerFactory">D</a> dao</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Исходный объект Dao.</div>
 </li>
 </ul>
@@ -260,6 +274,7 @@ implements <a href="../../../../../com/technology/jep/jepria/server/DaoProvider.
 <li class="blockList">
 <h4>proxyDao</h4>
 <pre>private&nbsp;<a href="../../../../../com/technology/jep/jepria/server/ServerFactory.html" title="type parameter in ServerFactory">D</a> proxyDao</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Прокси для Dao, обеспечивающий транзакционность.</div>
 </li>
 </ul>
@@ -270,6 +285,7 @@ implements <a href="../../../../../com/technology/jep/jepria/server/DaoProvider.
 <li class="blockList">
 <h4>dataSourceJndiName</h4>
 <pre>private&nbsp;java.lang.String dataSourceJndiName</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">JNDI-имя источника данных.</div>
 </li>
 </ul>
@@ -280,6 +296,7 @@ implements <a href="../../../../../com/technology/jep/jepria/server/DaoProvider.
 <li class="blockList">
 <h4>moduleName</h4>
 <pre>private&nbsp;java.lang.String moduleName</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Имя модуля (module_name), передаваемое в DB.</div>
 </li>
 </ul>
@@ -301,6 +318,7 @@ implements <a href="../../../../../com/technology/jep/jepria/server/DaoProvider.
 <h4>ServerFactory</h4>
 <pre>public&nbsp;ServerFactory(<a href="../../../../../com/technology/jep/jepria/server/ServerFactory.html" title="type parameter in ServerFactory">D</a>&nbsp;dao,
                      java.lang.String&nbsp;dataSourceJndiName)</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Создаёт серверную фабрику.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -324,6 +342,7 @@ implements <a href="../../../../../com/technology/jep/jepria/server/DaoProvider.
 <li class="blockList">
 <h4>getDao</h4>
 <pre>public&nbsp;<a href="../../../../../com/technology/jep/jepria/server/ServerFactory.html" title="type parameter in ServerFactory">D</a>&nbsp;getDao()</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Возвращает прокси для Dao, обеспечивающий транзакционность.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
@@ -340,6 +359,7 @@ implements <a href="../../../../../com/technology/jep/jepria/server/DaoProvider.
 <li class="blockList">
 <h4>getDataSourceJndiName</h4>
 <pre>public&nbsp;java.lang.String&nbsp;getDataSourceJndiName()</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Возвращает JNDI-имя источника данных.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
@@ -356,6 +376,7 @@ implements <a href="../../../../../com/technology/jep/jepria/server/DaoProvider.
 <li class="blockList">
 <h4>getModuleName</h4>
 <pre>public&nbsp;java.lang.String&nbsp;getModuleName()</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Возвращает имя модуля для передачи в DB.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
@@ -372,6 +393,7 @@ implements <a href="../../../../../com/technology/jep/jepria/server/DaoProvider.
 <li class="blockList">
 <h4>setModuleName</h4>
 <pre>public&nbsp;void&nbsp;setModuleName(java.lang.String&nbsp;moduleName)</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Устанавливает имя модуля для передачи в DB.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>

@@ -138,7 +138,7 @@ implements <a href="../../../../../../../com/technology/jep/jepria/server/upload
 <!--   -->
 </a>
 <h3>Fields inherited from class&nbsp;com.technology.jep.jepria.server.upload.<a href="../../../../../../../com/technology/jep/jepria/server/upload/AbstractFileUpload.html" title="class in com.technology.jep.jepria.server.upload">AbstractFileUpload</a></h3>
-<code><a href="../../../../../../../com/technology/jep/jepria/server/upload/AbstractFileUpload.html#largeObject">largeObject</a>, <a href="../../../../../../../com/technology/jep/jepria/server/upload/AbstractFileUpload.html#storedContext">storedContext</a>, <a href="../../../../../../../com/technology/jep/jepria/server/upload/AbstractFileUpload.html#transactionable">transactionable</a></code></li>
+<code><a href="../../../../../../../com/technology/jep/jepria/server/upload/AbstractFileUpload.html#cancelled">cancelled</a>, <a href="../../../../../../../com/technology/jep/jepria/server/upload/AbstractFileUpload.html#largeObject">largeObject</a>, <a href="../../../../../../../com/technology/jep/jepria/server/upload/AbstractFileUpload.html#storedContext">storedContext</a></code></li>
 </ul>
 </li>
 </ul>
@@ -155,11 +155,6 @@ implements <a href="../../../../../../../com/technology/jep/jepria/server/upload
 </tr>
 <tr class="altColor">
 <td class="colOne"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/server/upload/blob/BinaryFileUploadImpl.html#BinaryFileUploadImpl--">BinaryFileUploadImpl</a></span>()</code>
-<div class="block">Создаёт загрузчик файлов на сервер.</div>
-</td>
-</tr>
-<tr class="rowColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/server/upload/blob/BinaryFileUploadImpl.html#BinaryFileUploadImpl-boolean-">BinaryFileUploadImpl</a></span>(boolean&nbsp;transactionable)</code>
 <div class="block">Создаёт загрузчик файлов на сервер.</div>
 </td>
 </tr>
@@ -180,12 +175,10 @@ implements <a href="../../../../../../../com/technology/jep/jepria/server/upload
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>int</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/server/upload/blob/BinaryFileUploadImpl.html#beginWrite-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-java.lang.String-java.lang.String-">beginWrite</a></span>(java.lang.String&nbsp;tableName,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/server/upload/blob/BinaryFileUploadImpl.html#beginWrite-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-">beginWrite</a></span>(java.lang.String&nbsp;tableName,
           java.lang.String&nbsp;fileFieldName,
           java.lang.String&nbsp;keyFieldName,
-          java.lang.Object&nbsp;rowId,
-          java.lang.String&nbsp;dataSourceJndiName,
-          java.lang.String&nbsp;moduleName)</code>
+          java.lang.Object&nbsp;rowId)</code>
 <div class="block">Начало длинной транзакции записи файла в LOB.</div>
 </td>
 </tr>
@@ -201,7 +194,7 @@ implements <a href="../../../../../../../com/technology/jep/jepria/server/upload
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;com.technology.jep.jepria.server.upload.<a href="../../../../../../../com/technology/jep/jepria/server/upload/AbstractFileUpload.html" title="class in com.technology.jep.jepria.server.upload">AbstractFileUpload</a></h3>
-<code><a href="../../../../../../../com/technology/jep/jepria/server/upload/AbstractFileUpload.html#beginWrite-java.lang.Object-">beginWrite</a>, <a href="../../../../../../../com/technology/jep/jepria/server/upload/AbstractFileUpload.html#cancel--">cancel</a>, <a href="../../../../../../../com/technology/jep/jepria/server/upload/AbstractFileUpload.html#endWrite--">endWrite</a></code></li>
+<code><a href="../../../../../../../com/technology/jep/jepria/server/upload/AbstractFileUpload.html#beginWrite-java.lang.Object-">beginWrite</a>, <a href="../../../../../../../com/technology/jep/jepria/server/upload/AbstractFileUpload.html#cancel--">cancel</a>, <a href="../../../../../../../com/technology/jep/jepria/server/upload/AbstractFileUpload.html#endWrite--">endWrite</a>, <a href="../../../../../../../com/technology/jep/jepria/server/upload/AbstractFileUpload.html#isCancelled--">isCancelled</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.java.lang.Object">
@@ -215,7 +208,7 @@ implements <a href="../../../../../../../com/technology/jep/jepria/server/upload
 <!--   -->
 </a>
 <h3>Methods inherited from interface&nbsp;com.technology.jep.jepria.server.upload.<a href="../../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html" title="interface in com.technology.jep.jepria.server.upload">FileUpload</a></h3>
-<code><a href="../../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#beginWrite-java.lang.Object-">beginWrite</a>, <a href="../../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#cancel--">cancel</a>, <a href="../../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#endWrite--">endWrite</a></code></li>
+<code><a href="../../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#beginWrite-java.lang.Object-">beginWrite</a>, <a href="../../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#cancel--">cancel</a>, <a href="../../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#endWrite--">endWrite</a>, <a href="../../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#isCancelled--">isCancelled</a></code></li>
 </ul>
 </li>
 </ul>
@@ -234,20 +227,10 @@ implements <a href="../../../../../../../com/technology/jep/jepria/server/upload
 <a name="BinaryFileUploadImpl--">
 <!--   -->
 </a>
-<ul class="blockList">
-<li class="blockList">
-<h4>BinaryFileUploadImpl</h4>
-<pre>public&nbsp;BinaryFileUploadImpl()</pre>
-<div class="block">Создаёт загрузчик файлов на сервер.</div>
-</li>
-</ul>
-<a name="BinaryFileUploadImpl-boolean-">
-<!--   -->
-</a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>BinaryFileUploadImpl</h4>
-<pre>public&nbsp;BinaryFileUploadImpl(boolean&nbsp;transactionable)</pre>
+<pre>public&nbsp;BinaryFileUploadImpl()</pre>
 <div class="block">Создаёт загрузчик файлов на сервер.</div>
 </li>
 </ul>
@@ -259,7 +242,7 @@ implements <a href="../../../../../../../com/technology/jep/jepria/server/upload
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a name="beginWrite-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-java.lang.String-java.lang.String-">
+<a name="beginWrite-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -268,21 +251,17 @@ implements <a href="../../../../../../../com/technology/jep/jepria/server/upload
 <pre>public&nbsp;int&nbsp;beginWrite(java.lang.String&nbsp;tableName,
                       java.lang.String&nbsp;fileFieldName,
                       java.lang.String&nbsp;keyFieldName,
-                      java.lang.Object&nbsp;rowId,
-                      java.lang.String&nbsp;dataSourceJndiName,
-                      java.lang.String&nbsp;moduleName)
+                      java.lang.Object&nbsp;rowId)
                throws <a href="../../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</a></pre>
 <div class="block">Начало длинной транзакции записи файла в LOB.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#beginWrite-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-java.lang.String-java.lang.String-">beginWrite</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html" title="interface in com.technology.jep.jepria.server.upload">FileUpload</a></code></dd>
+<dd><code><a href="../../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#beginWrite-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-">beginWrite</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html" title="interface in com.technology.jep.jepria.server.upload">FileUpload</a></code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>tableName</code> - имя таблицы, в которую выполняется запись</dd>
 <dd><code>fileFieldName</code> - имя поля, в которое выполняется запись</dd>
 <dd><code>keyFieldName</code> - имя поля, идентифицирующего строку таблицы</dd>
 <dd><code>rowId</code> - идентификатор строки таблицы</dd>
-<dd><code>dataSourceJndiName</code> - JNDI-имя источника данных модуля</dd>
-<dd><code>moduleName</code> - имя модуля для передачи в DB</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>рекомендуемый размер буфера</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>

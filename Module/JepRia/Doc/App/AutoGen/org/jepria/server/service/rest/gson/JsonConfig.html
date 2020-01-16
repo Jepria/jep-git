@@ -96,7 +96,21 @@
  @Retention(value=RUNTIME)
 public @interface <span class="memberNameLabel">JsonConfig</span></pre>
 <div class="block">Configures HTTP request/response serialization using <code>Gson</code>
- by specifying parameters of <code>GsonBuilder</code>.</div>
+ by specifying some parameters of <code>GsonBuilder</code>.
+ <br/>
+ Example usage:
+ <pre>
+
+ public class ResourceJaxrsAdapter {
+   // Пример простой настройки формата json-ответа метода с помощью аннотации &#064;JsonConfig
+   &#064;GET
+   &#064;JsonConfig(serializeNulls = true, escapeHtml = false, prettyPrinting = true, dateFormat = "yyyy/MM/dd")
+   public Object jsonConfigSimple() {
+     Object response = createResponse();
+     return response;
+   }
+ }
+ </pre></div>
 </li>
 </ul>
 </div>
@@ -158,6 +172,10 @@ public @interface <span class="memberNameLabel">JsonConfig</span></pre>
 <h4>generateNonExecutableJson</h4>
 <pre>public abstract&nbsp;boolean&nbsp;generateNonExecutableJson</pre>
 <dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>GsonBuilder.generateNonExecutableJson()</code></dd>
+</dl>
+<dl>
 <dt>Default:</dt>
 <dd>false</dd>
 </dl>
@@ -173,6 +191,10 @@ public @interface <span class="memberNameLabel">JsonConfig</span></pre>
 <li class="blockList">
 <h4>serializeNulls</h4>
 <pre>public abstract&nbsp;boolean&nbsp;serializeNulls</pre>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>GsonBuilder.serializeNulls()</code></dd>
+</dl>
 <dl>
 <dt>Default:</dt>
 <dd>false</dd>
@@ -190,6 +212,10 @@ public @interface <span class="memberNameLabel">JsonConfig</span></pre>
 <h4>prettyPrinting</h4>
 <pre>public abstract&nbsp;boolean&nbsp;prettyPrinting</pre>
 <dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>GsonBuilder.setPrettyPrinting()</code></dd>
+</dl>
+<dl>
 <dt>Default:</dt>
 <dd>false</dd>
 </dl>
@@ -206,6 +232,10 @@ public @interface <span class="memberNameLabel">JsonConfig</span></pre>
 <h4>escapeHtml</h4>
 <pre>public abstract&nbsp;boolean&nbsp;escapeHtml</pre>
 <dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>GsonBuilder.disableHtmlEscaping()</code></dd>
+</dl>
+<dl>
 <dt>Default:</dt>
 <dd>true</dd>
 </dl>
@@ -221,6 +251,10 @@ public @interface <span class="memberNameLabel">JsonConfig</span></pre>
 <li class="blockList">
 <h4>dateFormat</h4>
 <pre>public abstract&nbsp;java.lang.String&nbsp;dateFormat</pre>
+<dl>
+<dt><span class="seeLabel">See Also:</span></dt>
+<dd><code>GsonBuilder.setDateFormat(String)</code></dd>
+</dl>
 <dl>
 <dt>Default:</dt>
 <dd>"dd.MM.yyyy"</dd>

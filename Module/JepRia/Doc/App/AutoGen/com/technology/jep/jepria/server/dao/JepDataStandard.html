@@ -18,8 +18,8 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":6,"i1":6,"i2":6,"i3":6};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
+var methods = {"i0":38,"i1":38,"i2":38,"i3":38};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],32:["t6","Deprecated Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -99,8 +99,12 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <hr>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;
+<div class="block"><span class="deprecationComment">for Rest use <a href="../../../../../../org/jepria/server/data/Dao.html" title="interface in org.jepria.server.data"><code>Dao</code></a> instead</span></div>
+</div>
 <br>
-<pre>public interface <span class="typeNameLabel">JepDataStandard</span></pre>
+<pre>@Deprecated
+public interface <span class="typeNameLabel">JepDataStandard</span></pre>
 <div class="block">Базовый интерфейс работы с данными БД.</div>
 </li>
 </ul>
@@ -115,7 +119,7 @@ var activeTableTab = "activeTableTab";
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t6" class="tableTab"><span><a href="javascript:show(32);">Deprecated Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colLast" scope="col">Method and Description</th>
@@ -124,6 +128,7 @@ var activeTableTab = "activeTableTab";
 <td class="colFirst"><code>java.lang.Object</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/dao/JepDataStandard.html#create-com.technology.jep.jepria.shared.record.JepRecord-java.lang.Integer-">create</a></span>(<a href="../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&nbsp;record,
       java.lang.Integer&nbsp;operatorId)</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Создание.</div>
 </td>
 </tr>
@@ -131,6 +136,7 @@ var activeTableTab = "activeTableTab";
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/dao/JepDataStandard.html#delete-com.technology.jep.jepria.shared.record.JepRecord-java.lang.Integer-">delete</a></span>(<a href="../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&nbsp;record,
       java.lang.Integer&nbsp;operatorId)</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Удаление.</div>
 </td>
 </tr>
@@ -140,6 +146,7 @@ var activeTableTab = "activeTableTab";
     <a href="../../../../../../com/technology/jep/jepria/shared/util/Mutable.html" title="class in com.technology.jep.jepria.shared.util">Mutable</a>&lt;java.lang.Boolean&gt;&nbsp;autoRefreshFlag,
     java.lang.Integer&nbsp;maxRowCount,
     java.lang.Integer&nbsp;operatorId)</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Поиск.</div>
 </td>
 </tr>
@@ -147,6 +154,7 @@ var activeTableTab = "activeTableTab";
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/dao/JepDataStandard.html#update-com.technology.jep.jepria.shared.record.JepRecord-java.lang.Integer-">update</a></span>(<a href="../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&nbsp;record,
       java.lang.Integer&nbsp;operatorId)</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Редактирование.</div>
 </td>
 </tr>
@@ -176,6 +184,7 @@ var activeTableTab = "activeTableTab";
                                java.lang.Integer&nbsp;maxRowCount,
                                java.lang.Integer&nbsp;operatorId)
                         throws <a href="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</a></pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Поиск.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -199,6 +208,7 @@ var activeTableTab = "activeTableTab";
 <pre>java.lang.Object&nbsp;create(<a href="../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&nbsp;record,
                         java.lang.Integer&nbsp;operatorId)
                  throws <a href="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</a></pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Создание.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -221,6 +231,7 @@ var activeTableTab = "activeTableTab";
 <pre>void&nbsp;update(<a href="../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&nbsp;record,
             java.lang.Integer&nbsp;operatorId)
      throws <a href="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</a></pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Редактирование.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -240,6 +251,7 @@ var activeTableTab = "activeTableTab";
 <pre>void&nbsp;delete(<a href="../../../../../../com/technology/jep/jepria/shared/record/JepRecord.html" title="class in com.technology.jep.jepria.shared.record">JepRecord</a>&nbsp;record,
             java.lang.Integer&nbsp;operatorId)
      throws <a href="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</a></pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Удаление.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>

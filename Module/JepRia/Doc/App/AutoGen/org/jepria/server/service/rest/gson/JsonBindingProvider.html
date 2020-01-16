@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":9,"i5":10};
+var methods = {"i0":9,"i1":10,"i2":10,"i3":10,"i4":10,"i5":9,"i6":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -196,25 +196,31 @@ extends org.glassfish.jersey.message.internal.AbstractMessageReaderWriterProvide
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
+<td class="colFirst"><code>static javax.json.bind.Jsonb</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../org/jepria/server/service/rest/gson/JsonBindingProvider.html#getJsonb--">getJsonb</a></span>()</code>
+<div class="block">Method for obtaining resource-contextual Jsonb for various utility purposes</div>
+</td>
+</tr>
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code>private javax.json.bind.Jsonb</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../org/jepria/server/service/rest/gson/JsonBindingProvider.html#getJsonb-java.lang.Class-java.lang.annotation.Annotation:A-">getJsonb</a></span>(java.lang.Class&lt;?&gt;&nbsp;type,
         java.lang.annotation.Annotation[]&nbsp;annotations)</code>&nbsp;</td>
 </tr>
-<tr id="i1" class="rowColor">
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../org/jepria/server/service/rest/gson/JsonBindingProvider.html#isReadable-java.lang.Class-java.lang.reflect.Type-java.lang.annotation.Annotation:A-javax.ws.rs.core.MediaType-">isReadable</a></span>(java.lang.Class&lt;?&gt;&nbsp;type,
           java.lang.reflect.Type&nbsp;genericType,
           java.lang.annotation.Annotation[]&nbsp;annotations,
           javax.ws.rs.core.MediaType&nbsp;mediaType)</code>&nbsp;</td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../org/jepria/server/service/rest/gson/JsonBindingProvider.html#isWriteable-java.lang.Class-java.lang.reflect.Type-java.lang.annotation.Annotation:A-javax.ws.rs.core.MediaType-">isWriteable</a></span>(java.lang.Class&lt;?&gt;&nbsp;type,
            java.lang.reflect.Type&nbsp;genericType,
            java.lang.annotation.Annotation[]&nbsp;annotations,
            javax.ws.rs.core.MediaType&nbsp;mediaType)</code>&nbsp;</td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>java.lang.Object</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../org/jepria/server/service/rest/gson/JsonBindingProvider.html#readFrom-java.lang.Class-java.lang.reflect.Type-java.lang.annotation.Annotation:A-javax.ws.rs.core.MediaType-javax.ws.rs.core.MultivaluedMap-java.io.InputStream-">readFrom</a></span>(java.lang.Class&lt;java.lang.Object&gt;&nbsp;type,
         java.lang.reflect.Type&nbsp;genericType,
@@ -223,11 +229,11 @@ extends org.glassfish.jersey.message.internal.AbstractMessageReaderWriterProvide
         javax.ws.rs.core.MultivaluedMap&lt;java.lang.String,java.lang.String&gt;&nbsp;httpHeaders,
         java.io.InputStream&nbsp;entityStream)</code>&nbsp;</td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>private static boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../org/jepria/server/service/rest/gson/JsonBindingProvider.html#supportsMediaType-javax.ws.rs.core.MediaType-">supportsMediaType</a></span>(javax.ws.rs.core.MediaType&nbsp;mediaType)</code>&nbsp;</td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../org/jepria/server/service/rest/gson/JsonBindingProvider.html#writeTo-java.lang.Object-java.lang.Class-java.lang.reflect.Type-java.lang.annotation.Annotation:A-javax.ws.rs.core.MediaType-javax.ws.rs.core.MultivaluedMap-java.io.OutputStream-">writeTo</a></span>(java.lang.Object&nbsp;o,
        java.lang.Class&lt;?&gt;&nbsp;type,
@@ -407,7 +413,7 @@ private&nbsp;javax.ws.rs.container.ResourceInfo resourceInfo</pre>
 <a name="supportsMediaType-javax.ws.rs.core.MediaType-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>supportsMediaType</h4>
 <pre>private static&nbsp;boolean&nbsp;supportsMediaType(javax.ws.rs.core.MediaType&nbsp;mediaType)</pre>
@@ -415,6 +421,19 @@ private&nbsp;javax.ws.rs.container.ResourceInfo resourceInfo</pre>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>true for all media types of the pattern *&#47;json and
  *&#47;*+json.</dd>
+</dl>
+</li>
+</ul>
+<a name="getJsonb--">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>getJsonb</h4>
+<pre>public static&nbsp;javax.json.bind.Jsonb&nbsp;getJsonb()</pre>
+<div class="block">Method for obtaining resource-contextual Jsonb for various utility purposes</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
 </dl>
 </li>
 </ul>

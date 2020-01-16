@@ -42,7 +42,7 @@
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../../org/jepria/server/service/apispec/package-summary.html">Prev&nbsp;Package</a></li>
+<li><a href="../../../../../org/jepria/server/env/package-summary.html">Prev&nbsp;Package</a></li>
 <li><a href="../../../../../org/jepria/server/service/rest/gson/package-summary.html">Next&nbsp;Package</a></li>
 </ul>
 <ul class="navList">
@@ -82,8 +82,51 @@
 </tr>
 <tbody>
 <tr class="altColor">
-<td class="colFirst"><a href="../../../../../org/jepria/server/service/rest/RestService.EndpointMethod.html" title="interface in org.jepria.server.service.rest">RestService.EndpointMethod</a></td>
+<td class="colFirst"><a href="../../../../../org/jepria/server/service/rest/EntityService.html" title="interface in org.jepria.server.service.rest">EntityService</a></td>
+<td class="colLast">
+<div class="block">Сервис сущности, обслуживающий базовые CRUD-операции над объектами сущности (create, get-by-id, update, delete)
+ <br/>
+ <i>В устаревшей терминологии: контроллер сущности, CRUD-контроллер, ResourceBasicController</i>
+ <br/></div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="../../../../../org/jepria/server/service/rest/EntityServiceImpl.RecordIdParser.html" title="interface in org.jepria.server.service.rest">EntityServiceImpl.RecordIdParser</a></td>
 <td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="../../../../../org/jepria/server/service/rest/ExtendedResponse.Configurator.html" title="interface in org.jepria.server.service.rest">ExtendedResponse.Configurator</a></td>
+<td class="colLast">
+<div class="block">Конфигуратор расширения ответа</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="../../../../../org/jepria/server/service/rest/ExtendedResponse.Handler.html" title="interface in org.jepria.server.service.rest">ExtendedResponse.Handler</a></td>
+<td class="colLast">
+<div class="block">Прикладной обработчик значений расширяемого ответа</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="../../../../../org/jepria/server/service/rest/SearchService.html" title="interface in org.jepria.server.service.rest">SearchService</a></td>
+<td class="colLast">
+<div class="block">Сервис поиска объектов сущности
+ <br/>
+ <i>В устаревшей терминологии: контроллер поиска, ResourceSearchController</i>
+ <br/>
+ Интерфейс предусматривает только методы создания и чтения (create/POST, read/GET).</div>
+</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="../../../../../org/jepria/server/service/rest/SearchService.SearchRequest.html" title="interface in org.jepria.server.service.rest">SearchService.SearchRequest</a></td>
+<td class="colLast">
+<div class="block">Интерфейс клиентского поискового запроса для использования внутри сервиса (internal representation)</div>
+</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><a href="../../../../../org/jepria/server/service/rest/SearchServiceImpl.Property.html" title="interface in org.jepria.server.service.rest">SearchServiceImpl.Property</a>&lt;T&gt;</td>
+<td class="colLast">
+<div class="block">Property-интерфейс для управления атрибутами сессии</div>
+</td>
 </tr>
 </tbody>
 </table>
@@ -97,98 +140,47 @@
 </tr>
 <tbody>
 <tr class="altColor">
-<td class="colFirst"><a href="../../../../../org/jepria/server/service/rest/ApplicationConfigBase.html" title="class in org.jepria.server.service.rest">ApplicationConfigBase</a></td>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><a href="../../../../../org/jepria/server/service/rest/BodyParams.VoidValidator.html" title="class in org.jepria.server.service.rest">BodyParams.VoidValidator</a></td>
+<td class="colFirst"><a href="../../../../../org/jepria/server/service/rest/EntityServiceImpl.html" title="class in org.jepria.server.service.rest">EntityServiceImpl</a></td>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><a href="../../../../../org/jepria/server/service/rest/BodyParamsFeature.html" title="class in org.jepria.server.service.rest">BodyParamsFeature</a></td>
+<td class="colFirst"><a href="../../../../../org/jepria/server/service/rest/ErrorDto.html" title="class in org.jepria.server.service.rest">ErrorDto</a></td>
 <td class="colLast">
-<div class="block">Feature supports annotating resource method parameters with <a href="../../../../../org/jepria/server/service/rest/BodyParams.html" title="annotation in org.jepria.server.service.rest"><code>BodyParams</code></a> annotation.</div>
+<div class="block">Класс для представления деталей серверной ошибки типа Internal Server Error (HTTP-статус 500) клиенту</div>
 </td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><a href="../../../../../org/jepria/server/service/rest/BodyParamsFeature.BodyParamsValueParamProvider.html" title="class in org.jepria.server.service.rest">BodyParamsFeature.BodyParamsValueParamProvider</a></td>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><a href="../../../../../org/jepria/server/service/rest/ConfiguredValidatorImpl.html" title="class in org.jepria.server.service.rest">ConfiguredValidatorImpl</a></td>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><a href="../../../../../org/jepria/server/service/rest/ConfiguredValidatorImpl.Binder.html" title="class in org.jepria.server.service.rest">ConfiguredValidatorImpl.Binder</a></td>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><a href="../../../../../org/jepria/server/service/rest/ExceptionMappers.html" title="class in org.jepria.server.service.rest">ExceptionMappers</a></td>
+<td class="colFirst"><a href="../../../../../org/jepria/server/service/rest/ExtendedResponse.html" title="class in org.jepria.server.service.rest">ExtendedResponse</a></td>
 <td class="colLast">
-<div class="block">A container for <code>ExceptionMapper</code> classes</div>
+<div class="block">Функционал создания расширенных ответов сервиса по запросу клиентом в заголовке "Extended-Response".</div>
 </td>
 </tr>
-<tr class="rowColor">
-<td class="colFirst"><a href="../../../../../org/jepria/server/service/rest/ExceptionMappers.CastOnGet.html" title="class in org.jepria.server.service.rest">ExceptionMappers.CastOnGet</a></td>
-<td class="colLast">&nbsp;</td>
-</tr>
 <tr class="altColor">
-<td class="colFirst"><a href="../../../../../org/jepria/server/service/rest/ExceptionMappers.ConstraintViolationMapper.html" title="class in org.jepria.server.service.rest">ExceptionMappers.ConstraintViolationMapper</a></td>
+<td class="colFirst"><a href="../../../../../org/jepria/server/service/rest/ExtendedResponse.ConfiguratorImpl.html" title="class in org.jepria.server.service.rest">ExtendedResponse.ConfiguratorImpl</a></td>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><a href="../../../../../org/jepria/server/service/rest/ExceptionMappers.Jsonb.html" title="class in org.jepria.server.service.rest">ExceptionMappers.Jsonb</a></td>
+<td class="colFirst"><a href="../../../../../org/jepria/server/service/rest/JaxrsAdapterBase.html" title="class in org.jepria.server.service.rest">JaxrsAdapterBase</a></td>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor">
-<td class="colFirst"><a href="../../../../../org/jepria/server/service/rest/ExceptionMappers.Logging.html" title="class in org.jepria.server.service.rest">ExceptionMappers.Logging</a></td>
+<td class="colFirst"><a href="../../../../../org/jepria/server/service/rest/MetaInfoResource.html" title="class in org.jepria.server.service.rest">MetaInfoResource</a></td>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><a href="../../../../../org/jepria/server/service/rest/SearchServiceImpl.html" title="class in org.jepria.server.service.rest">SearchServiceImpl</a></td>
 <td class="colLast">
-<div class="block">Mapper that logs Throwables</div>
+<div class="block">Реализация поискового сервиса, состоящего на HTTP сессиях.</div>
 </td>
 </tr>
-<tr class="rowColor">
-<td class="colFirst"><a href="../../../../../org/jepria/server/service/rest/QueryParams.VoidValidator.html" title="class in org.jepria.server.service.rest">QueryParams.VoidValidator</a></td>
-<td class="colLast">&nbsp;</td>
-</tr>
 <tr class="altColor">
-<td class="colFirst"><a href="../../../../../org/jepria/server/service/rest/QueryParamsFeature.html" title="class in org.jepria.server.service.rest">QueryParamsFeature</a></td>
-<td class="colLast">
-<div class="block">Feature supports annotating resource method parameters with <a href="../../../../../org/jepria/server/service/rest/QueryParams.html" title="annotation in org.jepria.server.service.rest"><code>QueryParams</code></a> annotation.</div>
-</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><a href="../../../../../org/jepria/server/service/rest/QueryParamsFeature.QueryParamsValueParamProvider.html" title="class in org.jepria.server.service.rest">QueryParamsFeature.QueryParamsValueParamProvider</a></td>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><a href="../../../../../org/jepria/server/service/rest/RestJService.html" title="class in org.jepria.server.service.rest">RestJService</a></td>
+<td class="colFirst"><a href="../../../../../org/jepria/server/service/rest/SecurityContextWrapper.html" title="class in org.jepria.server.service.rest">SecurityContextWrapper</a></td>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor">
-<td class="colFirst"><a href="../../../../../org/jepria/server/service/rest/RestService.html" title="class in org.jepria.server.service.rest">RestService</a></td>
-<td class="colLast">&nbsp;</td>
-</tr>
-</tbody>
-</table>
-</li>
-<li class="blockList">
-<table class="typeSummary" border="0" cellpadding="3" cellspacing="0" summary="Annotation Types Summary table, listing annotation types, and an explanation">
-<caption><span>Annotation Types Summary</span><span class="tabEnd">&nbsp;</span></caption>
-<tr>
-<th class="colFirst" scope="col">Annotation Type</th>
-<th class="colLast" scope="col">Description</th>
-</tr>
-<tbody>
-<tr class="altColor">
-<td class="colFirst"><a href="../../../../../org/jepria/server/service/rest/BodyParams.html" title="annotation in org.jepria.server.service.rest">BodyParams</a></td>
+<td class="colFirst"><a href="../../../../../org/jepria/server/service/rest/XCacheControlFilter.html" title="class in org.jepria.server.service.rest">XCacheControlFilter</a></td>
 <td class="colLast">
-<div class="block">Binds a HTTP entity body parsed into a JSON tree to a resource method parameter.</div>
-</td>
-</tr>
-<tr class="rowColor">
-<td class="colFirst"><a href="../../../../../org/jepria/server/service/rest/QueryParams.html" title="annotation in org.jepria.server.service.rest">QueryParams</a></td>
-<td class="colLast">
-<div class="block">Binds all values of a HTTP query parameters to a resource method parameter.</div>
+<div class="block">The filter overrides the <code>Cache-Control</code> header with the <code>X-Cache-Control</code> header, if any</div>
 </td>
 </tr>
 </tbody>
@@ -216,7 +208,7 @@
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../../org/jepria/server/service/apispec/package-summary.html">Prev&nbsp;Package</a></li>
+<li><a href="../../../../../org/jepria/server/env/package-summary.html">Prev&nbsp;Package</a></li>
 <li><a href="../../../../../org/jepria/server/service/rest/gson/package-summary.html">Next&nbsp;Package</a></li>
 </ul>
 <ul class="navList">

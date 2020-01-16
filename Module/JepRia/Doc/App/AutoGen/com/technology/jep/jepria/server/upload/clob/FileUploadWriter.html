@@ -220,26 +220,28 @@ extends java.io.Writer</pre>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>static void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/server/upload/clob/FileUploadWriter.html#uploadFile-java.io.Reader-com.technology.jep.jepria.server.upload.FileUpload-java.lang.String-java.lang.String-java.util.Map-java.lang.String-java.lang.String-">uploadFile</a></span>(java.io.Reader&nbsp;reader,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/server/upload/clob/FileUploadWriter.html#uploadFile-java.io.Reader-com.technology.jep.jepria.server.upload.FileUpload-java.lang.String-java.lang.String-java.util.Map-java.lang.String-java.lang.String-boolean-">uploadFile</a></span>(java.io.Reader&nbsp;reader,
           <a href="../../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html" title="interface in com.technology.jep.jepria.server.upload">FileUpload</a>&nbsp;fileUpload,
           java.lang.String&nbsp;tableName,
           java.lang.String&nbsp;fileFieldName,
           java.util.Map&lt;java.lang.String,java.lang.Object&gt;&nbsp;primaryKeyMap,
           java.lang.String&nbsp;dataSourceJndiName,
-          java.lang.String&nbsp;moduleName)</code>
+          java.lang.String&nbsp;moduleName,
+          boolean&nbsp;transactionable)</code>
 <div class="block">Загрузка файла из входного потока в поле Clob таблицы базы данных по сложному первичному ключу.</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>static void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/server/upload/clob/FileUploadWriter.html#uploadFile-java.io.Reader-com.technology.jep.jepria.server.upload.FileUpload-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-java.lang.String-java.lang.String-">uploadFile</a></span>(java.io.Reader&nbsp;reader,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/server/upload/clob/FileUploadWriter.html#uploadFile-java.io.Reader-com.technology.jep.jepria.server.upload.FileUpload-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-java.lang.String-java.lang.String-boolean-">uploadFile</a></span>(java.io.Reader&nbsp;reader,
           <a href="../../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html" title="interface in com.technology.jep.jepria.server.upload">FileUpload</a>&nbsp;fileUpload,
           java.lang.String&nbsp;tableName,
           java.lang.String&nbsp;fileFieldName,
           java.lang.String&nbsp;keyFieldName,
           java.lang.Object&nbsp;rowId,
           java.lang.String&nbsp;dataSourceJndiName,
-          java.lang.String&nbsp;moduleName)</code>
+          java.lang.String&nbsp;moduleName,
+          boolean&nbsp;transactionable)</code>
 <div class="block">Загрузка файла из входного потока в поле Clob таблицы базы данных.</div>
 </td>
 </tr>
@@ -380,7 +382,7 @@ extends java.io.Writer</pre>
 </dl>
 </li>
 </ul>
-<a name="uploadFile-java.io.Reader-com.technology.jep.jepria.server.upload.FileUpload-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-java.lang.String-java.lang.String-">
+<a name="uploadFile-java.io.Reader-com.technology.jep.jepria.server.upload.FileUpload-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-java.lang.String-java.lang.String-boolean-">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -393,7 +395,8 @@ extends java.io.Writer</pre>
                               java.lang.String&nbsp;keyFieldName,
                               java.lang.Object&nbsp;rowId,
                               java.lang.String&nbsp;dataSourceJndiName,
-                              java.lang.String&nbsp;moduleName)
+                              java.lang.String&nbsp;moduleName,
+                              boolean&nbsp;transactionable)
                        throws java.io.IOException</pre>
 <div class="block">Загрузка файла из входного потока в поле Clob таблицы базы данных.</div>
 <dl>
@@ -411,7 +414,7 @@ extends java.io.Writer</pre>
 </dl>
 </li>
 </ul>
-<a name="uploadFile-java.io.Reader-com.technology.jep.jepria.server.upload.FileUpload-java.lang.String-java.lang.String-java.util.Map-java.lang.String-java.lang.String-">
+<a name="uploadFile-java.io.Reader-com.technology.jep.jepria.server.upload.FileUpload-java.lang.String-java.lang.String-java.util.Map-java.lang.String-java.lang.String-boolean-">
 <!--   -->
 </a>
 <ul class="blockListLast">
@@ -423,7 +426,8 @@ extends java.io.Writer</pre>
                               java.lang.String&nbsp;fileFieldName,
                               java.util.Map&lt;java.lang.String,java.lang.Object&gt;&nbsp;primaryKeyMap,
                               java.lang.String&nbsp;dataSourceJndiName,
-                              java.lang.String&nbsp;moduleName)</pre>
+                              java.lang.String&nbsp;moduleName,
+                              boolean&nbsp;transactionable)</pre>
 <div class="block">Загрузка файла из входного потока в поле Clob таблицы базы данных по сложному первичному ключу.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>

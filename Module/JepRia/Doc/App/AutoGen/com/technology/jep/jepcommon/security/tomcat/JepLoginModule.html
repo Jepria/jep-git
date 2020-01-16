@@ -556,7 +556,7 @@ implements javax.security.auth.spi.LoginModule</pre>
  <p> If this LoginModule's own authentication attempt
  succeeded (checked by retrieving the private state saved by the
  <code>login</code> method), then this method associates a
- <code>Principal</code>
+ <code>PrincipalImpl</code>
  with the <code>Subject</code> located in the
  <code>LoginModule</code>.  If this LoginModule's own
  authentication attempted failed, then this method removes
@@ -634,7 +634,7 @@ implements javax.security.auth.spi.LoginModule</pre>
                throws javax.security.auth.login.LoginException</pre>
 <div class="block">Logout the user.
  <p/>
- <p> This method removes the <code>Principal</code>
+ <p> This method removes the <code>PrincipalImpl</code>
  that was added by the <code>commit</code> method.
  <p/>
  <p/></div>

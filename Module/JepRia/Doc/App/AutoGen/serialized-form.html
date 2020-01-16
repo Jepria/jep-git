@@ -233,12 +233,12 @@
 </ul>
 </li>
 <li class="blockList">
-<h2 title="Package">Package&nbsp;com.technology.jep.jepria.server.security.tomcat</h2>
+<h2 title="Package">Package&nbsp;com.technology.jep.jepria.server.security.servlet</h2>
 <ul class="blockList">
-<li class="blockList"><a name="com.technology.jep.jepria.server.security.tomcat.AutoLogonServlet">
+<li class="blockList"><a name="com.technology.jep.jepria.server.security.servlet.AutoLogonServlet">
 <!--   -->
 </a>
-<h3>Class <a href="com/technology/jep/jepria/server/security/tomcat/AutoLogonServlet.html" title="class in com.technology.jep.jepria.server.security.tomcat">com.technology.jep.jepria.server.security.tomcat.AutoLogonServlet</a> extends javax.servlet.http.HttpServlet implements Serializable</h3>
+<h3>Class <a href="com/technology/jep/jepria/server/security/servlet/AutoLogonServlet.html" title="class in com.technology.jep.jepria.server.security.servlet">com.technology.jep.jepria.server.security.servlet.AutoLogonServlet</a> extends javax.servlet.http.HttpServlet implements Serializable</h3>
 <dl class="nameValue">
 <dt>serialVersionUID:</dt>
 <dd>209841279392385240L</dd>
@@ -623,12 +623,57 @@
 </ul>
 </li>
 <li class="blockList">
-<h2 title="Package">Package&nbsp;org.jepria</h2>
+<h2 title="Package">Package&nbsp;org.jepria.server.data</h2>
 <ul class="blockList">
-<li class="blockList"><a name="org.jepria.CastMap.CastOnGetException">
+<li class="blockList"><a name="org.jepria.server.data.RecordDefinition.IncompletePrimaryKeyException">
 <!--   -->
 </a>
-<h3>Class <a href="org/jepria/CastMap.CastOnGetException.html" title="class in org.jepria">org.jepria.CastMap.CastOnGetException</a> extends java.lang.RuntimeException implements Serializable</h3>
+<h3>Class <a href="org/jepria/server/data/RecordDefinition.IncompletePrimaryKeyException.html" title="class in org.jepria.server.data">org.jepria.server.data.RecordDefinition.IncompletePrimaryKeyException</a> extends java.lang.Exception implements Serializable</h3>
+<dl class="nameValue">
+<dt>serialVersionUID:</dt>
+<dd>1L</dd>
+</dl>
+</li>
+<li class="blockList"><a name="org.jepria.server.data.RuntimeSQLException">
+<!--   -->
+</a>
+<h3>Class <a href="org/jepria/server/data/RuntimeSQLException.html" title="class in org.jepria.server.data">org.jepria.server.data.RuntimeSQLException</a> extends java.lang.RuntimeException implements Serializable</h3>
+</li>
+</ul>
+</li>
+<li class="blockList">
+<h2 title="Package">Package&nbsp;org.jepria.server.service.rest.jersey.validate</h2>
+<ul class="blockList">
+<li class="blockList"><a name="org.jepria.server.service.rest.jersey.validate.ValidationException">
+<!--   -->
+</a>
+<h3>Class <a href="org/jepria/server/service/rest/jersey/validate/ValidationException.html" title="class in org.jepria.server.service.rest.jersey.validate">org.jepria.server.service.rest.jersey.validate.ValidationException</a> extends java.lang.Exception implements Serializable</h3>
+<ul class="blockList">
+<li class="blockList">
+<h3>Serialized Fields</h3>
+<ul class="blockList">
+<li class="blockListLast">
+<h4>violations</h4>
+<pre>java.util.Collection&lt;E&gt; violations</pre>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="blockList"><a name="org.jepria.server.service.rest.jersey.validate.ValidationMethodInterceptor.PathImpl">
+<!--   -->
+</a>
+<h3>Class <a href="org/jepria/server/service/rest/jersey/validate/ValidationMethodInterceptor.PathImpl.html" title="class in org.jepria.server.service.rest.jersey.validate">org.jepria.server.service.rest.jersey.validate.ValidationMethodInterceptor.PathImpl</a> extends java.util.ArrayList&lt;javax.validation.Path.Node&gt; implements Serializable</h3>
+</li>
+</ul>
+</li>
+<li class="blockList">
+<h2 title="Package">Package&nbsp;org.jepria.server.service.security</h2>
+<ul class="blockList">
+<li class="blockList"><a name="org.jepria.server.service.security.PrincipalImpl">
+<!--   -->
+</a>
+<h3>Class <a href="org/jepria/server/service/security/PrincipalImpl.html" title="class in org.jepria.server.service.security">org.jepria.server.service.security.PrincipalImpl</a> extends java.lang.Object implements Serializable</h3>
 <dl class="nameValue">
 <dt>serialVersionUID:</dt>
 <dd>1L</dd>
@@ -638,105 +683,41 @@
 <h3>Serialized Fields</h3>
 <ul class="blockList">
 <li class="blockList">
-<h4>key</h4>
-<pre>java.lang.Object key</pre>
-</li>
-<li class="blockList">
-<h4>value</h4>
-<pre>java.lang.Object value</pre>
+<h4>_name</h4>
+<pre>java.lang.String _name</pre>
 </li>
 <li class="blockListLast">
-<h4>castTo</h4>
-<pre>java.lang.Class&lt;T&gt; castTo</pre>
+<h4>_operatorId</h4>
+<pre>java.lang.Integer _operatorId</pre>
 </li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="blockList"><a name="org.jepria.CastMapBase">
-<!--   -->
-</a>
-<h3>Class <a href="org/jepria/CastMapBase.html" title="class in org.jepria">org.jepria.CastMapBase</a> extends java.util.HashMap&lt;java.lang.String,java.lang.Object&gt; implements Serializable</h3>
-<dl class="nameValue">
-<dt>serialVersionUID:</dt>
-<dd>-4621908477271689859L</dd>
-</dl>
-<ul class="blockList">
+</ul>
+</li>
 <li class="blockList">
-<h3>Serialized Fields</h3>
+<h2 title="Package">Package&nbsp;org.jepria.swagger</h2>
 <ul class="blockList">
-<li class="blockListLast">
-<h4>parser</h4>
-<pre><a href="org/jepria/TypedValueParser.html" title="interface in org.jepria">TypedValueParser</a> parser</pre>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="blockList"><a name="org.jepria.TypedValueParser.TypedValueParseException">
+<li class="blockList"><a name="org.jepria.swagger.SpecServlet">
 <!--   -->
 </a>
-<h3>Class <a href="org/jepria/TypedValueParser.TypedValueParseException.html" title="class in org.jepria">org.jepria.TypedValueParser.TypedValueParseException</a> extends java.lang.Exception implements Serializable</h3>
-<dl class="nameValue">
-<dt>serialVersionUID:</dt>
-<dd>1L</dd>
-</dl>
+<h3>Class <a href="org/jepria/swagger/SpecServlet.html" title="class in org.jepria.swagger">org.jepria.swagger.SpecServlet</a> extends javax.servlet.http.HttpServlet implements Serializable</h3>
 <ul class="blockList">
 <li class="blockList">
 <h3>Serialized Fields</h3>
 <ul class="blockList">
 <li class="blockList">
-<h4>value</h4>
-<pre>java.lang.Object value</pre>
-</li>
-<li class="blockListLast">
-<h4>type</h4>
-<pre>java.lang.Class&lt;T&gt; type</pre>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+<h4>swaggerUiRootPath</h4>
+<pre>java.lang.String swaggerUiRootPath</pre>
 </li>
 <li class="blockList">
-<h2 title="Package">Package&nbsp;org.jepria.server.service.rest</h2>
-<ul class="blockList">
-<li class="blockList"><a name="org.jepria.server.service.rest.RestService">
-<!--   -->
-</a>
-<h3>Class <a href="org/jepria/server/service/rest/RestService.html" title="class in org.jepria.server.service.rest">org.jepria.server.service.rest.RestService</a> extends javax.servlet.http.HttpServlet implements Serializable</h3>
-<dl class="nameValue">
-<dt>serialVersionUID:</dt>
-<dd>1L</dd>
-</dl>
-<ul class="blockList">
-<li class="blockList">
-<h3>Serialized Fields</h3>
-<ul class="blockList">
+<h4>specRootPath</h4>
+<pre>java.lang.String specRootPath</pre>
+</li>
 <li class="blockListLast">
-<h4>methods</h4>
-<pre>java.util.Map&lt;K,V&gt; methods</pre>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="blockList"><a name="org.jepria.server.service.rest.RestService.SwaggerSchema">
-<!--   -->
-</a>
-<h3>Class <a href="org/jepria/server/service/rest/RestService.SwaggerSchema.html" title="class in org.jepria.server.service.rest">org.jepria.server.service.rest.RestService.SwaggerSchema</a> extends java.util.HashMap&lt;java.lang.String,java.lang.Object&gt; implements Serializable</h3>
-<dl class="nameValue">
-<dt>serialVersionUID:</dt>
-<dd>-6030879117607380842L</dd>
-</dl>
-<ul class="blockList">
-<li class="blockList">
-<h3>Serialized Fields</h3>
-<ul class="blockList">
-<li class="blockListLast">
-<h4>typeDeployer</h4>
-<pre><a href="org/jepria/server/service/apispec/TypeDeployer.html" title="interface in org.jepria.server.service.apispec">TypeDeployer</a> typeDeployer</pre>
+<h4>apiServletPath</h4>
+<pre>java.lang.String apiServletPath</pre>
 </li>
 </ul>
 </li>

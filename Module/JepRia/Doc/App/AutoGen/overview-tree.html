@@ -163,7 +163,8 @@
 <li><a href="com/technology/jep/jepria/server/exceptions/package-tree.html">com.technology.jep.jepria.server.exceptions</a>, </li>
 <li><a href="com/technology/jep/jepria/server/i18n/package-tree.html">com.technology.jep.jepria.server.i18n</a>, </li>
 <li><a href="com/technology/jep/jepria/server/security/package-tree.html">com.technology.jep.jepria.server.security</a>, </li>
-<li><a href="com/technology/jep/jepria/server/security/tomcat/package-tree.html">com.technology.jep.jepria.server.security.tomcat</a>, </li>
+<li><a href="com/technology/jep/jepria/server/security/module/package-tree.html">com.technology.jep.jepria.server.security.module</a>, </li>
+<li><a href="com/technology/jep/jepria/server/security/servlet/package-tree.html">com.technology.jep.jepria.server.security.servlet</a>, </li>
 <li><a href="com/technology/jep/jepria/server/service/package-tree.html">com.technology.jep.jepria.server.service</a>, </li>
 <li><a href="com/technology/jep/jepria/server/test/package-tree.html">com.technology.jep.jepria.server.test</a>, </li>
 <li><a href="com/technology/jep/jepria/server/upload/package-tree.html">com.technology.jep.jepria.server.upload</a>, </li>
@@ -189,11 +190,15 @@
 <li><a href="com/technology/jep/jepria/shared/util/package-tree.html">com.technology.jep.jepria.shared.util</a>, </li>
 <li><a href="com/technology/jep/test/reporter/package-tree.html">com.technology.jep.test.reporter</a>, </li>
 <li><a href="com/technology/jep/test/util/package-tree.html">com.technology.jep.test.util</a>, </li>
-<li><a href="org/jepria/package-tree.html">org.jepria</a>, </li>
-<li><a href="org/jepria/server/service/apispec/package-tree.html">org.jepria.server.service.apispec</a>, </li>
+<li><a href="org/jepria/server/package-tree.html">org.jepria.server</a>, </li>
+<li><a href="org/jepria/server/data/package-tree.html">org.jepria.server.data</a>, </li>
+<li><a href="org/jepria/server/env/package-tree.html">org.jepria.server.env</a>, </li>
 <li><a href="org/jepria/server/service/rest/package-tree.html">org.jepria.server.service.rest</a>, </li>
 <li><a href="org/jepria/server/service/rest/gson/package-tree.html">org.jepria.server.service.rest.gson</a>, </li>
-<li><a href="org/jepria/server/service/rest/validation/package-tree.html">org.jepria.server.service.rest.validation</a></li>
+<li><a href="org/jepria/server/service/rest/jersey/package-tree.html">org.jepria.server.service.rest.jersey</a>, </li>
+<li><a href="org/jepria/server/service/rest/jersey/validate/package-tree.html">org.jepria.server.service.rest.jersey.validate</a>, </li>
+<li><a href="org/jepria/server/service/security/package-tree.html">org.jepria.server.service.security</a>, </li>
+<li><a href="org/jepria/swagger/package-tree.html">org.jepria.swagger</a></li>
 </ul>
 </div>
 <div class="contentContainer">
@@ -232,9 +237,9 @@
 </li>
 </ul>
 </li>
-<li type="circle">org.glassfish.hk2.utilities.binding.AbstractBinder (implements org.glassfish.hk2.utilities.Binder, org.glassfish.hk2.api.DynamicConfiguration)
+<li type="circle">org.glassfish.jersey.internal.inject.AbstractBinder (implements org.glassfish.jersey.internal.inject.Binder)
 <ul>
-<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/ConfiguredValidatorImpl.Binder.html" title="class in org.jepria.server.service.rest"><span class="typeNameLink">ConfiguredValidatorImpl.Binder</span></a></li>
+<li type="circle">org.jepria.server.service.rest.jersey.<a href="org/jepria/server/service/rest/jersey/JepSecurityContextBinder.html" title="class in org.jepria.server.service.rest.jersey"><span class="typeNameLink">JepSecurityContextBinder</span></a></li>
 </ul>
 </li>
 <li type="circle">com.google.gwt.cell.client.AbstractCell&lt;C&gt; (implements com.google.gwt.cell.client.Cell&lt;C&gt;)
@@ -260,6 +265,11 @@
 <ul>
 <li type="circle">java.util.AbstractList&lt;E&gt; (implements java.util.List&lt;E&gt;)
 <ul>
+<li type="circle">java.util.ArrayList&lt;E&gt; (implements java.lang.Cloneable, java.util.List&lt;E&gt;, java.util.RandomAccess, java.io.Serializable)
+<ul>
+<li type="circle">org.jepria.server.service.rest.jersey.validate.<a href="org/jepria/server/service/rest/jersey/validate/ValidationMethodInterceptor.PathImpl.html" title="class in org.jepria.server.service.rest.jersey.validate"><span class="typeNameLink">ValidationMethodInterceptor.PathImpl</span></a> (implements javax.validation.Path)</li>
+</ul>
+</li>
 <li type="circle">java.util.Vector&lt;E&gt; (implements java.lang.Cloneable, java.util.List&lt;E&gt;, java.util.RandomAccess, java.io.Serializable)
 <ul>
 <li type="circle">java.util.Stack&lt;E&gt;
@@ -298,7 +308,6 @@
 <ul>
 <li type="circle">java.util.HashMap&lt;K,V&gt; (implements java.lang.Cloneable, java.util.Map&lt;K,V&gt;, java.io.Serializable)
 <ul>
-<li type="circle">org.jepria.<a href="org/jepria/CastMapBase.html" title="class in org.jepria"><span class="typeNameLink">CastMapBase</span></a> (implements org.jepria.<a href="org/jepria/CastMap.html" title="interface in org.jepria">CastMap</a>&lt;K,V&gt;)</li>
 <li type="circle">com.technology.jep.jepria.client.widget.field.<a href="com/technology/jep/jepria/client/widget/field/FieldManager.html" title="class in com.technology.jep.jepria.client.widget.field"><span class="typeNameLink">FieldManager</span></a> (implements com.technology.jep.jepria.client.widget.field.validation.<a href="com/technology/jep/jepria/client/widget/field/validation/Validator.html" title="interface in com.technology.jep.jepria.client.widget.field.validation">Validator</a>)</li>
 <li type="circle">com.technology.jep.jepria.shared.dto.<a href="com/technology/jep/jepria/shared/dto/JepDto.html" title="class in com.technology.jep.jepria.shared.dto"><span class="typeNameLink">JepDto</span></a> (implements com.google.gwt.user.client.rpc.IsSerializable)
 <ul>
@@ -316,7 +325,6 @@
 <li type="circle">com.technology.jep.jepria.shared.time.<a href="com/technology/jep/jepria/shared/time/JepTime.html" title="class in com.technology.jep.jepria.shared.time"><span class="typeNameLink">JepTime</span></a></li>
 </ul>
 </li>
-<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/RestService.SwaggerSchema.html" title="class in org.jepria.server.service.rest"><span class="typeNameLink">RestService.SwaggerSchema</span></a></li>
 </ul>
 </li>
 </ul>
@@ -337,15 +345,19 @@
 </ul>
 </li>
 <li type="circle">org.jepria.server.service.rest.gson.<a href="org/jepria/server/service/rest/gson/AnnotatedGsonBuilder.html" title="class in org.jepria.server.service.rest.gson"><span class="typeNameLink">AnnotatedGsonBuilder</span></a></li>
+<li type="circle">com.technology.jep.jepria.shared.<a href="com/technology/jep/jepria/shared/AppCompat.html" title="class in com.technology.jep.jepria.shared"><span class="typeNameLink">AppCompat</span></a></li>
 <li type="circle">javax.ws.rs.core.Application
 <ul>
 <li type="circle">org.glassfish.jersey.server.ResourceConfig (implements javax.ws.rs.core.Configurable&lt;C&gt;, org.glassfish.jersey.server.ServerConfig)
 <ul>
-<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/ApplicationConfigBase.html" title="class in org.jepria.server.service.rest"><span class="typeNameLink">ApplicationConfigBase</span></a></li>
+<li type="circle">org.jepria.server.service.rest.jersey.<a href="org/jepria/server/service/rest/jersey/ApplicationConfigBase.html" title="class in org.jepria.server.service.rest.jersey"><span class="typeNameLink">ApplicationConfigBase</span></a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li type="circle">org.jepria.server.service.rest.jersey.<a href="org/jepria/server/service/rest/jersey/ApplicationConfigBase.ExceptionMapperDefault.html" title="class in org.jepria.server.service.rest.jersey"><span class="typeNameLink">ApplicationConfigBase.ExceptionMapperDefault</span></a> (implements javax.ws.rs.ext.ExceptionMapper&lt;E&gt;)</li>
+<li type="circle">org.jepria.server.service.rest.jersey.<a href="org/jepria/server/service/rest/jersey/ApplicationConfigBase.ExceptionMapperJsonb.html" title="class in org.jepria.server.service.rest.jersey"><span class="typeNameLink">ApplicationConfigBase.ExceptionMapperJsonb</span></a> (implements javax.ws.rs.ext.ExceptionMapper&lt;E&gt;)</li>
+<li type="circle">org.jepria.server.service.rest.jersey.<a href="org/jepria/server/service/rest/jersey/ApplicationConfigBase.ExceptionMapperUndeclaredThrowable.html" title="class in org.jepria.server.service.rest.jersey"><span class="typeNameLink">ApplicationConfigBase.ExceptionMapperUndeclaredThrowable</span></a> (implements javax.ws.rs.ext.ExceptionMapper&lt;E&gt;)</li>
 <li type="circle">org.testng.internal.junit.ArrayAsserts
 <ul>
 <li type="circle">org.testng.AssertJUnit
@@ -376,11 +388,6 @@
 <li type="circle">com.technology.jep.jepria.client.ui.wizard.<a href="com/technology/jep/jepria/client/ui/wizard/BlockManagerImpl.html" title="class in com.technology.jep.jepria.client.ui.wizard"><span class="typeNameLink">BlockManagerImpl</span></a> (implements com.technology.jep.jepria.client.ui.wizard.<a href="com/technology/jep/jepria/client/ui/wizard/BlockManager.html" title="interface in com.technology.jep.jepria.client.ui.wizard">BlockManager</a>)</li>
 <li type="circle">com.technology.jep.jepria.client.ui.wizard.<a href="com/technology/jep/jepria/client/ui/wizard/BlockNavigatorImpl.html" title="class in com.technology.jep.jepria.client.ui.wizard"><span class="typeNameLink">BlockNavigatorImpl</span></a> (implements com.technology.jep.jepria.client.ui.wizard.<a href="com/technology/jep/jepria/client/ui/wizard/BlockNavigator.html" title="interface in com.technology.jep.jepria.client.ui.wizard">BlockNavigator</a>)</li>
 <li type="circle">com.technology.jep.jepria.client.ui.wizard.<a href="com/technology/jep/jepria/client/ui/wizard/BlockViewImpl.html" title="class in com.technology.jep.jepria.client.ui.wizard"><span class="typeNameLink">BlockViewImpl</span></a> (implements com.technology.jep.jepria.client.ui.wizard.<a href="com/technology/jep/jepria/client/ui/wizard/BlockView.html" title="interface in com.technology.jep.jepria.client.ui.wizard">BlockView</a>)</li>
-<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/BodyParams.VoidValidator.html" title="class in org.jepria.server.service.rest"><span class="typeNameLink">BodyParams.VoidValidator</span></a> (implements org.jepria.server.service.rest.validation.<a href="org/jepria/server/service/rest/validation/ConstraintValidator.html" title="interface in org.jepria.server.service.rest.validation">ConstraintValidator</a>&lt;T&gt;)</li>
-<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/BodyParamsFeature.html" title="class in org.jepria.server.service.rest"><span class="typeNameLink">BodyParamsFeature</span></a> (implements javax.ws.rs.core.Feature)</li>
-<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/BodyParamsFeature.BodyParamsValueParamProvider.html" title="class in org.jepria.server.service.rest"><span class="typeNameLink">BodyParamsFeature.BodyParamsValueParamProvider</span></a> (implements org.glassfish.jersey.server.spi.internal.ValueParamProvider)</li>
-<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/BodyParamsFeature.BodyParamsValueParamProvider.CastMapProvider.html" title="class in org.jepria.server.service.rest"><span class="typeNameLink">BodyParamsFeature.BodyParamsValueParamProvider.CastMapProvider</span></a> (implements java.util.function.Function&lt;T,R&gt;)</li>
-<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/BodyParamsFeature.BodyParamsValueParamProvider.MapProvider.html" title="class in org.jepria.server.service.rest"><span class="typeNameLink">BodyParamsFeature.BodyParamsValueParamProvider.MapProvider</span></a> (implements java.util.function.Function&lt;T,R&gt;)</li>
 <li type="circle">com.technology.jep.jepria.server.dao.<a href="com/technology/jep/jepria/server/dao/CallableStatementWrapper.html" title="class in com.technology.jep.jepria.server.dao"><span class="typeNameLink">CallableStatementWrapper</span></a> (implements java.sql.CallableStatement)
 <ul>
 <li type="circle">com.technology.jep.jepria.server.dao.<a href="com/technology/jep/jepria/server/dao/OracleCallableStatementWrapper.html" title="class in com.technology.jep.jepria.server.dao"><span class="typeNameLink">OracleCallableStatementWrapper</span></a></li>
@@ -404,17 +411,20 @@
 <li type="circle">com.technology.jep.jepria.client.widget.list.<a href="com/technology/jep/jepria/client/widget/list/JepColumn.html" title="class in com.technology.jep.jepria.client.widget.list"><span class="typeNameLink">JepColumn</span></a>&lt;T,C&gt;</li>
 </ul>
 </li>
+<li type="circle">org.jepria.server.data.<a href="org/jepria/server/data/ColumnSortConfigurationDto.html" title="class in org.jepria.server.data"><span class="typeNameLink">ColumnSortConfigurationDto</span></a></li>
 <li type="circle">com.technology.jep.jepria.client.widget.field.<a href="com/technology/jep/jepria/client/widget/field/ComboBox.JepOptionSuggestionDisplay.Pair.html" title="class in com.technology.jep.jepria.client.widget.field"><span class="typeNameLink">ComboBox.JepOptionSuggestionDisplay.Pair</span></a>&lt;K,V&gt;</li>
-<li type="circle">org.jepria.server.service.rest.validation.<a href="org/jepria/server/service/rest/validation/ConstraintViolationBase.html" title="class in org.jepria.server.service.rest.validation"><span class="typeNameLink">ConstraintViolationBase</span></a> (implements javax.validation.ConstraintViolation&lt;T&gt;)</li>
+<li type="circle">org.jepria.server.service.rest.jersey.validate.<a href="org/jepria/server/service/rest/jersey/validate/ConstraintViolationImpl.html" title="class in org.jepria.server.service.rest.jersey.validate"><span class="typeNameLink">ConstraintViolationImpl</span></a>&lt;T&gt; (implements javax.validation.ConstraintViolation&lt;T&gt;)</li>
+<li type="circle">org.jepria.server.service.security.<a href="org/jepria/server/service/security/CorsResponseFilter.html" title="class in org.jepria.server.service.security"><span class="typeNameLink">CorsResponseFilter</span></a> (implements javax.ws.rs.container.ContainerResponseFilter)</li>
 <li type="circle">com.technology.jep.test.reporter.<a href="com/technology/jep/test/reporter/CustomReporter.html" title="class in com.technology.jep.test.reporter"><span class="typeNameLink">CustomReporter</span></a> (implements org.testng.IReporter)</li>
 <li type="circle">com.technology.jep.jepria.server.dao.<a href="com/technology/jep/jepria/server/dao/DaoSupport.html" title="class in com.technology.jep.jepria.server.dao"><span class="typeNameLink">DaoSupport</span></a></li>
+<li type="circle">org.jepria.server.data.<a href="org/jepria/server/data/DaoSupportOracle.html" title="class in org.jepria.server.data"><span class="typeNameLink">DaoSupportOracle</span></a> (implements org.jepria.server.data.<a href="org/jepria/server/data/DaoSupport.html" title="interface in org.jepria.server.data">DaoSupport</a>)</li>
 <li type="circle">com.technology.jep.test.util.<a href="com/technology/jep/test/util/DataProviderUtils.html" title="class in com.technology.jep.test.util"><span class="typeNameLink">DataProviderUtils</span></a></li>
 <li type="circle">com.technology.jep.jepria.server.test.<a href="com/technology/jep/jepria/server/test/DataSourceDef.html" title="class in com.technology.jep.jepria.server.test"><span class="typeNameLink">DataSourceDef</span></a></li>
 <li type="circle">com.google.gwt.user.client.rpc.core.java.sql.<a href="com/google/gwt/user/client/rpc/core/java/sql/Date_CustomFieldSerializer.html" title="class in com.google.gwt.user.client.rpc.core.java.sql"><span class="typeNameLink">Date_CustomFieldSerializer</span></a></li>
 <li type="circle">com.google.gwt.user.client.rpc.core.java.util.<a href="com/google/gwt/user/client/rpc/core/java/util/Date_CustomFieldSerializer.html" title="class in com.google.gwt.user.client.rpc.core.java.util"><span class="typeNameLink">Date_CustomFieldSerializer</span></a></li>
 <li type="circle">com.technology.jep.jepria.server.db.<a href="com/technology/jep/jepria/server/db/Db.html" title="class in com.technology.jep.jepria.server.db"><span class="typeNameLink">Db</span></a></li>
 <li type="circle">com.technology.jep.jepria.shared.util.<a href="com/technology/jep/jepria/shared/util/DefaultComparator.html" title="class in com.technology.jep.jepria.shared.util"><span class="typeNameLink">DefaultComparator</span></a>&lt;X&gt; (implements java.util.Comparator&lt;T&gt;)</li>
-<li type="circle">org.jepria.server.service.rest.gson.<a href="org/jepria/server/service/rest/gson/DefaultGsonBuilder.html" title="class in org.jepria.server.service.rest.gson"><span class="typeNameLink">DefaultGsonBuilder</span></a></li>
+<li type="circle">org.jepria.server.service.rest.gson.<a href="org/jepria/server/service/rest/gson/DefaultGsonBuilder.html" title="class in org.jepria.server.service.rest.gson"><span class="typeNameLink">DefaultGsonBuilder</span></a> (implements java.util.function.Supplier&lt;T&gt;)</li>
 <li type="circle">com.technology.jep.jepria.client.ui.form.detail.<a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenter.AfterSubmitCallback.html" title="class in com.technology.jep.jepria.client.ui.form.detail"><span class="typeNameLink">DetailFormPresenter.AfterSubmitCallback</span></a></li>
 <li type="circle">com.technology.jep.jepria.client.ui.form.detail.<a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormPresenterTest.html" title="class in com.technology.jep.jepria.client.ui.form.detail"><span class="typeNameLink">DetailFormPresenterTest</span></a></li>
 <li type="circle">com.technology.jep.jepria.client.ui.form.detail.<a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormViewImpl.html" title="class in com.technology.jep.jepria.client.ui.form.detail"><span class="typeNameLink">DetailFormViewImpl</span></a> (implements com.technology.jep.jepria.client.ui.form.detail.<a href="com/technology/jep/jepria/client/ui/form/detail/DetailFormView.html" title="interface in com.technology.jep.jepria.client.ui.form.detail">DetailFormView</a>)
@@ -422,13 +432,19 @@
 <li type="circle">com.technology.jep.jepria.client.ui.form.detail.<a href="com/technology/jep/jepria/client/ui/form/detail/StandardDetailFormViewImpl.html" title="class in com.technology.jep.jepria.client.ui.form.detail"><span class="typeNameLink">StandardDetailFormViewImpl</span></a></li>
 </ul>
 </li>
+<li type="circle">org.jepria.server.service.rest.jersey.validate.<a href="org/jepria/server/service/rest/jersey/validate/DirectValidatorImpl.html" title="class in org.jepria.server.service.rest.jersey.validate"><span class="typeNameLink">DirectValidatorImpl</span></a> (implements org.jepria.server.service.rest.jersey.validate.<a href="org/jepria/server/service/rest/jersey/validate/DirectValidator.html" title="interface in org.jepria.server.service.rest.jersey.validate">DirectValidator</a>)</li>
 <li type="circle">com.technology.jep.jepria.client.widget.<a href="com/technology/jep/jepria/client/widget/DisabledLayer.html" title="class in com.technology.jep.jepria.client.widget"><span class="typeNameLink">DisabledLayer</span></a></li>
 <li type="circle">com.technology.jep.jepria.auto.condition.<a href="com/technology/jep/jepria/auto/condition/DisplayChecker.html" title="class in com.technology.jep.jepria.auto.condition"><span class="typeNameLink">DisplayChecker</span></a> (implements com.technology.jep.jepria.auto.condition.<a href="com/technology/jep/jepria/auto/condition/ConditionChecker.html" title="interface in com.technology.jep.jepria.auto.condition">ConditionChecker</a>)</li>
 <li type="circle">com.technology.jep.jepria.auto.util.<a href="com/technology/jep/jepria/auto/util/DragAndDropTestUtil.html" title="class in com.technology.jep.jepria.auto.util"><span class="typeNameLink">DragAndDropTestUtil</span></a></li>
+<li type="circle">org.jepria.server.data.<a href="org/jepria/server/data/DtoUtil.html" title="class in org.jepria.server.data"><span class="typeNameLink">DtoUtil</span></a></li>
 <li type="circle">com.technology.jep.jepria.client.widget.list.cell.<a href="com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.ViewData.html" title="class in com.technology.jep.jepria.client.widget.list.cell"><span class="typeNameLink">EditTreeCell.ViewData</span></a></li>
 <li type="circle">com.technology.jep.jepria.server.dao.transaction.handler.<a href="com/technology/jep/jepria/server/dao/transaction/handler/EndTransactionHandlerImpl.html" title="class in com.technology.jep.jepria.server.dao.transaction.handler"><span class="typeNameLink">EndTransactionHandlerImpl</span></a> (implements com.technology.jep.jepria.server.dao.transaction.handler.<a href="com/technology/jep/jepria/server/dao/transaction/handler/EndTransactionHandler.html" title="interface in com.technology.jep.jepria.server.dao.transaction.handler">EndTransactionHandler</a>)</li>
+<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/EntityServiceImpl.html" title="class in org.jepria.server.service.rest"><span class="typeNameLink">EntityServiceImpl</span></a> (implements org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/EntityService.html" title="interface in org.jepria.server.service.rest">EntityService</a>)</li>
+<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/EntityServiceImpl.RecordIdParserImpl.html" title="class in org.jepria.server.service.rest"><span class="typeNameLink">EntityServiceImpl.RecordIdParserImpl</span></a> (implements org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/EntityServiceImpl.RecordIdParser.html" title="interface in org.jepria.server.service.rest">EntityServiceImpl.RecordIdParser</a>)</li>
 <li type="circle">com.technology.jep.jepria.client.entrance.<a href="com/technology/jep/jepria/client/entrance/Entrance.html" title="class in com.technology.jep.jepria.client.entrance"><span class="typeNameLink">Entrance</span></a></li>
 <li type="circle">com.technology.jep.jepria.auto.application.entrance.<a href="com/technology/jep/jepria/auto/application/entrance/EntranceAutoImpl.html" title="class in com.technology.jep.jepria.auto.application.entrance"><span class="typeNameLink">EntranceAutoImpl</span></a> (implements com.technology.jep.jepria.auto.application.entrance.<a href="com/technology/jep/jepria/auto/application/entrance/EntranceAuto.html" title="interface in com.technology.jep.jepria.auto.application.entrance">EntranceAuto</a>)</li>
+<li type="circle">org.jepria.server.env.<a href="org/jepria/server/env/EnvironmentPropertySupportWebImpl.html" title="class in org.jepria.server.env"><span class="typeNameLink">EnvironmentPropertySupportWebImpl</span></a> (implements org.jepria.server.env.<a href="org/jepria/server/env/EnvironmentPropertySupport.html" title="interface in org.jepria.server.env">EnvironmentPropertySupport</a>)</li>
+<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/ErrorDto.html" title="class in org.jepria.server.service.rest"><span class="typeNameLink">ErrorDto</span></a></li>
 <li type="circle">com.google.web.bindery.event.shared.Event&lt;H&gt;
 <ul>
 <li type="circle">com.google.gwt.event.shared.GwtEvent&lt;H&gt;
@@ -507,12 +523,12 @@
 <li type="circle">com.technology.jep.jepria.server.download.excel.<a href="com/technology/jep/jepria/server/download/excel/ExcelReport.html" title="class in com.technology.jep.jepria.server.download.excel"><span class="typeNameLink">ExcelReport</span></a></li>
 <li type="circle">com.technology.jep.jepria.server.download.excel.<a href="com/technology/jep/jepria/server/download/excel/ExcelReportConstant.html" title="class in com.technology.jep.jepria.server.download.excel"><span class="typeNameLink">ExcelReportConstant</span></a></li>
 <li type="circle">com.technology.jep.jepria.client.exception.<a href="com/technology/jep/jepria/client/exception/ExceptionManagerImpl.html" title="class in com.technology.jep.jepria.client.exception"><span class="typeNameLink">ExceptionManagerImpl</span></a> (implements com.technology.jep.jepria.client.exception.<a href="com/technology/jep/jepria/client/exception/ExceptionManager.html" title="interface in com.technology.jep.jepria.client.exception">ExceptionManager</a>)</li>
-<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/ExceptionMappers.html" title="class in org.jepria.server.service.rest"><span class="typeNameLink">ExceptionMappers</span></a></li>
-<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/ExceptionMappers.CastOnGet.html" title="class in org.jepria.server.service.rest"><span class="typeNameLink">ExceptionMappers.CastOnGet</span></a> (implements javax.ws.rs.ext.ExceptionMapper&lt;E&gt;)</li>
-<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/ExceptionMappers.ConstraintViolationMapper.html" title="class in org.jepria.server.service.rest"><span class="typeNameLink">ExceptionMappers.ConstraintViolationMapper</span></a> (implements javax.ws.rs.ext.ExceptionMapper&lt;E&gt;)</li>
-<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/ExceptionMappers.Jsonb.html" title="class in org.jepria.server.service.rest"><span class="typeNameLink">ExceptionMappers.Jsonb</span></a> (implements javax.ws.rs.ext.ExceptionMapper&lt;E&gt;)</li>
-<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/ExceptionMappers.Logging.html" title="class in org.jepria.server.service.rest"><span class="typeNameLink">ExceptionMappers.Logging</span></a> (implements javax.ws.rs.ext.ExceptionMapper&lt;E&gt;)</li>
+<li type="circle">org.jepria.server.service.rest.jersey.<a href="org/jepria/server/service/rest/jersey/ExceptionManagerImpl.html" title="class in org.jepria.server.service.rest.jersey"><span class="typeNameLink">ExceptionManagerImpl</span></a> (implements org.jepria.server.service.rest.jersey.<a href="org/jepria/server/service/rest/jersey/ExceptionManager.html" title="interface in org.jepria.server.service.rest.jersey">ExceptionManager</a>)</li>
+<li type="circle">org.jepria.server.service.rest.jersey.validate.<a href="org/jepria/server/service/rest/jersey/validate/ExceptionMapperValidation.html" title="class in org.jepria.server.service.rest.jersey.validate"><span class="typeNameLink">ExceptionMapperValidation</span></a> (implements javax.ws.rs.ext.ExceptionMapper&lt;E&gt;)</li>
+<li type="circle">org.jepria.server.service.rest.jersey.validate.<a href="org/jepria/server/service/rest/jersey/validate/ExceptionMapperValidation.ConstraintViolationDto.html" title="class in org.jepria.server.service.rest.jersey.validate"><span class="typeNameLink">ExceptionMapperValidation.ConstraintViolationDto</span></a></li>
 <li type="circle">com.technology.jep.jepria.auto.condition.<a href="com/technology/jep/jepria/auto/condition/ExpectedConditions.html" title="class in com.technology.jep.jepria.auto.condition"><span class="typeNameLink">ExpectedConditions</span></a></li>
+<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/ExtendedResponse.html" title="class in org.jepria.server.service.rest"><span class="typeNameLink">ExtendedResponse</span></a></li>
+<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/ExtendedResponse.ConfiguratorImpl.html" title="class in org.jepria.server.service.rest"><span class="typeNameLink">ExtendedResponse.ConfiguratorImpl</span></a> (implements org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/ExtendedResponse.Configurator.html" title="interface in org.jepria.server.service.rest">ExtendedResponse.Configurator</a>)</li>
 <li type="circle">com.technology.jep.jepria.auto.page.<a href="com/technology/jep/jepria/auto/page/FramePage.html" title="class in com.technology.jep.jepria.auto.page"><span class="typeNameLink">FramePage</span></a> (implements com.technology.jep.jepria.auto.page.<a href="com/technology/jep/jepria/auto/page/Page.html" title="interface in com.technology.jep.jepria.auto.page">Page</a>)</li>
 <li type="circle">javax.servlet.GenericServlet (implements java.io.Serializable, javax.servlet.Servlet, javax.servlet.ServletConfig)
 <ul>
@@ -532,11 +548,11 @@
 </li>
 </ul>
 </li>
-<li type="circle">com.technology.jep.jepria.server.security.tomcat.<a href="com/technology/jep/jepria/server/security/tomcat/AutoLogonServlet.html" title="class in com.technology.jep.jepria.server.security.tomcat"><span class="typeNameLink">AutoLogonServlet</span></a></li>
+<li type="circle">com.technology.jep.jepria.server.security.servlet.<a href="com/technology/jep/jepria/server/security/servlet/AutoLogonServlet.html" title="class in com.technology.jep.jepria.server.security.servlet"><span class="typeNameLink">AutoLogonServlet</span></a></li>
 <li type="circle">com.technology.jep.jepria.server.download.excel.<a href="com/technology/jep/jepria/server/download/excel/ExcelServlet.html" title="class in com.technology.jep.jepria.server.download.excel"><span class="typeNameLink">ExcelServlet</span></a></li>
 <li type="circle">com.technology.jep.jepria.server.download.<a href="com/technology/jep/jepria/server/download/JepDownloadServlet.html" title="class in com.technology.jep.jepria.server.download"><span class="typeNameLink">JepDownloadServlet</span></a></li>
 <li type="circle">com.technology.jep.jepria.server.upload.<a href="com/technology/jep/jepria/server/upload/JepUploadServlet.html" title="class in com.technology.jep.jepria.server.upload"><span class="typeNameLink">JepUploadServlet</span></a></li>
-<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/RestService.html" title="class in org.jepria.server.service.rest"><span class="typeNameLink">RestService</span></a></li>
+<li type="circle">org.jepria.swagger.<a href="org/jepria/swagger/SpecServlet.html" title="class in org.jepria.swagger"><span class="typeNameLink">SpecServlet</span></a></li>
 </ul>
 </li>
 </ul>
@@ -556,6 +572,9 @@
 <li type="circle">com.technology.jep.jepria.client.widget.list.header.<a href="com/technology/jep/jepria/client/widget/list/header/ResizableHeader.html" title="class in com.technology.jep.jepria.client.widget.list.header"><span class="typeNameLink">ResizableHeader</span></a>&lt;T&gt;</li>
 </ul>
 </li>
+<li type="circle">org.jepria.server.service.security.<a href="org/jepria/server/service/security/HttpBasicDynamicFeature.html" title="class in org.jepria.server.service.security"><span class="typeNameLink">HttpBasicDynamicFeature</span></a> (implements javax.ws.rs.container.DynamicFeature)</li>
+<li type="circle">org.jepria.server.service.security.<a href="org/jepria/server/service/security/HttpBasicDynamicFeature.HttpBasicContainerRequestFilter.html" title="class in org.jepria.server.service.security"><span class="typeNameLink">HttpBasicDynamicFeature.HttpBasicContainerRequestFilter</span></a> (implements javax.ws.rs.container.ContainerRequestFilter)</li>
+<li type="circle">org.jepria.server.service.security.<a href="org/jepria/server/service/security/HttpBasicDynamicFeature.HttpBasicContainerRequestFilter.JerseySecurityContext.html" title="class in org.jepria.server.service.security"><span class="typeNameLink">HttpBasicDynamicFeature.HttpBasicContainerRequestFilter.JerseySecurityContext</span></a> (implements javax.ws.rs.core.SecurityContext)</li>
 <li type="circle">java.io.InputStream (implements java.io.Closeable)
 <ul>
 <li type="circle">com.technology.jep.jepria.server.download.blob.<a href="com/technology/jep/jepria/server/download/blob/FileDownloadStream.html" title="class in com.technology.jep.jepria.server.download.blob"><span class="typeNameLink">FileDownloadStream</span></a></li>
@@ -585,9 +604,19 @@
 </li>
 </ul>
 </li>
-<li type="circle">com.technology.jep.jepria.server.security.<a href="com/technology/jep/jepria/server/security/JepAbstractSecurityModule.html" title="class in com.technology.jep.jepria.server.security"><span class="typeNameLink">JepAbstractSecurityModule</span></a> (implements com.technology.jep.jepria.server.security.<a href="com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security">JepSecurityModule</a>)
+<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/JaxrsAdapterBase.html" title="class in org.jepria.server.service.rest"><span class="typeNameLink">JaxrsAdapterBase</span></a>
 <ul>
-<li type="circle">com.technology.jep.jepria.server.security.tomcat.<a href="com/technology/jep/jepria/server/security/tomcat/JepSecurityModule_Tomcat.html" title="class in com.technology.jep.jepria.server.security.tomcat"><span class="typeNameLink">JepSecurityModule_Tomcat</span></a></li>
+<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/MetaInfoResource.html" title="class in org.jepria.server.service.rest"><span class="typeNameLink">MetaInfoResource</span></a></li>
+</ul>
+</li>
+<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/JaxrsAdapterBase.EntityEndpointAdapter.html" title="class in org.jepria.server.service.rest"><span class="typeNameLink">JaxrsAdapterBase.EntityEndpointAdapter</span></a></li>
+<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/JaxrsAdapterBase.SearchEndpointAdapter.html" title="class in org.jepria.server.service.rest"><span class="typeNameLink">JaxrsAdapterBase.SearchEndpointAdapter</span></a></li>
+<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/JaxrsAdapterBase.SearchEndpointAdapter.PostSearchExtendedResponseHandler.html" title="class in org.jepria.server.service.rest"><span class="typeNameLink">JaxrsAdapterBase.SearchEndpointAdapter.PostSearchExtendedResponseHandler</span></a> (implements org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/ExtendedResponse.Handler.html" title="interface in org.jepria.server.service.rest">ExtendedResponse.Handler</a>)</li>
+<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/JaxrsAdapterBase.SearchEndpointAdapter.SearchRequestImpl.html" title="class in org.jepria.server.service.rest"><span class="typeNameLink">JaxrsAdapterBase.SearchEndpointAdapter.SearchRequestImpl</span></a> (implements org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/SearchService.SearchRequest.html" title="interface in org.jepria.server.service.rest">SearchService.SearchRequest</a>)</li>
+<li type="circle">org.jepria.server.service.security.<a href="org/jepria/server/service/security/JaxrsCredential.html" title="class in org.jepria.server.service.security"><span class="typeNameLink">JaxrsCredential</span></a> (implements org.jepria.server.service.security.<a href="org/jepria/server/service/security/Credential.html" title="interface in org.jepria.server.service.security">Credential</a>)</li>
+<li type="circle">com.technology.jep.jepria.server.security.module.<a href="com/technology/jep/jepria/server/security/module/JepAbstractSecurityModule.html" title="class in com.technology.jep.jepria.server.security.module"><span class="typeNameLink">JepAbstractSecurityModule</span></a> (implements com.technology.jep.jepria.server.security.module.<a href="com/technology/jep/jepria/server/security/module/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security.module">JepSecurityModule</a>)
+<ul>
+<li type="circle">com.technology.jep.jepria.server.security.module.<a href="com/technology/jep/jepria/server/security/module/JepSecurityModuleImpl.html" title="class in com.technology.jep.jepria.server.security.module"><span class="typeNameLink">JepSecurityModuleImpl</span></a></li>
 </ul>
 </li>
 <li type="circle">com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/JepActivityMapper.html" title="class in com.technology.jep.jepria.client.ui"><span class="typeNameLink">JepActivityMapper</span></a>&lt;E,F&gt; (implements com.google.gwt.activity.shared.ActivityMapper)
@@ -655,6 +684,7 @@
 <li type="circle">com.technology.jep.jepria.client.history.scope.<a href="com/technology/jep/jepria/client/history/scope/JepScope.html" title="class in com.technology.jep.jepria.client.history.scope"><span class="typeNameLink">JepScope</span></a></li>
 <li type="circle">com.technology.jep.jepria.client.history.place.<a href="com/technology/jep/jepria/client/history/place/JepSearchPlace.Tokenizer.html" title="class in com.technology.jep.jepria.client.history.place"><span class="typeNameLink">JepSearchPlace.Tokenizer</span></a> (implements com.google.gwt.place.shared.PlaceTokenizer&lt;P&gt;)</li>
 <li type="circle">com.technology.jep.jepria.server.security.<a href="com/technology/jep/jepria/server/security/JepSecurityConstant.html" title="class in com.technology.jep.jepria.server.security"><span class="typeNameLink">JepSecurityConstant</span></a></li>
+<li type="circle">org.jepria.server.service.rest.jersey.<a href="org/jepria/server/service/rest/jersey/JepSecurityContextFactory.html" title="class in org.jepria.server.service.rest.jersey"><span class="typeNameLink">JepSecurityContextFactory</span></a> (implements java.util.function.Supplier&lt;T&gt;)</li>
 <li type="circle">com.technology.jep.jepria.client.history.place.<a href="com/technology/jep/jepria/client/history/place/JepSelectedPlace.Tokenizer.html" title="class in com.technology.jep.jepria.client.history.place"><span class="typeNameLink">JepSelectedPlace.Tokenizer</span></a> (implements com.google.gwt.place.shared.PlaceTokenizer&lt;P&gt;)</li>
 <li type="circle">com.technology.jep.jepria.server.util.<a href="com/technology/jep/jepria/server/util/JepServerUtil.html" title="class in com.technology.jep.jepria.server.util"><span class="typeNameLink">JepServerUtil</span></a></li>
 <li type="circle">com.technology.jep.jepria.server.util.<a href="com/technology/jep/jepria/server/util/JepServerUtilTest.html" title="class in com.technology.jep.jepria.server.util"><span class="typeNameLink">JepServerUtilTest</span></a></li>
@@ -730,15 +760,14 @@
 </ul>
 </li>
 <li type="circle">com.technology.jep.jepria.shared.util.<a href="com/technology/jep/jepria/shared/util/Mutable.html" title="class in com.technology.jep.jepria.shared.util"><span class="typeNameLink">Mutable</span></a>&lt;T&gt;</li>
+<li type="circle">org.jepria.server.data.<a href="org/jepria/server/data/NamingUtil.html" title="class in org.jepria.server.data"><span class="typeNameLink">NamingUtil</span></a></li>
+<li type="circle">org.jepria.server.data.<a href="org/jepria/server/data/OptionDto.html" title="class in org.jepria.server.data"><span class="typeNameLink">OptionDto</span></a>&lt;T&gt;</li>
 <li type="circle">java.io.OutputStream (implements java.io.Closeable, java.io.Flushable)
 <ul>
 <li type="circle">com.technology.jep.jepria.server.upload.blob.<a href="com/technology/jep/jepria/server/upload/blob/FileUploadStream.html" title="class in com.technology.jep.jepria.server.upload.blob"><span class="typeNameLink">FileUploadStream</span></a></li>
 </ul>
 </li>
 <li type="circle">com.technology.jep.jepria.shared.load.<a href="com/technology/jep/jepria/shared/load/PagingResult.html" title="class in com.technology.jep.jepria.shared.load"><span class="typeNameLink">PagingResult</span></a>&lt;T&gt; (implements com.google.gwt.user.client.rpc.IsSerializable)</li>
-<li type="circle">org.jepria.server.service.apispec.<a href="org/jepria/server/service/apispec/Parameter.html" title="class in org.jepria.server.service.apispec"><span class="typeNameLink">Parameter</span></a></li>
-<li type="circle">org.jepria.server.service.rest.validation.<a href="org/jepria/server/service/rest/validation/PathBase.html" title="class in org.jepria.server.service.rest.validation"><span class="typeNameLink">PathBase</span></a> (implements javax.validation.Path)</li>
-<li type="circle">org.jepria.server.service.rest.validation.<a href="org/jepria/server/service/rest/validation/PathBase.NodeBase.html" title="class in org.jepria.server.service.rest.validation"><span class="typeNameLink">PathBase.NodeBase</span></a> (implements javax.validation.Path.Node)</li>
 <li type="circle">com.technology.jep.jepcommon.security.<a href="com/technology/jep/jepcommon/security/pkg_Operator.html" title="class in com.technology.jep.jepcommon.security"><span class="typeNameLink">pkg_Operator</span></a></li>
 <li type="circle">com.google.gwt.place.shared.Place
 <ul>
@@ -782,22 +811,24 @@
 </ul>
 </li>
 <li type="circle">com.technology.jep.jepria.auto.page.<a href="com/technology/jep/jepria/auto/page/PlainPage.DisplayedElementLocatorFactory.html" title="class in com.technology.jep.jepria.auto.page"><span class="typeNameLink">PlainPage.DisplayedElementLocatorFactory</span></a> (implements org.openqa.selenium.support.pagefactory.ElementLocatorFactory)</li>
+<li type="circle">org.jepria.server.service.security.<a href="org/jepria/server/service/security/PrincipalImpl.html" title="class in org.jepria.server.service.security"><span class="typeNameLink">PrincipalImpl</span></a> (implements java.security.Principal, java.io.Serializable)</li>
 <li type="circle">com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.upload.<a href="com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/upload/ProgressCallback.html" title="class in com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.upload"><span class="typeNameLink">ProgressCallback</span></a></li>
-<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/QueryParams.VoidValidator.html" title="class in org.jepria.server.service.rest"><span class="typeNameLink">QueryParams.VoidValidator</span></a> (implements org.jepria.server.service.rest.validation.<a href="org/jepria/server/service/rest/validation/ConstraintValidator.html" title="interface in org.jepria.server.service.rest.validation">ConstraintValidator</a>&lt;T&gt;)</li>
-<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/QueryParamsFeature.html" title="class in org.jepria.server.service.rest"><span class="typeNameLink">QueryParamsFeature</span></a> (implements javax.ws.rs.core.Feature)</li>
-<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/QueryParamsFeature.QueryParamsValueParamProvider.html" title="class in org.jepria.server.service.rest"><span class="typeNameLink">QueryParamsFeature.QueryParamsValueParamProvider</span></a> (implements org.glassfish.jersey.server.spi.internal.ValueParamProvider)</li>
-<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/QueryParamsFeature.QueryParamsValueParamProvider.CastMapProvider.html" title="class in org.jepria.server.service.rest"><span class="typeNameLink">QueryParamsFeature.QueryParamsValueParamProvider.CastMapProvider</span></a> (implements java.util.function.Function&lt;T,R&gt;)</li>
-<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/QueryParamsFeature.QueryParamsValueParamProvider.MapProvider.html" title="class in org.jepria.server.service.rest"><span class="typeNameLink">QueryParamsFeature.QueryParamsValueParamProvider.MapProvider</span></a> (implements java.util.function.Function&lt;T,R&gt;)</li>
+<li type="circle">org.jepria.server.env.<a href="org/jepria/server/env/PropertyAccessObject.html" title="class in org.jepria.server.env"><span class="typeNameLink">PropertyAccessObject</span></a>
+<ul>
+<li type="circle">org.jepria.server.env.<a href="org/jepria/server/env/EnvironmentPropertySupportWebImpl.PropertyAccessObjectSystemEnv.html" title="class in org.jepria.server.env"><span class="typeNameLink">EnvironmentPropertySupportWebImpl.PropertyAccessObjectSystemEnv</span></a></li>
+<li type="circle">org.jepria.server.env.<a href="org/jepria/server/env/EnvironmentPropertySupportWebImpl.PropertyAccessObjectSystemProp.html" title="class in org.jepria.server.env"><span class="typeNameLink">EnvironmentPropertySupportWebImpl.PropertyAccessObjectSystemProp</span></a></li>
+<li type="circle">org.jepria.server.env.<a href="org/jepria/server/env/EnvironmentPropertySupportWebImpl.PropertyAccessObjectTomcatEnv.html" title="class in org.jepria.server.env"><span class="typeNameLink">EnvironmentPropertySupportWebImpl.PropertyAccessObjectTomcatEnv</span></a></li>
+</ul>
+</li>
+<li type="circle">org.jepria.server.env.<a href="org/jepria/server/env/PropertyAccessObject.Property.html" title="class in org.jepria.server.env"><span class="typeNameLink">PropertyAccessObject.Property</span></a></li>
 <li type="circle">java.io.Reader (implements java.io.Closeable, java.lang.Readable)
 <ul>
 <li type="circle">com.technology.jep.jepria.server.download.clob.<a href="com/technology/jep/jepria/server/download/clob/FileDownloadReader.html" title="class in com.technology.jep.jepria.server.download.clob"><span class="typeNameLink">FileDownloadReader</span></a></li>
 </ul>
 </li>
+<li type="circle">org.jepria.server.data.<a href="org/jepria/server/data/RecordComparator.html" title="class in org.jepria.server.data"><span class="typeNameLink">RecordComparator</span></a> (implements java.util.Comparator&lt;T&gt;)</li>
+<li type="circle">org.jepria.server.data.<a href="org/jepria/server/data/RecordDefinitionDtoImpl.html" title="class in org.jepria.server.data"><span class="typeNameLink">RecordDefinitionDtoImpl</span></a> (implements org.jepria.server.data.<a href="org/jepria/server/data/RecordDefinition.html" title="interface in org.jepria.server.data">RecordDefinition</a>)</li>
 <li type="circle">com.technology.jep.jepria.client.widget.list.header.<a href="com/technology/jep/jepria/client/widget/list/header/ResizableHeader.ColumnResizeHelper.html" title="class in com.technology.jep.jepria.client.widget.list.header"><span class="typeNameLink">ResizableHeader.ColumnResizeHelper</span></a>&lt;E&gt; (implements com.google.gwt.user.client.Event.NativePreviewHandler)</li>
-<li type="circle">org.jepria.server.service.apispec.<a href="org/jepria/server/service/apispec/Response.html" title="class in org.jepria.server.service.apispec"><span class="typeNameLink">Response</span></a></li>
-<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/RestJService.html" title="class in org.jepria.server.service.rest"><span class="typeNameLink">RestJService</span></a></li>
-<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/RestService.EndpointMethodRouted.html" title="class in org.jepria.server.service.rest"><span class="typeNameLink">RestService.EndpointMethodRouted</span></a></li>
-<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/RestService.MethodLocator.html" title="class in org.jepria.server.service.rest"><span class="typeNameLink">RestService.MethodLocator</span></a></li>
 <li type="circle">com.technology.jep.jepria.server.dao.<a href="com/technology/jep/jepria/server/dao/ResultSetMapper.html" title="class in com.technology.jep.jepria.server.dao"><span class="typeNameLink">ResultSetMapper</span></a>&lt;T&gt;
 <ul>
 <li type="circle">com.technology.jep.jepria.server.dao.<a href="com/technology/jep/jepria/server/dao/AutoRefreshResultSetMapper.html" title="class in com.technology.jep.jepria.server.dao"><span class="typeNameLink">AutoRefreshResultSetMapper</span></a>&lt;T&gt;</li>
@@ -806,7 +837,15 @@
 <li type="circle">com.technology.jep.jepria.server.dao.<a href="com/technology/jep/jepria/server/dao/ResultSetWrapper.html" title="class in com.technology.jep.jepria.server.dao"><span class="typeNameLink">ResultSetWrapper</span></a> (implements java.sql.ResultSet)</li>
 <li type="circle">com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar.<a href="com/technology/jep/jepria/client/widget/field/wysiwyg/toolbar/RichTextToolbar.EventHandler.html" title="class in com.technology.jep.jepria.client.widget.field.wysiwyg.toolbar"><span class="typeNameLink">RichTextToolbar.EventHandler</span></a> (implements com.google.gwt.event.dom.client.ClickHandler, com.google.gwt.event.dom.client.KeyUpHandler)</li>
 <li type="circle">com.technology.jep.test.util.<a href="com/technology/jep/test/util/ScreenshotMaker.html" title="class in com.technology.jep.test.util"><span class="typeNameLink">ScreenshotMaker</span></a> (implements org.testng.ITestListener)</li>
+<li type="circle">org.jepria.server.data.<a href="org/jepria/server/data/SearchRequestDto.html" title="class in org.jepria.server.data"><span class="typeNameLink">SearchRequestDto</span></a>&lt;T&gt;</li>
+<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/SearchServiceImpl.html" title="class in org.jepria.server.service.rest"><span class="typeNameLink">SearchServiceImpl</span></a> (implements org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/SearchService.html" title="interface in org.jepria.server.service.rest">SearchService</a>)</li>
+<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/SecurityContextWrapper.html" title="class in org.jepria.server.service.rest"><span class="typeNameLink">SecurityContextWrapper</span></a> (implements javax.ws.rs.core.SecurityContext)
+<ul>
+<li type="circle">org.jepria.server.service.security.<a href="org/jepria/server/service/security/JepSecurityContextAbstract.html" title="class in org.jepria.server.service.security"><span class="typeNameLink">JepSecurityContextAbstract</span></a> (implements org.jepria.server.service.security.<a href="org/jepria/server/service/security/JepSecurityContext.html" title="interface in org.jepria.server.service.security">JepSecurityContext</a>)</li>
+</ul>
+</li>
 <li type="circle">com.technology.jep.jepria.server.security.<a href="com/technology/jep/jepria/server/security/SecurityFactory.html" title="class in com.technology.jep.jepria.server.security"><span class="typeNameLink">SecurityFactory</span></a></li>
+<li type="circle">com.technology.jep.jepria.server.security.servlet.<a href="com/technology/jep/jepria/server/security/servlet/SecurityFilter.html" title="class in com.technology.jep.jepria.server.security.servlet"><span class="typeNameLink">SecurityFilter</span></a> (implements javax.servlet.Filter)</li>
 <li type="circle">com.google.gwt.view.client.SelectionModel.AbstractSelectionModel&lt;T&gt; (implements com.google.gwt.view.client.SelectionModel&lt;T&gt;)
 <ul>
 <li type="circle">com.google.gwt.view.client.MultiSelectionModel&lt;T&gt; (implements com.google.gwt.view.client.SetSelectionModel&lt;T&gt;)
@@ -817,7 +856,18 @@
 </ul>
 </li>
 <li type="circle">com.technology.jep.jepria.server.<a href="com/technology/jep/jepria/server/ServerFactory.html" title="class in com.technology.jep.jepria.server"><span class="typeNameLink">ServerFactory</span></a>&lt;D&gt; (implements com.technology.jep.jepria.server.<a href="com/technology/jep/jepria/server/DaoProvider.html" title="interface in com.technology.jep.jepria.server">DaoProvider</a>&lt;D&gt;)</li>
+<li type="circle">org.jepria.server.<a href="org/jepria/server/ServerFactory.html" title="class in org.jepria.server"><span class="typeNameLink">ServerFactory</span></a>&lt;D&gt;</li>
 <li type="circle">com.technology.jep.jepria.server.test.<a href="com/technology/jep/jepria/server/test/ServerTestUtil.html" title="class in com.technology.jep.jepria.server.test"><span class="typeNameLink">ServerTestUtil</span></a></li>
+<li type="circle">org.jepria.server.<a href="org/jepria/server/ServletConfigWrapper.html" title="class in org.jepria.server"><span class="typeNameLink">ServletConfigWrapper</span></a> (implements javax.servlet.ServletConfig)</li>
+<li type="circle">javax.servlet.ServletRequestWrapper (implements javax.servlet.ServletRequest)
+<ul>
+<li type="circle">javax.servlet.http.HttpServletRequestWrapper (implements javax.servlet.http.HttpServletRequest)
+<ul>
+<li type="circle">com.technology.jep.jepria.server.security.<a href="com/technology/jep/jepria/server/security/TokenRequestWrapper.html" title="class in com.technology.jep.jepria.server.security"><span class="typeNameLink">TokenRequestWrapper</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li type="circle">com.technology.jep.jepria.shared.util.<a href="com/technology/jep/jepria/shared/util/SimplePaging.html" title="class in com.technology.jep.jepria.shared.util"><span class="typeNameLink">SimplePaging</span></a></li>
 <li type="circle">com.technology.jep.jepria.server.dao.transaction.handler.<a href="com/technology/jep/jepria/server/dao/transaction/handler/StartTransactionHandlerImpl.html" title="class in com.technology.jep.jepria.server.dao.transaction.handler"><span class="typeNameLink">StartTransactionHandlerImpl</span></a> (implements com.technology.jep.jepria.server.dao.transaction.handler.<a href="com/technology/jep/jepria/server/dao/transaction/handler/StartTransactionHandler.html" title="interface in com.technology.jep.jepria.server.dao.transaction.handler">StartTransactionHandler</a>)</li>
 <li type="circle">com.technology.jep.jepria.client.ui.statusbar.<a href="com/technology/jep/jepria/client/ui/statusbar/StatusBarViewImpl.html" title="class in com.technology.jep.jepria.client.ui.statusbar"><span class="typeNameLink">StatusBarViewImpl</span></a> (implements com.technology.jep.jepria.client.ui.statusbar.<a href="com/technology/jep/jepria/client/ui/statusbar/StatusBarView.html" title="interface in com.technology.jep.jepria.client.ui.statusbar">StatusBarView</a>)</li>
@@ -843,11 +893,12 @@
 <ul>
 <li type="circle">java.lang.Exception
 <ul>
-<li type="circle">com.technology.jep.jepria.shared.exceptions.<a href="com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions"><span class="typeNameLink">ApplicationException</span></a> (implements com.google.gwt.user.client.rpc.IsSerializable)
+<li type="circle">com.technology.jep.jepria.shared.exceptions.<a href="com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions"><span class="typeNameLink">ApplicationException</span></a> (implements java.io.Serializable)
 <ul>
 <li type="circle">com.technology.jep.jepria.server.exceptions.<a href="com/technology/jep/jepria/server/exceptions/SpaceException.html" title="class in com.technology.jep.jepria.server.exceptions"><span class="typeNameLink">SpaceException</span></a></li>
 </ul>
 </li>
+<li type="circle">org.jepria.server.data.<a href="org/jepria/server/data/RecordDefinition.IncompletePrimaryKeyException.html" title="class in org.jepria.server.data"><span class="typeNameLink">RecordDefinition.IncompletePrimaryKeyException</span></a></li>
 <li type="circle">java.lang.RuntimeException
 <ul>
 <li type="circle">com.technology.jep.jepria.auto.exception.<a href="com/technology/jep/jepria/auto/exception/AutomationException.html" title="class in com.technology.jep.jepria.auto.exception"><span class="typeNameLink">AutomationException</span></a>
@@ -855,8 +906,8 @@
 <li type="circle">com.technology.jep.jepria.auto.exception.<a href="com/technology/jep/jepria/auto/exception/WrongOptionException.html" title="class in com.technology.jep.jepria.auto.exception"><span class="typeNameLink">WrongOptionException</span></a></li>
 </ul>
 </li>
-<li type="circle">org.jepria.<a href="org/jepria/CastMap.CastOnGetException.html" title="class in org.jepria"><span class="typeNameLink">CastMap.CastOnGetException</span></a></li>
 <li type="circle">com.technology.jep.jepria.auto.exception.<a href="com/technology/jep/jepria/auto/exception/NotExpectedException.html" title="class in com.technology.jep.jepria.auto.exception"><span class="typeNameLink">NotExpectedException</span></a></li>
+<li type="circle">org.jepria.server.data.<a href="org/jepria/server/data/RuntimeSQLException.html" title="class in org.jepria.server.data"><span class="typeNameLink">RuntimeSQLException</span></a></li>
 <li type="circle">com.technology.jep.jepria.shared.exceptions.<a href="com/technology/jep/jepria/shared/exceptions/SystemException.html" title="class in com.technology.jep.jepria.shared.exceptions"><span class="typeNameLink">SystemException</span></a> (implements com.google.gwt.user.client.rpc.IsSerializable)
 <ul>
 <li type="circle">com.technology.jep.jepria.shared.exceptions.<a href="com/technology/jep/jepria/shared/exceptions/IdNotFoundException.html" title="class in com.technology.jep.jepria.shared.exceptions"><span class="typeNameLink">IdNotFoundException</span></a></li>
@@ -868,7 +919,7 @@
 </li>
 </ul>
 </li>
-<li type="circle">org.jepria.<a href="org/jepria/TypedValueParser.TypedValueParseException.html" title="class in org.jepria"><span class="typeNameLink">TypedValueParser.TypedValueParseException</span></a></li>
+<li type="circle">org.jepria.server.service.rest.jersey.validate.<a href="org/jepria/server/service/rest/jersey/validate/ValidationException.html" title="class in org.jepria.server.service.rest.jersey.validate"><span class="typeNameLink">ValidationException</span></a></li>
 </ul>
 </li>
 </ul>
@@ -886,17 +937,6 @@
 <li type="circle">com.technology.jep.jepria.client.widget.field.tree.<a href="com/technology/jep/jepria/client/widget/field/tree/TreeFieldMessages.html" title="class in com.technology.jep.jepria.client.widget.field.tree"><span class="typeNameLink">TreeFieldMessages</span></a> (implements com.google.gwt.user.cellview.client.CellTree.CellTreeMessages)</li>
 <li type="circle">com.technology.jep.jepria.auto.widget.tree.<a href="com/technology/jep/jepria/auto/widget/tree/TreeItemWebElement.html" title="class in com.technology.jep.jepria.auto.widget.tree"><span class="typeNameLink">TreeItemWebElement</span></a></li>
 <li type="circle">com.technology.jep.jepria.client.widget.field.tree.<a href="com/technology/jep/jepria/client/widget/field/tree/TreeNodeInfo.html" title="class in com.technology.jep.jepria.client.widget.field.tree"><span class="typeNameLink">TreeNodeInfo</span></a>&lt;V&gt;</li>
-<li type="circle">org.jepria.server.service.apispec.<a href="org/jepria/server/service/apispec/Type.html" title="class in org.jepria.server.service.apispec"><span class="typeNameLink">Type</span></a>
-<ul>
-<li type="circle">org.jepria.server.service.apispec.<a href="org/jepria/server/service/apispec/Type.Array.html" title="class in org.jepria.server.service.apispec"><span class="typeNameLink">Type.Array</span></a></li>
-<li type="circle">org.jepria.server.service.apispec.<a href="org/jepria/server/service/apispec/Type.Object.html" title="class in org.jepria.server.service.apispec"><span class="typeNameLink">Type.Object</span></a></li>
-<li type="circle">org.jepria.server.service.apispec.<a href="org/jepria/server/service/apispec/Type.Primitive.html" title="class in org.jepria.server.service.apispec"><span class="typeNameLink">Type.Primitive</span></a></li>
-</ul>
-</li>
-<li type="circle">org.jepria.server.service.apispec.<a href="org/jepria/server/service/apispec/TypeDeployer.NonRecursive.html" title="class in org.jepria.server.service.apispec"><span class="typeNameLink">TypeDeployer.NonRecursive</span></a> (implements org.jepria.server.service.apispec.<a href="org/jepria/server/service/apispec/TypeDeployer.html" title="interface in org.jepria.server.service.apispec">TypeDeployer</a>)</li>
-<li type="circle">org.jepria.server.service.apispec.<a href="org/jepria/server/service/apispec/TypeDeployer.NonRecursive.TypeTreeNode.html" title="class in org.jepria.server.service.apispec"><span class="typeNameLink">TypeDeployer.NonRecursive.TypeTreeNode</span></a></li>
-<li type="circle">org.jepria.server.service.apispec.<a href="org/jepria/server/service/apispec/TypeDeployer.Recursive.html" title="class in org.jepria.server.service.apispec"><span class="typeNameLink">TypeDeployer.Recursive</span></a> (implements org.jepria.server.service.apispec.<a href="org/jepria/server/service/apispec/TypeDeployer.html" title="interface in org.jepria.server.service.apispec">TypeDeployer</a>)</li>
-<li type="circle">org.jepria.<a href="org/jepria/TypedValueParserImpl.html" title="class in org.jepria"><span class="typeNameLink">TypedValueParserImpl</span></a> (implements org.jepria.<a href="org/jepria/TypedValueParser.html" title="interface in org.jepria">TypedValueParser</a>)</li>
 <li type="circle">com.google.gwt.user.client.ui.UIObject (implements com.google.gwt.user.client.ui.HasVisibility)
 <ul>
 <li type="circle">com.google.gwt.user.client.ui.MenuItem (implements com.google.gwt.user.client.ui.HasEnabled, com.google.gwt.user.client.ui.HasHTML, com.google.gwt.safehtml.client.HasSafeHtml)
@@ -1130,15 +1170,10 @@
 </li>
 <li type="circle">com.technology.jep.jepria.auto.model.user.<a href="com/technology/jep/jepria/auto/model/user/User.html" title="class in com.technology.jep.jepria.auto.model.user"><span class="typeNameLink">User</span></a></li>
 <li type="circle">com.technology.jep.jepria.auto.model.user.dao.<a href="com/technology/jep/jepria/auto/model/user/dao/UserDao.html" title="class in com.technology.jep.jepria.auto.model.user.dao"><span class="typeNameLink">UserDao</span></a> (implements com.technology.jep.jepria.auto.model.user.dao.<a href="com/technology/jep/jepria/auto/model/user/dao/UserData.html" title="interface in com.technology.jep.jepria.auto.model.user.dao">UserData</a>)</li>
-<li type="circle">org.jepria.server.service.rest.validation.<a href="org/jepria/server/service/rest/validation/ValidationEngine.html" title="class in org.jepria.server.service.rest.validation"><span class="typeNameLink">ValidationEngine</span></a></li>
-<li type="circle">org.jepria.server.service.rest.validation.<a href="org/jepria/server/service/rest/validation/ValidationEngine.ConstraintValidatorContextImpl.html" title="class in org.jepria.server.service.rest.validation"><span class="typeNameLink">ValidationEngine.ConstraintValidatorContextImpl</span></a> (implements javax.validation.ConstraintValidatorContext)</li>
-<li type="circle">org.jepria.server.service.rest.validation.<a href="org/jepria/server/service/rest/validation/ValidationEngine.ConstraintValidatorContextImpl.ConstraintViolationBuilderImpl.html" title="class in org.jepria.server.service.rest.validation"><span class="typeNameLink">ValidationEngine.ConstraintValidatorContextImpl.ConstraintViolationBuilderImpl</span></a> (implements javax.validation.ConstraintValidatorContext.ConstraintViolationBuilder)</li>
-<li type="circle">org.jepria.server.service.rest.validation.<a href="org/jepria/server/service/rest/validation/ValidationEngine.ConstraintValidatorContextImpl.ConstraintViolationBuilderImpl.NodeBuilderCustomizableContextImpl.html" title="class in org.jepria.server.service.rest.validation"><span class="typeNameLink">ValidationEngine.ConstraintValidatorContextImpl.ConstraintViolationBuilderImpl.NodeBuilderCustomizableContextImpl</span></a> (implements javax.validation.ConstraintValidatorContext.ConstraintViolationBuilder.NodeBuilderCustomizableContext)</li>
-<li type="circle">org.jepria.server.service.rest.validation.<a href="org/jepria/server/service/rest/validation/ValidatorImpl.html" title="class in org.jepria.server.service.rest.validation"><span class="typeNameLink">ValidatorImpl</span></a> (implements javax.validation.Validator)
-<ul>
-<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/ConfiguredValidatorImpl.html" title="class in org.jepria.server.service.rest"><span class="typeNameLink">ConfiguredValidatorImpl</span></a> (implements org.glassfish.jersey.server.internal.inject.ConfiguredValidator)</li>
-</ul>
-</li>
+<li type="circle">org.jepria.server.service.rest.jersey.validate.<a href="org/jepria/server/service/rest/jersey/validate/ValidationInterceptionService.html" title="class in org.jepria.server.service.rest.jersey.validate"><span class="typeNameLink">ValidationInterceptionService</span></a> (implements org.glassfish.hk2.api.InterceptionService)</li>
+<li type="circle">org.jepria.server.service.rest.jersey.validate.<a href="org/jepria/server/service/rest/jersey/validate/ValidationInterceptionService.ResourceMethodFilter.html" title="class in org.jepria.server.service.rest.jersey.validate"><span class="typeNameLink">ValidationInterceptionService.ResourceMethodFilter</span></a> (implements java.util.function.Predicate&lt;T&gt;)</li>
+<li type="circle">org.jepria.server.service.rest.jersey.validate.<a href="org/jepria/server/service/rest/jersey/validate/ValidationMethodInterceptor.html" title="class in org.jepria.server.service.rest.jersey.validate"><span class="typeNameLink">ValidationMethodInterceptor</span></a> (implements org.aopalliance.intercept.MethodInterceptor)</li>
+<li type="circle">org.jepria.server.service.rest.jersey.validate.<a href="org/jepria/server/service/rest/jersey/validate/ValidationMethodInterceptor.PathNodeImpl.html" title="class in org.jepria.server.service.rest.jersey.validate"><span class="typeNameLink">ValidationMethodInterceptor.PathNodeImpl</span></a> (implements javax.validation.Path.Node)</li>
 <li type="circle">com.technology.jep.jepria.auto.util.<a href="com/technology/jep/jepria/auto/util/WebDriverFactory.html" title="class in com.technology.jep.jepria.auto.util"><span class="typeNameLink">WebDriverFactory</span></a></li>
 <li type="circle">com.technology.jep.jepria.client.ui.<a href="com/technology/jep/jepria/client/ui/WorkstateConstant.html" title="class in com.technology.jep.jepria.client.ui"><span class="typeNameLink">WorkstateConstant</span></a></li>
 <li type="circle">com.technology.jep.jepria.auto.util.<a href="com/technology/jep/jepria/auto/util/WorkstateTransitionUtil.html" title="class in com.technology.jep.jepria.auto.util"><span class="typeNameLink">WorkstateTransitionUtil</span></a></li>
@@ -1147,13 +1182,13 @@
 <li type="circle">com.technology.jep.jepria.server.upload.clob.<a href="com/technology/jep/jepria/server/upload/clob/FileUploadWriter.html" title="class in com.technology.jep.jepria.server.upload.clob"><span class="typeNameLink">FileUploadWriter</span></a></li>
 </ul>
 </li>
+<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/XCacheControlFilter.html" title="class in org.jepria.server.service.rest"><span class="typeNameLink">XCacheControlFilter</span></a> (implements javax.ws.rs.container.ContainerRequestFilter)</li>
 </ul>
 </li>
 </ul>
 <h2 title="Interface Hierarchy">Interface Hierarchy</h2>
 <ul>
 <li type="circle">com.technology.jep.jepria.client.widget.field.multistate.event.<a href="com/technology/jep/jepria/client/widget/field/multistate/event/AfterExpandEvent.HasAfterExpandHandlers.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event"><span class="typeNameLink">AfterExpandEvent.HasAfterExpandHandlers</span></a></li>
-<li type="circle">org.jepria.server.service.apispec.<a href="org/jepria/server/service/apispec/ApiSpec.html" title="interface in org.jepria.server.service.apispec"><span class="typeNameLink">ApiSpec</span></a></li>
 <li type="circle">com.technology.jep.jepria.client.widget.field.multistate.event.<a href="com/technology/jep/jepria/client/widget/field/multistate/event/BeforeExpandEvent.HasBeforeExpandHandlers.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event"><span class="typeNameLink">BeforeExpandEvent.HasBeforeExpandHandlers</span></a></li>
 <li type="circle">com.technology.jep.jepria.client.widget.field.multistate.event.<a href="com/technology/jep/jepria/client/widget/field/multistate/event/BeforeSelectEvent.HasBeforeSelectHandlers.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate.event"><span class="typeNameLink">BeforeSelectEvent.HasBeforeSelectHandlers</span></a>&lt;T&gt;</li>
 <li type="circle">com.technology.jep.jepria.client.ui.wizard.<a href="com/technology/jep/jepria/client/ui/wizard/BlockManager.html" title="interface in com.technology.jep.jepria.client.ui.wizard"><span class="typeNameLink">BlockManager</span></a></li>
@@ -1191,15 +1226,17 @@
 </li>
 <li type="circle">com.technology.jep.jepria.auto.condition.<a href="com/technology/jep/jepria/auto/condition/ConditionChecker.html" title="interface in com.technology.jep.jepria.auto.condition"><span class="typeNameLink">ConditionChecker</span></a></li>
 <li type="circle">com.technology.jep.jepria.client.message.<a href="com/technology/jep/jepria/client/message/ConfirmCallback.html" title="interface in com.technology.jep.jepria.client.message"><span class="typeNameLink">ConfirmCallback</span></a></li>
-<li type="circle">javax.validation.ConstraintValidator&lt;A,T&gt;
-<ul>
-<li type="circle">org.jepria.server.service.rest.validation.<a href="org/jepria/server/service/rest/validation/ConstraintValidator.html" title="interface in org.jepria.server.service.rest.validation"><span class="typeNameLink">ConstraintValidator</span></a>&lt;T&gt;</li>
-</ul>
-</li>
+<li type="circle">org.jepria.server.service.security.<a href="org/jepria/server/service/security/Credential.html" title="interface in org.jepria.server.service.security"><span class="typeNameLink">Credential</span></a></li>
+<li type="circle">org.jepria.server.data.<a href="org/jepria/server/data/Dao.html" title="interface in org.jepria.server.data"><span class="typeNameLink">Dao</span></a></li>
 <li type="circle">com.technology.jep.jepria.server.<a href="com/technology/jep/jepria/server/DaoProvider.html" title="interface in com.technology.jep.jepria.server"><span class="typeNameLink">DaoProvider</span></a>&lt;D&gt;</li>
+<li type="circle">org.jepria.server.data.<a href="org/jepria/server/data/DaoSupport.html" title="interface in org.jepria.server.data"><span class="typeNameLink">DaoSupport</span></a></li>
 <li type="circle">com.technology.jep.jepria.client.async.<a href="com/technology/jep/jepria/client/async/DataLoader.html" title="interface in com.technology.jep.jepria.client.async"><span class="typeNameLink">DataLoader</span></a>&lt;T&gt;</li>
+<li type="circle">org.jepria.server.service.rest.jersey.validate.<a href="org/jepria/server/service/rest/jersey/validate/DirectValidator.html" title="interface in org.jepria.server.service.rest.jersey.validate"><span class="typeNameLink">DirectValidator</span></a></li>
 <li type="circle">com.technology.jep.jepria.server.dao.transaction.handler.<a href="com/technology/jep/jepria/server/dao/transaction/handler/EndTransactionHandler.html" title="interface in com.technology.jep.jepria.server.dao.transaction.handler"><span class="typeNameLink">EndTransactionHandler</span></a></li>
+<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/EntityService.html" title="interface in org.jepria.server.service.rest"><span class="typeNameLink">EntityService</span></a></li>
+<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/EntityServiceImpl.RecordIdParser.html" title="interface in org.jepria.server.service.rest"><span class="typeNameLink">EntityServiceImpl.RecordIdParser</span></a></li>
 <li type="circle">com.technology.jep.jepria.auto.application.entrance.<a href="com/technology/jep/jepria/auto/application/entrance/EntranceAuto.html" title="interface in com.technology.jep.jepria.auto.application.entrance"><span class="typeNameLink">EntranceAuto</span></a></li>
+<li type="circle">org.jepria.server.env.<a href="org/jepria/server/env/EnvironmentPropertySupport.html" title="interface in org.jepria.server.env"><span class="typeNameLink">EnvironmentPropertySupport</span></a></li>
 <li type="circle">com.google.gwt.event.shared.EventHandler
 <ul>
 <li type="circle">com.technology.jep.jepria.client.ui.eventbus.plain.event.<a href="com/technology/jep/jepria/client/ui/eventbus/plain/event/AdjustExitScopeEvent.Handler.html" title="interface in com.technology.jep.jepria.client.ui.eventbus.plain.event"><span class="typeNameLink">AdjustExitScopeEvent.Handler</span></a></li>
@@ -1245,12 +1282,15 @@
 <ul>
 <li type="circle">javax.servlet.http.HttpSessionBindingListener
 <ul>
-<li type="circle">com.technology.jep.jepria.server.security.<a href="com/technology/jep/jepria/server/security/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security"><span class="typeNameLink">JepSecurityModule</span></a></li>
+<li type="circle">com.technology.jep.jepria.server.security.module.<a href="com/technology/jep/jepria/server/security/module/JepSecurityModule.html" title="interface in com.technology.jep.jepria.server.security.module"><span class="typeNameLink">JepSecurityModule</span></a></li>
 </ul>
 </li>
 </ul>
 </li>
 <li type="circle">com.technology.jep.jepria.client.exception.<a href="com/technology/jep/jepria/client/exception/ExceptionManager.html" title="interface in com.technology.jep.jepria.client.exception"><span class="typeNameLink">ExceptionManager</span></a></li>
+<li type="circle">org.jepria.server.service.rest.jersey.<a href="org/jepria/server/service/rest/jersey/ExceptionManager.html" title="interface in org.jepria.server.service.rest.jersey"><span class="typeNameLink">ExceptionManager</span></a></li>
+<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/ExtendedResponse.Configurator.html" title="interface in org.jepria.server.service.rest"><span class="typeNameLink">ExtendedResponse.Configurator</span></a></li>
+<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/ExtendedResponse.Handler.html" title="interface in org.jepria.server.service.rest"><span class="typeNameLink">ExtendedResponse.Handler</span></a></li>
 <li type="circle">com.technology.jep.jepria.server.download.<a href="com/technology/jep/jepria/server/download/FileDownload.html" title="interface in com.technology.jep.jepria.server.download"><span class="typeNameLink">FileDownload</span></a>
 <ul>
 <li type="circle">com.technology.jep.jepria.server.download.blob.<a href="com/technology/jep/jepria/server/download/blob/BinaryFileDownload.html" title="interface in com.technology.jep.jepria.server.download.blob"><span class="typeNameLink">BinaryFileDownload</span></a></li>
@@ -1325,11 +1365,6 @@
 </li>
 </ul>
 </li>
-<li type="circle">java.util.Map&lt;K,V&gt;
-<ul>
-<li type="circle">org.jepria.<a href="org/jepria/CastMap.html" title="interface in org.jepria"><span class="typeNameLink">CastMap</span></a>&lt;K,V&gt;</li>
-</ul>
-</li>
 <li type="circle">com.technology.jep.jepria.auto.page.<a href="com/technology/jep/jepria/auto/page/Page.html" title="interface in com.technology.jep.jepria.auto.page"><span class="typeNameLink">Page</span></a>
 <ul>
 <li type="circle">com.technology.jep.jepria.auto.application.page.<a href="com/technology/jep/jepria/auto/application/page/JepRiaApplicationPage.html" title="interface in com.technology.jep.jepria.auto.application.page"><span class="typeNameLink">JepRiaApplicationPage</span></a></li>
@@ -1342,6 +1377,7 @@
 <li type="circle">com.technology.jep.jepria.client.history.<a href="com/technology/jep/jepria/client/history/DefaultPlaceHistoryMapper.html" title="interface in com.technology.jep.jepria.client.history"><span class="typeNameLink">DefaultPlaceHistoryMapper</span></a></li>
 </ul>
 </li>
+<li type="circle">org.jepria.server.data.<a href="org/jepria/server/data/RecordDefinition.html" title="interface in org.jepria.server.data"><span class="typeNameLink">RecordDefinition</span></a></li>
 <li type="circle">com.google.gwt.user.client.rpc.RemoteService
 <ul>
 <li type="circle">com.technology.jep.jepria.shared.service.data.<a href="com/technology/jep/jepria/shared/service/data/JepDataService.html" title="interface in com.technology.jep.jepria.shared.service.data"><span class="typeNameLink">JepDataService</span></a></li>
@@ -1365,17 +1401,23 @@
 </li>
 </ul>
 </li>
-<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/RestService.EndpointMethod.html" title="interface in org.jepria.server.service.rest"><span class="typeNameLink">RestService.EndpointMethod</span></a></li>
 <li type="circle">com.google.gwt.safehtml.client.SafeHtmlTemplates
 <ul>
 <li type="circle">com.technology.jep.jepria.client.widget.list.cell.<a href="com/technology/jep/jepria/client/widget/list/cell/EditTreeCell.Template.html" title="interface in com.technology.jep.jepria.client.widget.list.cell"><span class="typeNameLink">EditTreeCell.Template</span></a></li>
 <li type="circle">com.technology.jep.jepria.client.widget.field.tree.<a href="com/technology/jep/jepria/client/widget/field/tree/TreeField.Template.html" title="interface in com.technology.jep.jepria.client.widget.field.tree"><span class="typeNameLink">TreeField.Template</span></a></li>
 </ul>
 </li>
+<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/SearchService.html" title="interface in org.jepria.server.service.rest"><span class="typeNameLink">SearchService</span></a></li>
+<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/SearchService.SearchRequest.html" title="interface in org.jepria.server.service.rest"><span class="typeNameLink">SearchService.SearchRequest</span></a></li>
+<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/SearchServiceImpl.Property.html" title="interface in org.jepria.server.service.rest"><span class="typeNameLink">SearchServiceImpl.Property</span></a>&lt;T&gt;</li>
+<li type="circle">javax.ws.rs.core.SecurityContext
+<ul>
+<li type="circle">org.jepria.server.service.security.<a href="org/jepria/server/service/security/JepSecurityContext.html" title="interface in org.jepria.server.service.security"><span class="typeNameLink">JepSecurityContext</span></a></li>
+</ul>
+</li>
+<li type="circle">org.jepria.swagger.<a href="org/jepria/swagger/SpecServlet.Spec.html" title="interface in org.jepria.swagger"><span class="typeNameLink">SpecServlet.Spec</span></a></li>
 <li type="circle">com.technology.jep.jepria.server.dao.transaction.handler.<a href="com/technology/jep/jepria/server/dao/transaction/handler/StartTransactionHandler.html" title="interface in com.technology.jep.jepria.server.dao.transaction.handler"><span class="typeNameLink">StartTransactionHandler</span></a></li>
 <li type="circle">com.technology.jep.jepria.auto.widget.tree.<a href="com/technology/jep/jepria/auto/widget/tree/TreeItemFilter.html" title="interface in com.technology.jep.jepria.auto.widget.tree"><span class="typeNameLink">TreeItemFilter</span></a></li>
-<li type="circle">org.jepria.server.service.apispec.<a href="org/jepria/server/service/apispec/TypeDeployer.html" title="interface in org.jepria.server.service.apispec"><span class="typeNameLink">TypeDeployer</span></a></li>
-<li type="circle">org.jepria.<a href="org/jepria/TypedValueParser.html" title="interface in org.jepria"><span class="typeNameLink">TypedValueParser</span></a></li>
 <li type="circle">com.google.gwt.uibinder.client.UiBinder&lt;U,O&gt;
 <ul>
 <li type="circle">com.technology.jep.jepria.client.widget.field.multistate.<a href="com/technology/jep/jepria/client/widget/field/multistate/JepMultiStateField.JepMultiStateFieldLayoutUiBinder.html" title="interface in com.technology.jep.jepria.client.widget.field.multistate"><span class="typeNameLink">JepMultiStateField.JepMultiStateFieldLayoutUiBinder</span></a></li>
@@ -1388,10 +1430,10 @@
 <ul>
 <li type="circle">com.technology.jep.jepria.server.dao.transaction.annotation.<a href="com/technology/jep/jepria/server/dao/transaction/annotation/Before.html" title="annotation in com.technology.jep.jepria.server.dao.transaction.annotation"><span class="typeNameLink">Before</span></a> (implements java.lang.annotation.Annotation)</li>
 <li type="circle">com.technology.jep.jepria.server.dao.transaction.annotation.<a href="com/technology/jep/jepria/server/dao/transaction/annotation/After.html" title="annotation in com.technology.jep.jepria.server.dao.transaction.annotation"><span class="typeNameLink">After</span></a> (implements java.lang.annotation.Annotation)</li>
-<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/QueryParams.html" title="annotation in org.jepria.server.service.rest"><span class="typeNameLink">QueryParams</span></a> (implements java.lang.annotation.Annotation)</li>
-<li type="circle">org.jepria.server.service.rest.<a href="org/jepria/server/service/rest/BodyParams.html" title="annotation in org.jepria.server.service.rest"><span class="typeNameLink">BodyParams</span></a> (implements java.lang.annotation.Annotation)</li>
+<li type="circle">org.jepria.server.data.<a href="org/jepria/server/data/PrimaryKey.html" title="annotation in org.jepria.server.data"><span class="typeNameLink">PrimaryKey</span></a> (implements java.lang.annotation.Annotation)</li>
 <li type="circle">org.jepria.server.service.rest.gson.<a href="org/jepria/server/service/rest/gson/JsonConfigPrepared.html" title="annotation in org.jepria.server.service.rest.gson"><span class="typeNameLink">JsonConfigPrepared</span></a> (implements java.lang.annotation.Annotation)</li>
 <li type="circle">org.jepria.server.service.rest.gson.<a href="org/jepria/server/service/rest/gson/JsonConfig.html" title="annotation in org.jepria.server.service.rest.gson"><span class="typeNameLink">JsonConfig</span></a> (implements java.lang.annotation.Annotation)</li>
+<li type="circle">org.jepria.server.service.security.<a href="org/jepria/server/service/security/HttpBasic.html" title="annotation in org.jepria.server.service.security"><span class="typeNameLink">HttpBasic</span></a> (implements java.lang.annotation.Annotation)</li>
 <li type="circle">com.technology.jep.test.util.<a href="com/technology/jep/test/util/DataProviderArguments.html" title="annotation in com.technology.jep.test.util"><span class="typeNameLink">DataProviderArguments</span></a> (implements java.lang.annotation.Annotation)</li>
 </ul>
 <h2 title="Enum Hierarchy">Enum Hierarchy</h2>
@@ -1416,7 +1458,6 @@
 <li type="circle">com.technology.jep.jepria.shared.field.<a href="com/technology/jep/jepria/shared/field/JepTypeEnum.HistoryToken.html" title="enum in com.technology.jep.jepria.shared.field"><span class="typeNameLink">JepTypeEnum.HistoryToken</span></a></li>
 <li type="circle">com.technology.jep.jepria.shared.field.<a href="com/technology/jep/jepria/shared/field/JepLikeEnum.html" title="enum in com.technology.jep.jepria.shared.field"><span class="typeNameLink">JepLikeEnum</span></a></li>
 <li type="circle">com.technology.jep.jepria.shared.load.<a href="com/technology/jep/jepria/shared/load/SortConfig.SortDir.html" title="enum in com.technology.jep.jepria.shared.load"><span class="typeNameLink">SortConfig.SortDir</span></a></li>
-<li type="circle">org.jepria.server.service.apispec.<a href="org/jepria/server/service/apispec/Parameter.In.html" title="enum in org.jepria.server.service.apispec"><span class="typeNameLink">Parameter.In</span></a></li>
 <li type="circle">com.technology.jep.jepria.auto.application.entrance.<a href="com/technology/jep/jepria/auto/application/entrance/EntranceStatus.html" title="enum in com.technology.jep.jepria.auto.application.entrance"><span class="typeNameLink">EntranceStatus</span></a></li>
 <li type="circle">com.technology.jep.jepria.auto.module.<a href="com/technology/jep/jepria/auto/module/JepRiaModuleAuto.SaveResultEnum.html" title="enum in com.technology.jep.jepria.auto.module"><span class="typeNameLink">JepRiaModuleAuto.SaveResultEnum</span></a></li>
 <li type="circle">com.technology.jep.jepria.auto.page.<a href="com/technology/jep/jepria/auto/page/FramePage.Locale.html" title="enum in com.technology.jep.jepria.auto.page"><span class="typeNameLink">FramePage.Locale</span></a></li>

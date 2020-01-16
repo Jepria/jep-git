@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":6,"i1":6,"i2":6,"i3":6};
+var methods = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -136,12 +136,10 @@ var activeTableTab = "activeTableTab";
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>int</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/download/FileDownload.html#beginRead-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-java.lang.String-java.lang.String-">beginRead</a></span>(java.lang.String&nbsp;tableName,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/download/FileDownload.html#beginRead-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-">beginRead</a></span>(java.lang.String&nbsp;tableName,
          java.lang.String&nbsp;fileFieldName,
          java.lang.String&nbsp;keyFieldName,
-         java.lang.Object&nbsp;rowId,
-         java.lang.String&nbsp;dataSourceJndiName,
-         java.lang.String&nbsp;moduleName)</code>
+         java.lang.Object&nbsp;rowId)</code>
 <div class="block">Начало длинной транзакции чтения файла из LOB.</div>
 </td>
 </tr>
@@ -155,6 +153,12 @@ var activeTableTab = "activeTableTab";
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/download/FileDownload.html#endRead--">endRead</a></span>()</code>
 <div class="block">Окончание загрузки.</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/download/FileDownload.html#isCancelled--">isCancelled</a></span>()</code>
+<div class="block">Whether the reading has been cancelled (interrupted) or ended successfully (to decide whether to do rollback or commit at the end)</div>
 </td>
 </tr>
 </table>
@@ -172,7 +176,7 @@ var activeTableTab = "activeTableTab";
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a name="beginRead-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-java.lang.String-java.lang.String-">
+<a name="beginRead-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -181,9 +185,7 @@ var activeTableTab = "activeTableTab";
 <pre>int&nbsp;beginRead(java.lang.String&nbsp;tableName,
               java.lang.String&nbsp;fileFieldName,
               java.lang.String&nbsp;keyFieldName,
-              java.lang.Object&nbsp;rowId,
-              java.lang.String&nbsp;dataSourceJndiName,
-              java.lang.String&nbsp;moduleName)
+              java.lang.Object&nbsp;rowId)
        throws <a href="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</a></pre>
 <div class="block">Начало длинной транзакции чтения файла из LOB.</div>
 <dl>
@@ -192,7 +194,6 @@ var activeTableTab = "activeTableTab";
 <dd><code>fileFieldName</code> - имя поля, из которого выполняется чтение</dd>
 <dd><code>keyFieldName</code> - имя поля, идентифицирующего строку таблицы</dd>
 <dd><code>rowId</code> - идентификатор строки таблицы</dd>
-<dd><code>dataSourceJndiName</code> - JNDI-имя источника данных модуля</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>рекомендуемый размер буфера</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -239,13 +240,23 @@ var activeTableTab = "activeTableTab";
 <a name="cancel--">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>cancel</h4>
 <pre>void&nbsp;cancel()</pre>
 <div class="block">Откат длинной транзакции.
  После выполнения этого метода stateful bean должен быть удалён. 
  Для удаления bean необходимо в классе реализации перед методом указать декларацию Remove.</div>
+</li>
+</ul>
+<a name="isCancelled--">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>isCancelled</h4>
+<pre>boolean&nbsp;isCancelled()</pre>
+<div class="block">Whether the reading has been cancelled (interrupted) or ended successfully (to decide whether to do rollback or commit at the end)</div>
 </li>
 </ul>
 </li>

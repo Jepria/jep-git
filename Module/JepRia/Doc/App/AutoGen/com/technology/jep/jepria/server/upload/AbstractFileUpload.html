@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -139,16 +139,16 @@ implements <a href="../../../../../../com/technology/jep/jepria/server/upload/Fi
 <th class="colLast" scope="col">Field and Description</th>
 </tr>
 <tr class="altColor">
+<td class="colFirst"><code>protected boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/AbstractFileUpload.html#cancelled">cancelled</a></span></code>&nbsp;</td>
+</tr>
+<tr class="rowColor">
 <td class="colFirst"><code>protected <a href="../../../../../../com/technology/jep/jepria/server/db/LargeObject.html" title="class in com.technology.jep.jepria.server.db">LargeObject</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/AbstractFileUpload.html#largeObject">largeObject</a></span></code>&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>protected <a href="../../../../../../com/technology/jep/jepria/server/dao/CallContext.html" title="class in com.technology.jep.jepria.server.dao">CallContext</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/AbstractFileUpload.html#storedContext">storedContext</a></span></code>&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>protected boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/AbstractFileUpload.html#transactionable">transactionable</a></span></code>&nbsp;</td>
 </tr>
 </table>
 </li>
@@ -165,14 +165,7 @@ implements <a href="../../../../../../com/technology/jep/jepria/server/upload/Fi
 <th class="colOne" scope="col">Constructor and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/AbstractFileUpload.html#AbstractFileUpload--">AbstractFileUpload</a></span>()</code>
-<div class="block">Создаёт загрузчик файлов на сервер.</div>
-</td>
-</tr>
-<tr class="rowColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/AbstractFileUpload.html#AbstractFileUpload-boolean-">AbstractFileUpload</a></span>(boolean&nbsp;transactionable)</code>
-<div class="block">Создаёт загрузчик файлов на сервер.</div>
-</td>
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/AbstractFileUpload.html#AbstractFileUpload--">AbstractFileUpload</a></span>()</code>&nbsp;</td>
 </tr>
 </table>
 </li>
@@ -192,7 +185,7 @@ implements <a href="../../../../../../com/technology/jep/jepria/server/upload/Fi
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/AbstractFileUpload.html#beginWrite-java.lang.Object-">beginWrite</a></span>(java.lang.Object&nbsp;rowId)</code>
-<div class="block">Функция-обертка для <a href="../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#beginWrite-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-java.lang.String-java.lang.String-"><code>FileUpload.beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId, String dataSourceJndiName, String moduleName)</code></a>.</div>
+<div class="block">Функция-обертка для <a href="../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#beginWrite-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-"><code>FileUpload.beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId)</code></a>.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
@@ -205,6 +198,12 @@ implements <a href="../../../../../../com/technology/jep/jepria/server/upload/Fi
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/AbstractFileUpload.html#endWrite--">endWrite</a></span>()</code>
 <div class="block">Окончание выгрузки.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/AbstractFileUpload.html#isCancelled--">isCancelled</a></span>()</code>
+<div class="block">Whether the writing has been cancelled (interrupted) or ended successfully (to decide whether to do rollback or commit at the end)</div>
 </td>
 </tr>
 </table>
@@ -220,7 +219,7 @@ implements <a href="../../../../../../com/technology/jep/jepria/server/upload/Fi
 <!--   -->
 </a>
 <h3>Methods inherited from interface&nbsp;com.technology.jep.jepria.server.upload.<a href="../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html" title="interface in com.technology.jep.jepria.server.upload">FileUpload</a></h3>
-<code><a href="../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#beginWrite-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-java.lang.String-java.lang.String-">beginWrite</a></code></li>
+<code><a href="../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#beginWrite-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-">beginWrite</a></code></li>
 </ul>
 </li>
 </ul>
@@ -254,13 +253,13 @@ implements <a href="../../../../../../com/technology/jep/jepria/server/upload/Fi
 <pre>protected&nbsp;<a href="../../../../../../com/technology/jep/jepria/server/db/LargeObject.html" title="class in com.technology.jep.jepria.server.db">LargeObject</a> largeObject</pre>
 </li>
 </ul>
-<a name="transactionable">
+<a name="cancelled">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>transactionable</h4>
-<pre>protected final&nbsp;boolean transactionable</pre>
+<h4>cancelled</h4>
+<pre>protected&nbsp;boolean cancelled</pre>
 </li>
 </ul>
 </li>
@@ -274,25 +273,10 @@ implements <a href="../../../../../../com/technology/jep/jepria/server/upload/Fi
 <a name="AbstractFileUpload--">
 <!--   -->
 </a>
-<ul class="blockList">
-<li class="blockList">
-<h4>AbstractFileUpload</h4>
-<pre>public&nbsp;AbstractFileUpload()</pre>
-<div class="block">Создаёт загрузчик файлов на сервер.</div>
-</li>
-</ul>
-<a name="AbstractFileUpload-boolean-">
-<!--   -->
-</a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>AbstractFileUpload</h4>
-<pre>public&nbsp;AbstractFileUpload(boolean&nbsp;transactionable)</pre>
-<div class="block">Создаёт загрузчик файлов на сервер.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>transactionable</code> - проведение загрузки в рамках отдельной транзакции</dd>
-</dl>
+<pre>public&nbsp;AbstractFileUpload()</pre>
 </li>
 </ul>
 </li>
@@ -303,6 +287,21 @@ implements <a href="../../../../../../com/technology/jep/jepria/server/upload/Fi
 <!--   -->
 </a>
 <h3>Method Detail</h3>
+<a name="isCancelled--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isCancelled</h4>
+<pre>public&nbsp;boolean&nbsp;isCancelled()</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#isCancelled--">FileUpload</a></code></span></div>
+<div class="block">Whether the writing has been cancelled (interrupted) or ended successfully (to decide whether to do rollback or commit at the end)</div>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#isCancelled--">isCancelled</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html" title="interface in com.technology.jep.jepria.server.upload">FileUpload</a></code></dd>
+</dl>
+</li>
+</ul>
 <a name="beginWrite-java.lang.Object-">
 <!--   -->
 </a>
@@ -311,9 +310,9 @@ implements <a href="../../../../../../com/technology/jep/jepria/server/upload/Fi
 <h4>beginWrite</h4>
 <pre>public&nbsp;int&nbsp;beginWrite(java.lang.Object&nbsp;rowId)
                throws <a href="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</a></pre>
-<div class="block">Функция-обертка для <a href="../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#beginWrite-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-java.lang.String-java.lang.String-"><code>FileUpload.beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId, String dataSourceJndiName, String moduleName)</code></a>.
+<div class="block">Функция-обертка для <a href="../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#beginWrite-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-"><code>FileUpload.beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId)</code></a>.
  В классе реализации в конкретном модуле данный метод перегружаем вызывая в нем 
- <a href="../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#beginWrite-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-java.lang.String-java.lang.String-"><code>FileUpload.beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId, String dataSourceJndiName, String moduleName)</code></a>
+ <a href="../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#beginWrite-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-"><code>FileUpload.beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId)</code></a>
  с подставленными из констант класса реализации параметрами:<br/>
  <code>
  tableName,<br/>

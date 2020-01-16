@@ -18,8 +18,8 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":9,"i1":9,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9,"i9":9,"i10":9,"i11":9,"i12":9,"i13":9,"i14":9,"i15":9,"i16":9,"i17":9,"i18":9,"i19":9,"i20":9,"i21":9};
-var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"]};
+var methods = {"i0":41,"i1":41,"i2":41,"i3":41,"i4":41,"i5":41,"i6":41,"i7":41,"i8":41,"i9":41,"i10":41,"i11":41,"i12":41,"i13":41,"i14":41,"i15":41,"i16":41,"i17":41,"i18":41,"i19":41,"i20":41,"i21":41};
+var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"],32:["t6","Deprecated Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -107,8 +107,12 @@ var activeTableTab = "activeTableTab";
 <ul class="blockList">
 <li class="blockList">
 <hr>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;
+<div class="block"><span class="deprecationComment">for Rest use <a href="../../../../../../org/jepria/server/data/DaoSupport.html" title="interface in org.jepria.server.data"><code>DaoSupport</code></a> instead</span></div>
+</div>
 <br>
-<pre>public class <span class="typeNameLabel">DaoSupport</span>
+<pre>@Deprecated
+public class <span class="typeNameLabel">DaoSupport</span>
 extends java.lang.Object</pre>
 <div class="block">Класс предназначен для облегчения работы с jdbc.<br/>
  
@@ -201,6 +205,7 @@ extends java.lang.Object</pre>
 <tr class="altColor">
 <td class="colFirst"><code>private static class&nbsp;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.ExecutionType.html" title="enum in com.technology.jep.jepria.server.dao">DaoSupport.ExecutionType</a></span></code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Возможные типы выполнения запроса в методе <a href="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#setParamsAndExecute-java.sql.CallableStatement-com.technology.jep.jepria.server.dao.DaoSupport.ExecutionType-java.lang.Object...-"><code>setParamsAndExecute(java.sql.CallableStatement, com.technology.jep.jepria.server.dao.DaoSupport.ExecutionType, java.lang.Object...)</code></a>.</div>
 </td>
 </tr>
@@ -221,7 +226,9 @@ extends java.lang.Object</pre>
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>protected static org.apache.log4j.Logger</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#logger">logger</a></span></code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#logger">logger</a></span></code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
+&nbsp;</td>
 </tr>
 </table>
 </li>
@@ -238,7 +245,9 @@ extends java.lang.Object</pre>
 <th class="colOne" scope="col">Constructor and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#DaoSupport--">DaoSupport</a></span>()</code>&nbsp;</td>
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#DaoSupport--">DaoSupport</a></span>()</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
+&nbsp;</td>
 </tr>
 </table>
 </li>
@@ -250,7 +259,7 @@ extends java.lang.Object</pre>
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Static Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t1" class="tableTab"><span><a href="javascript:show(1);">Static Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t6" class="tableTab"><span><a href="javascript:show(32);">Deprecated Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colLast" scope="col">Method and Description</th>
@@ -258,8 +267,9 @@ extends java.lang.Object</pre>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>static &lt;T&gt;&nbsp;T</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#create-java.lang.String-java.lang.Class-java.lang.Object...-">create</a></span>(java.lang.String&nbsp;query,
-      java.lang.Class&lt;T&gt;&nbsp;resultTypeClass,
+      java.lang.Class&lt;? super T&gt;&nbsp;resultTypeClass,
       java.lang.Object...&nbsp;params)</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Данный метод выполняет sql-выражение, создающее запись в БД.</div>
 </td>
 </tr>
@@ -267,6 +277,7 @@ extends java.lang.Object</pre>
 <td class="colFirst"><code>static void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#delete-java.lang.String-java.lang.Object...-">delete</a></span>(java.lang.String&nbsp;query,
       java.lang.Object...&nbsp;params)</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Данный метод выполняет sql-выражение, удаляющее запись из БД.</div>
 </td>
 </tr>
@@ -274,47 +285,53 @@ extends java.lang.Object</pre>
 <td class="colFirst"><code>static void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#execute-java.lang.String-java.lang.Object...-">execute</a></span>(java.lang.String&nbsp;query,
        java.lang.Object...&nbsp;params)</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Данный метод выполняет sql-выражение без возвращаемого значения.</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
 <td class="colFirst"><code>static &lt;T&gt;&nbsp;T</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#executeAndReturn-java.lang.String-java.lang.Class-java.lang.Object...-">executeAndReturn</a></span>(java.lang.String&nbsp;query,
-                java.lang.Class&lt;T&gt;&nbsp;resultTypeClass,
+                java.lang.Class&lt;? super T&gt;&nbsp;resultTypeClass,
                 java.lang.Object...&nbsp;params)</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Данный метод выполняет sql-выражение, возвращающее объект типа T.</div>
 </td>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>static &lt;T&gt;&nbsp;java.util.List&lt;T&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#find-java.lang.String-com.technology.jep.jepria.server.dao.ResultSetMapper-java.lang.Class-java.lang.Object...-">find</a></span>(java.lang.String&nbsp;query,
-    <a href="../../../../../../com/technology/jep/jepria/server/dao/ResultSetMapper.html" title="class in com.technology.jep.jepria.server.dao">ResultSetMapper</a>&lt;T&gt;&nbsp;mapper,
-    java.lang.Class&lt;T&gt;&nbsp;recordClass,
+    <a href="../../../../../../com/technology/jep/jepria/server/dao/ResultSetMapper.html" title="class in com.technology.jep.jepria.server.dao">ResultSetMapper</a>&lt;? super T&gt;&nbsp;mapper,
+    java.lang.Class&lt;? super T&gt;&nbsp;recordClass,
     java.lang.Object...&nbsp;params)</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Данный метод выполняет sql-выражение, возвращающее курсор.</div>
 </td>
 </tr>
 <tr id="i5" class="rowColor">
 <td class="colFirst"><code>private static &lt;T&gt;&nbsp;java.util.List&lt;T&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#findOrSelect-java.lang.String-com.technology.jep.jepria.server.dao.ResultSetMapper-java.lang.Class-com.technology.jep.jepria.server.dao.DaoSupport.ExecutionType-java.lang.Object...-">findOrSelect</a></span>(java.lang.String&nbsp;query,
-            <a href="../../../../../../com/technology/jep/jepria/server/dao/ResultSetMapper.html" title="class in com.technology.jep.jepria.server.dao">ResultSetMapper</a>&lt;T&gt;&nbsp;mapper,
-            java.lang.Class&lt;T&gt;&nbsp;recordClass,
+            <a href="../../../../../../com/technology/jep/jepria/server/dao/ResultSetMapper.html" title="class in com.technology.jep.jepria.server.dao">ResultSetMapper</a>&lt;? super T&gt;&nbsp;mapper,
+            java.lang.Class&lt;? super T&gt;&nbsp;recordClass,
             <a href="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.ExecutionType.html" title="enum in com.technology.jep.jepria.server.dao">DaoSupport.ExecutionType</a>&nbsp;executionType,
             java.lang.Object...&nbsp;params)</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Вспомогательный метод, объединящий в себе логику работы методов find и select.</div>
 </td>
 </tr>
 <tr id="i6" class="altColor">
 <td class="colFirst"><code>private static java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#getAction-java.lang.String-">getAction</a></span>(java.lang.String&nbsp;query)</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Получение названия действия (action_name) из шаблона SQL-выражения.</div>
 </td>
 </tr>
 <tr id="i7" class="rowColor">
 <td class="colFirst"><code>private static &lt;T&gt;&nbsp;T</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#getResult-java.sql.CallableStatement-java.lang.Class-java.lang.Object:A-">getResult</a></span>(java.sql.CallableStatement&nbsp;callableStatement,
-         java.lang.Class&lt;T&gt;&nbsp;resultTypeClass,
+         java.lang.Class&lt;? super T&gt;&nbsp;resultTypeClass,
          java.lang.Object[]&nbsp;params)</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Служебный метод, осушествляющий извлечение выходных параметров.</div>
 </td>
 </tr>
@@ -322,22 +339,25 @@ extends java.lang.Object</pre>
 <td class="colFirst"><code>private static &lt;T&gt;&nbsp;void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#registerParameter-java.sql.CallableStatement-int-java.lang.Class-">registerParameter</a></span>(java.sql.CallableStatement&nbsp;callableStatement,
                  int&nbsp;paramNumber,
-                 java.lang.Class&lt;T&gt;&nbsp;resultTypeClass)</code>
+                 java.lang.Class&lt;? super T&gt;&nbsp;resultTypeClass)</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Служебный метод, устанавливающий выходной параметр в statement</div>
 </td>
 </tr>
 <tr id="i9" class="rowColor">
 <td class="colFirst"><code>static &lt;T&gt;&nbsp;java.util.List&lt;T&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#select-java.lang.String-com.technology.jep.jepria.server.dao.ResultSetMapper-java.lang.Class-java.lang.Object...-">select</a></span>(java.lang.String&nbsp;query,
-      <a href="../../../../../../com/technology/jep/jepria/server/dao/ResultSetMapper.html" title="class in com.technology.jep.jepria.server.dao">ResultSetMapper</a>&lt;T&gt;&nbsp;mapper,
-      java.lang.Class&lt;T&gt;&nbsp;modelClass,
+      <a href="../../../../../../com/technology/jep/jepria/server/dao/ResultSetMapper.html" title="class in com.technology.jep.jepria.server.dao">ResultSetMapper</a>&lt;? super T&gt;&nbsp;mapper,
+      java.lang.Class&lt;? super T&gt;&nbsp;modelClass,
       java.lang.Object...&nbsp;params)</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Данный метод выполняет sql-запрос.</div>
 </td>
 </tr>
 <tr id="i10" class="altColor">
 <td class="colFirst"><code>private static void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#setApplicationInfo-java.lang.String-">setApplicationInfo</a></span>(java.lang.String&nbsp;queryToExecute)</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Установка информации о вызывающем модуле.</div>
 </td>
 </tr>
@@ -346,6 +366,7 @@ extends java.lang.Object</pre>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#setBigDecimalParameter-java.sql.CallableStatement-java.math.BigDecimal-int-">setBigDecimalParameter</a></span>(java.sql.CallableStatement&nbsp;callableStatement,
                       java.math.BigDecimal&nbsp;parameter,
                       int&nbsp;place)</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Вспомогательный метод.</div>
 </td>
 </tr>
@@ -354,6 +375,7 @@ extends java.lang.Object</pre>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#setBooleanParameter-java.sql.CallableStatement-java.lang.Boolean-int-">setBooleanParameter</a></span>(java.sql.CallableStatement&nbsp;callableStatement,
                    java.lang.Boolean&nbsp;parameter,
                    int&nbsp;place)</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Вспомогательный метод.</div>
 </td>
 </tr>
@@ -362,6 +384,7 @@ extends java.lang.Object</pre>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#setClobParameter-java.sql.CallableStatement-com.technology.jep.jepria.shared.record.lob.JepClob-int-">setClobParameter</a></span>(java.sql.CallableStatement&nbsp;callableStatement,
                 <a href="../../../../../../com/technology/jep/jepria/shared/record/lob/JepClob.html" title="class in com.technology.jep.jepria.shared.record.lob">JepClob</a>&nbsp;parameter,
                 int&nbsp;place)</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Вспомогательный метод.</div>
 </td>
 </tr>
@@ -370,6 +393,7 @@ extends java.lang.Object</pre>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#setDateParameter-java.sql.CallableStatement-java.util.Date-int-">setDateParameter</a></span>(java.sql.CallableStatement&nbsp;callableStatement,
                 java.util.Date&nbsp;parameter,
                 int&nbsp;place)</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Вспомогательный метод.</div>
 </td>
 </tr>
@@ -378,6 +402,7 @@ extends java.lang.Object</pre>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#setInputParamsToStatement-java.sql.CallableStatement-int-java.lang.Object...-">setInputParamsToStatement</a></span>(java.sql.CallableStatement&nbsp;callableStatement,
                          int&nbsp;i,
                          java.lang.Object...&nbsp;params)</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Данный вспомогательный метод присваивает параметры запроса объекту callableStatement.</div>
 </td>
 </tr>
@@ -386,6 +411,7 @@ extends java.lang.Object</pre>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#setIntegerParameter-java.sql.CallableStatement-java.lang.Integer-int-">setIntegerParameter</a></span>(java.sql.CallableStatement&nbsp;callableStatement,
                    java.lang.Integer&nbsp;parameter,
                    int&nbsp;place)</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Вспомогательный метод.</div>
 </td>
 </tr>
@@ -393,14 +419,16 @@ extends java.lang.Object</pre>
 <td class="colFirst"><code>static void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#setModule-java.lang.String-java.lang.String-">setModule</a></span>(java.lang.String&nbsp;moduleName,
          java.lang.String&nbsp;actionName)</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Установка имени модуля (module name) и названия действия (action_name).</div>
 </td>
 </tr>
 <tr id="i18" class="altColor">
 <td class="colFirst"><code>private static &lt;T&gt;&nbsp;void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#setOutputParamsToStatement-java.sql.CallableStatement-java.lang.Class-java.lang.Object:A-">setOutputParamsToStatement</a></span>(java.sql.CallableStatement&nbsp;callableStatement,
-                          java.lang.Class&lt;T&gt;&nbsp;resultTypeClass,
+                          java.lang.Class&lt;? super T&gt;&nbsp;resultTypeClass,
                           java.lang.Object[]&nbsp;params)</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Служебный метод, устанавливающий выходные параметры в statement.</div>
 </td>
 </tr>
@@ -409,6 +437,7 @@ extends java.lang.Object</pre>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#setParamsAndExecute-java.sql.CallableStatement-com.technology.jep.jepria.server.dao.DaoSupport.ExecutionType-java.lang.Object...-">setParamsAndExecute</a></span>(java.sql.CallableStatement&nbsp;callableStatement,
                    <a href="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.ExecutionType.html" title="enum in com.technology.jep.jepria.server.dao">DaoSupport.ExecutionType</a>&nbsp;executionType,
                    java.lang.Object...&nbsp;params)</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Вспомогательный метод, выставляющий параметры callableStatement и выполняющий запрос.</div>
 </td>
 </tr>
@@ -417,6 +446,7 @@ extends java.lang.Object</pre>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#setStringParameter-java.sql.CallableStatement-java.lang.String-int-">setStringParameter</a></span>(java.sql.CallableStatement&nbsp;callableStatement,
                   java.lang.String&nbsp;parameter,
                   int&nbsp;place)</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Вспомогательный метод.</div>
 </td>
 </tr>
@@ -424,6 +454,7 @@ extends java.lang.Object</pre>
 <td class="colFirst"><code>static void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.html#update-java.lang.String-java.lang.Object...-">update</a></span>(java.lang.String&nbsp;query,
       java.lang.Object...&nbsp;params)</code>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Данный метод выполняет sql-выражение, изменяющее запись в БД.</div>
 </td>
 </tr>
@@ -456,6 +487,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>logger</h4>
 <pre>protected static&nbsp;org.apache.log4j.Logger logger</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </li>
 </ul>
 </li>
@@ -473,6 +505,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>DaoSupport</h4>
 <pre>public&nbsp;DaoSupport()</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 </li>
 </ul>
 </li>
@@ -490,9 +523,10 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>create</h4>
 <pre>public static&nbsp;&lt;T&gt;&nbsp;T&nbsp;create(java.lang.String&nbsp;query,
-                           java.lang.Class&lt;T&gt;&nbsp;resultTypeClass,
+                           java.lang.Class&lt;? super T&gt;&nbsp;resultTypeClass,
                            java.lang.Object...&nbsp;params)
                     throws <a href="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</a></pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Данный метод выполняет sql-выражение, создающее запись в БД.</div>
 <dl>
 <dt><span class="paramLabel">Type Parameters:</span></dt>
@@ -517,6 +551,7 @@ extends java.lang.Object</pre>
 <pre>public static&nbsp;void&nbsp;execute(java.lang.String&nbsp;query,
                            java.lang.Object...&nbsp;params)
                     throws <a href="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</a></pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Данный метод выполняет sql-выражение без возвращаемого значения.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -534,10 +569,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>find</h4>
 <pre>public static&nbsp;&lt;T&gt;&nbsp;java.util.List&lt;T&gt;&nbsp;find(java.lang.String&nbsp;query,
-                                         <a href="../../../../../../com/technology/jep/jepria/server/dao/ResultSetMapper.html" title="class in com.technology.jep.jepria.server.dao">ResultSetMapper</a>&lt;T&gt;&nbsp;mapper,
-                                         java.lang.Class&lt;T&gt;&nbsp;recordClass,
+                                         <a href="../../../../../../com/technology/jep/jepria/server/dao/ResultSetMapper.html" title="class in com.technology.jep.jepria.server.dao">ResultSetMapper</a>&lt;? super T&gt;&nbsp;mapper,
+                                         java.lang.Class&lt;? super T&gt;&nbsp;recordClass,
                                          java.lang.Object...&nbsp;params)
                                   throws <a href="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</a></pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Данный метод выполняет sql-выражение, возвращающее курсор.</div>
 <dl>
 <dt><span class="paramLabel">Type Parameters:</span></dt>
@@ -561,9 +597,10 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>executeAndReturn</h4>
 <pre>public static&nbsp;&lt;T&gt;&nbsp;T&nbsp;executeAndReturn(java.lang.String&nbsp;query,
-                                     java.lang.Class&lt;T&gt;&nbsp;resultTypeClass,
+                                     java.lang.Class&lt;? super T&gt;&nbsp;resultTypeClass,
                                      java.lang.Object...&nbsp;params)
                               throws <a href="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</a></pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Данный метод выполняет sql-выражение, возвращающее объект типа T.</div>
 <dl>
 <dt><span class="paramLabel">Type Parameters:</span></dt>
@@ -587,9 +624,10 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>setOutputParamsToStatement</h4>
 <pre>private static&nbsp;&lt;T&gt;&nbsp;void&nbsp;setOutputParamsToStatement(java.sql.CallableStatement&nbsp;callableStatement,
-                                                   java.lang.Class&lt;T&gt;&nbsp;resultTypeClass,
+                                                   java.lang.Class&lt;? super T&gt;&nbsp;resultTypeClass,
                                                    java.lang.Object[]&nbsp;params)
                                             throws java.sql.SQLException</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Служебный метод, устанавливающий выходные параметры в statement.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -609,8 +647,9 @@ extends java.lang.Object</pre>
 <h4>registerParameter</h4>
 <pre>private static&nbsp;&lt;T&gt;&nbsp;void&nbsp;registerParameter(java.sql.CallableStatement&nbsp;callableStatement,
                                           int&nbsp;paramNumber,
-                                          java.lang.Class&lt;T&gt;&nbsp;resultTypeClass)
+                                          java.lang.Class&lt;? super T&gt;&nbsp;resultTypeClass)
                                    throws java.sql.SQLException</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Служебный метод, устанавливающий выходной параметр в statement</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -629,9 +668,10 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getResult</h4>
 <pre>private static&nbsp;&lt;T&gt;&nbsp;T&nbsp;getResult(java.sql.CallableStatement&nbsp;callableStatement,
-                               java.lang.Class&lt;T&gt;&nbsp;resultTypeClass,
+                               java.lang.Class&lt;? super T&gt;&nbsp;resultTypeClass,
                                java.lang.Object[]&nbsp;params)
                         throws java.sql.SQLException</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Служебный метод, осушествляющий извлечение выходных параметров.<br/>
  Поддерживается как извлечение единственного параметра, так и нескольких параметров.</div>
 <dl>
@@ -653,10 +693,11 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>select</h4>
 <pre>public static&nbsp;&lt;T&gt;&nbsp;java.util.List&lt;T&gt;&nbsp;select(java.lang.String&nbsp;query,
-                                           <a href="../../../../../../com/technology/jep/jepria/server/dao/ResultSetMapper.html" title="class in com.technology.jep.jepria.server.dao">ResultSetMapper</a>&lt;T&gt;&nbsp;mapper,
-                                           java.lang.Class&lt;T&gt;&nbsp;modelClass,
+                                           <a href="../../../../../../com/technology/jep/jepria/server/dao/ResultSetMapper.html" title="class in com.technology.jep.jepria.server.dao">ResultSetMapper</a>&lt;? super T&gt;&nbsp;mapper,
+                                           java.lang.Class&lt;? super T&gt;&nbsp;modelClass,
                                            java.lang.Object...&nbsp;params)
                                     throws <a href="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</a></pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Данный метод выполняет sql-запрос.</div>
 <dl>
 <dt><span class="paramLabel">Type Parameters:</span></dt>
@@ -682,6 +723,7 @@ extends java.lang.Object</pre>
 <pre>public static&nbsp;void&nbsp;update(java.lang.String&nbsp;query,
                           java.lang.Object...&nbsp;params)
                    throws <a href="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</a></pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Данный метод выполняет sql-выражение, изменяющее запись в БД.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -701,6 +743,7 @@ extends java.lang.Object</pre>
 <pre>public static&nbsp;void&nbsp;delete(java.lang.String&nbsp;query,
                           java.lang.Object...&nbsp;params)
                    throws <a href="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</a></pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Данный метод выполняет sql-выражение, удаляющее запись из БД.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -718,11 +761,12 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>findOrSelect</h4>
 <pre>private static&nbsp;&lt;T&gt;&nbsp;java.util.List&lt;T&gt;&nbsp;findOrSelect(java.lang.String&nbsp;query,
-                                                  <a href="../../../../../../com/technology/jep/jepria/server/dao/ResultSetMapper.html" title="class in com.technology.jep.jepria.server.dao">ResultSetMapper</a>&lt;T&gt;&nbsp;mapper,
-                                                  java.lang.Class&lt;T&gt;&nbsp;recordClass,
+                                                  <a href="../../../../../../com/technology/jep/jepria/server/dao/ResultSetMapper.html" title="class in com.technology.jep.jepria.server.dao">ResultSetMapper</a>&lt;? super T&gt;&nbsp;mapper,
+                                                  java.lang.Class&lt;? super T&gt;&nbsp;recordClass,
                                                   <a href="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.ExecutionType.html" title="enum in com.technology.jep.jepria.server.dao">DaoSupport.ExecutionType</a>&nbsp;executionType,
                                                   java.lang.Object...&nbsp;params)
                                            throws <a href="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</a></pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Вспомогательный метод, объединящий в себе логику работы методов find и select.</div>
 <dl>
 <dt><span class="paramLabel">Type Parameters:</span></dt>
@@ -747,6 +791,7 @@ extends java.lang.Object</pre>
 <h4>setApplicationInfo</h4>
 <pre>private static&nbsp;void&nbsp;setApplicationInfo(java.lang.String&nbsp;queryToExecute)
                                 throws java.sql.SQLException</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Установка информации о вызывающем модуле.
  Использует встроенный функционал Oracle для установки трёх параметров сессии.
  Значение module_name (имя модуля) извлекается из <a href="../../../../../../com/technology/jep/jepria/server/dao/CallContext.html" title="class in com.technology.jep.jepria.server.dao"><code>CallContext</code></a>, action_name
@@ -768,6 +813,7 @@ extends java.lang.Object</pre>
 <pre>public static&nbsp;void&nbsp;setModule(java.lang.String&nbsp;moduleName,
                              java.lang.String&nbsp;actionName)
                       throws java.sql.SQLException</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Установка имени модуля (module name) и названия действия (action_name).
  Кроме того, метод сбрасывает установленное значение client_info.</div>
 <dl>
@@ -786,6 +832,7 @@ extends java.lang.Object</pre>
 <li class="blockList">
 <h4>getAction</h4>
 <pre>private static&nbsp;java.lang.String&nbsp;getAction(java.lang.String&nbsp;query)</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Получение названия действия (action_name) из шаблона SQL-выражения.
  Если запрос содержит имя функции или процедуры, то метод возвращает данное имя.
  В противном случае (например, если это SQL-запрос) в качестве названия действия
@@ -808,6 +855,7 @@ extends java.lang.Object</pre>
                                                       <a href="../../../../../../com/technology/jep/jepria/server/dao/DaoSupport.ExecutionType.html" title="enum in com.technology.jep.jepria.server.dao">DaoSupport.ExecutionType</a>&nbsp;executionType,
                                                       java.lang.Object...&nbsp;params)
                                                throws java.sql.SQLException</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Вспомогательный метод, выставляющий параметры callableStatement и выполняющий запрос.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -832,6 +880,7 @@ extends java.lang.Object</pre>
                                              int&nbsp;i,
                                              java.lang.Object...&nbsp;params)
                                       throws java.sql.SQLException</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Данный вспомогательный метод присваивает параметры запроса объекту callableStatement.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -853,6 +902,7 @@ extends java.lang.Object</pre>
                                        java.lang.String&nbsp;parameter,
                                        int&nbsp;place)
                                 throws java.sql.SQLException</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Вспомогательный метод. Используется для задания строкового параметра объекту callableStatement.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -874,6 +924,7 @@ extends java.lang.Object</pre>
                                         java.lang.Integer&nbsp;parameter,
                                         int&nbsp;place)
                                  throws java.sql.SQLException</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Вспомогательный метод. Используется для задания целочисленного параметра объекту callableStatement.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -895,6 +946,7 @@ extends java.lang.Object</pre>
                                         java.lang.Boolean&nbsp;parameter,
                                         int&nbsp;place)
                                  throws java.sql.SQLException</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Вспомогательный метод. Используется для задания булевого параметра объекту callableStatement.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -916,6 +968,7 @@ extends java.lang.Object</pre>
                                            java.math.BigDecimal&nbsp;parameter,
                                            int&nbsp;place)
                                     throws java.sql.SQLException</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Вспомогательный метод. Используется для задания параметра типа BigDecimal объекту callableStatement.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -937,6 +990,7 @@ extends java.lang.Object</pre>
                                      java.util.Date&nbsp;parameter,
                                      int&nbsp;place)
                               throws java.sql.SQLException</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Вспомогательный метод. Используется для задания параметра типа Date объекту callableStatement.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -958,6 +1012,7 @@ extends java.lang.Object</pre>
                                      <a href="../../../../../../com/technology/jep/jepria/shared/record/lob/JepClob.html" title="class in com.technology.jep.jepria.shared.record.lob">JepClob</a>&nbsp;parameter,
                                      int&nbsp;place)
                               throws java.sql.SQLException</pre>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;</div>
 <div class="block">Вспомогательный метод. Используется для задания параметра типа Clob объекту callableStatement.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>

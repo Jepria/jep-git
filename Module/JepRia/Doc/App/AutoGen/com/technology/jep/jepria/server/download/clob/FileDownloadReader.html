@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":9,"i2":9,"i3":10};
+var methods = {"i0":10,"i1":9,"i2":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -213,20 +213,7 @@ extends java.io.Reader</pre>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>static void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/server/download/clob/FileDownloadReader.html#downloadFile-java.io.OutputStream-com.technology.jep.jepria.server.download.FileDownload-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-java.lang.String-java.lang.String-">downloadFile</a></span>(java.io.OutputStream&nbsp;fileStream,
-            <a href="../../../../../../../com/technology/jep/jepria/server/download/FileDownload.html" title="interface in com.technology.jep.jepria.server.download">FileDownload</a>&nbsp;fileDownload,
-            java.lang.String&nbsp;tableName,
-            java.lang.String&nbsp;fileFieldName,
-            java.lang.String&nbsp;keyFieldName,
-            java.lang.Object&nbsp;rowId,
-            java.lang.String&nbsp;dataSourceJndiName,
-            java.lang.String&nbsp;moduleName)</code>
-<div class="block">Загрузка файла в выходной поток из поля Clob таблицы базы данных.</div>
-</td>
-</tr>
-<tr id="i2" class="altColor">
-<td class="colFirst"><code>static void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/server/download/clob/FileDownloadReader.html#downloadFile-java.io.OutputStream-com.technology.jep.jepria.server.download.FileDownload-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-java.lang.String-java.lang.String-java.nio.charset.Charset-">downloadFile</a></span>(java.io.OutputStream&nbsp;fileStream,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/server/download/clob/FileDownloadReader.html#downloadFile-java.io.Writer-com.technology.jep.jepria.server.download.FileDownload-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-java.lang.String-java.lang.String-boolean-">downloadFile</a></span>(java.io.Writer&nbsp;writer,
             <a href="../../../../../../../com/technology/jep/jepria/server/download/FileDownload.html" title="interface in com.technology.jep.jepria.server.download">FileDownload</a>&nbsp;fileDownload,
             java.lang.String&nbsp;tableName,
             java.lang.String&nbsp;fileFieldName,
@@ -234,11 +221,11 @@ extends java.io.Reader</pre>
             java.lang.Object&nbsp;rowId,
             java.lang.String&nbsp;dataSourceJndiName,
             java.lang.String&nbsp;moduleName,
-            java.nio.charset.Charset&nbsp;encoding)</code>
+            boolean&nbsp;transactionable)</code>
 <div class="block">Загрузка файла в выходной поток из поля Clob таблицы базы данных.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/server/download/clob/FileDownloadReader.html#read-char:A-int-int-">read</a></span>(char[]&nbsp;cbuf,
     int&nbsp;off,
@@ -355,13 +342,13 @@ extends java.io.Reader</pre>
 </dl>
 </li>
 </ul>
-<a name="downloadFile-java.io.OutputStream-com.technology.jep.jepria.server.download.FileDownload-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-java.lang.String-java.lang.String-java.nio.charset.Charset-">
+<a name="downloadFile-java.io.Writer-com.technology.jep.jepria.server.download.FileDownload-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-java.lang.String-java.lang.String-boolean-">
 <!--   -->
 </a>
-<ul class="blockList">
+<ul class="blockListLast">
 <li class="blockList">
 <h4>downloadFile</h4>
-<pre>public static&nbsp;void&nbsp;downloadFile(java.io.OutputStream&nbsp;fileStream,
+<pre>public static&nbsp;void&nbsp;downloadFile(java.io.Writer&nbsp;writer,
                                 <a href="../../../../../../../com/technology/jep/jepria/server/download/FileDownload.html" title="interface in com.technology.jep.jepria.server.download">FileDownload</a>&nbsp;fileDownload,
                                 java.lang.String&nbsp;tableName,
                                 java.lang.String&nbsp;fileFieldName,
@@ -369,43 +356,12 @@ extends java.io.Reader</pre>
                                 java.lang.Object&nbsp;rowId,
                                 java.lang.String&nbsp;dataSourceJndiName,
                                 java.lang.String&nbsp;moduleName,
-                                java.nio.charset.Charset&nbsp;encoding)
+                                boolean&nbsp;transactionable)
                          throws java.io.IOException</pre>
 <div class="block">Загрузка файла в выходной поток из поля Clob таблицы базы данных.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>fileStream</code> - выходной поток записи файла</dd>
-<dd><code>fileDownload</code> - интерфейс загрузки файла</dd>
-<dd><code>tableName</code> - имя таблицы, откуда берем СLOB</dd>
-<dd><code>fileFieldName</code> - имя атрибута в таблице, откуда берем СLOB</dd>
-<dd><code>keyFieldName</code> - PK в таблице tableName</dd>
-<dd><code>rowId</code> - идентификатор строки таблицы</dd>
-<dd><code>dataSourceJndiName</code> - имя источника данных</dd>
-<dd><code>encoding</code> - кодировка, в который пишем в выходной поток</dd>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code>java.io.IOException</code></dd>
-</dl>
-</li>
-</ul>
-<a name="downloadFile-java.io.OutputStream-com.technology.jep.jepria.server.download.FileDownload-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-java.lang.String-java.lang.String-">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>downloadFile</h4>
-<pre>public static&nbsp;void&nbsp;downloadFile(java.io.OutputStream&nbsp;fileStream,
-                                <a href="../../../../../../../com/technology/jep/jepria/server/download/FileDownload.html" title="interface in com.technology.jep.jepria.server.download">FileDownload</a>&nbsp;fileDownload,
-                                java.lang.String&nbsp;tableName,
-                                java.lang.String&nbsp;fileFieldName,
-                                java.lang.String&nbsp;keyFieldName,
-                                java.lang.Object&nbsp;rowId,
-                                java.lang.String&nbsp;dataSourceJndiName,
-                                java.lang.String&nbsp;moduleName)
-                         throws java.io.IOException</pre>
-<div class="block">Загрузка файла в выходной поток из поля Clob таблицы базы данных.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>fileStream</code> - выходной поток записи файла</dd>
+<dd><code>writer</code> - выходной поток записи файла</dd>
 <dd><code>fileDownload</code> - интерфейс загрузки файла</dd>
 <dd><code>tableName</code> - имя таблицы, откуда берем СLOB</dd>
 <dd><code>fileFieldName</code> - имя атрибута в таблице, откуда берем СLOB</dd>

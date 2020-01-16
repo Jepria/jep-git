@@ -206,14 +206,15 @@ extends java.io.InputStream</pre>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>static void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/server/download/blob/FileDownloadStream.html#downloadFile-java.io.OutputStream-com.technology.jep.jepria.server.download.FileDownload-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-java.lang.String-java.lang.String-">downloadFile</a></span>(java.io.OutputStream&nbsp;fileStream,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../../com/technology/jep/jepria/server/download/blob/FileDownloadStream.html#downloadFile-java.io.OutputStream-com.technology.jep.jepria.server.download.FileDownload-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-java.lang.String-java.lang.String-boolean-">downloadFile</a></span>(java.io.OutputStream&nbsp;fileStream,
             <a href="../../../../../../../com/technology/jep/jepria/server/download/FileDownload.html" title="interface in com.technology.jep.jepria.server.download">FileDownload</a>&nbsp;fileDownload,
             java.lang.String&nbsp;tableName,
             java.lang.String&nbsp;fileFieldName,
             java.lang.String&nbsp;keyFieldName,
             java.lang.Object&nbsp;rowId,
             java.lang.String&nbsp;dataSourceJndiName,
-            java.lang.String&nbsp;moduleName)</code>
+            java.lang.String&nbsp;moduleName,
+            boolean&nbsp;transactionable)</code>
 <div class="block">Выгрузка файла в выходной поток из поля BINARY_FILE таблицы базы данных.</div>
 </td>
 </tr>
@@ -374,7 +375,7 @@ extends java.io.InputStream</pre>
 </dl>
 </li>
 </ul>
-<a name="downloadFile-java.io.OutputStream-com.technology.jep.jepria.server.download.FileDownload-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-java.lang.String-java.lang.String-">
+<a name="downloadFile-java.io.OutputStream-com.technology.jep.jepria.server.download.FileDownload-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-java.lang.String-java.lang.String-boolean-">
 <!--   -->
 </a>
 <ul class="blockListLast">
@@ -387,7 +388,8 @@ extends java.io.InputStream</pre>
                                 java.lang.String&nbsp;keyFieldName,
                                 java.lang.Object&nbsp;rowId,
                                 java.lang.String&nbsp;dataSourceJndiName,
-                                java.lang.String&nbsp;moduleName)
+                                java.lang.String&nbsp;moduleName,
+                                boolean&nbsp;transactionable)
                          throws java.io.IOException</pre>
 <div class="block">Выгрузка файла в выходной поток из поля BINARY_FILE таблицы базы данных.</div>
 <dl>

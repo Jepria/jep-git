@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":6,"i1":6,"i2":6,"i3":6};
+var methods = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -131,17 +131,15 @@ var activeTableTab = "activeTableTab";
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#beginWrite-java.lang.Object-">beginWrite</a></span>(java.lang.Object&nbsp;rowId)</code>
-<div class="block">Функция-обертка для <a href="../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#beginWrite-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-java.lang.String-java.lang.String-"><code>beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId, String dataSourceJndiName, String moduleName)</code></a>.</div>
+<div class="block">Функция-обертка для <a href="../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#beginWrite-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-"><code>beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId)</code></a>.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>int</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#beginWrite-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-java.lang.String-java.lang.String-">beginWrite</a></span>(java.lang.String&nbsp;tableName,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#beginWrite-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-">beginWrite</a></span>(java.lang.String&nbsp;tableName,
           java.lang.String&nbsp;fileFieldName,
           java.lang.String&nbsp;keyFieldName,
-          java.lang.Object&nbsp;rowId,
-          java.lang.String&nbsp;dataSourceJndiName,
-          java.lang.String&nbsp;moduleName)</code>
+          java.lang.Object&nbsp;rowId)</code>
 <div class="block">Начало длинной транзакции записи файла в LOB.</div>
 </td>
 </tr>
@@ -155,6 +153,12 @@ var activeTableTab = "activeTableTab";
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#endWrite--">endWrite</a></span>()</code>
 <div class="block">Окончание выгрузки.</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#isCancelled--">isCancelled</a></span>()</code>
+<div class="block">Whether the writing has been cancelled (interrupted) or ended successfully (to decide whether to do rollback or commit at the end)</div>
 </td>
 </tr>
 </table>
@@ -172,7 +176,7 @@ var activeTableTab = "activeTableTab";
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a name="beginWrite-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-java.lang.String-java.lang.String-">
+<a name="beginWrite-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -181,9 +185,7 @@ var activeTableTab = "activeTableTab";
 <pre>int&nbsp;beginWrite(java.lang.String&nbsp;tableName,
                java.lang.String&nbsp;fileFieldName,
                java.lang.String&nbsp;keyFieldName,
-               java.lang.Object&nbsp;rowId,
-               java.lang.String&nbsp;dataSourceJndiName,
-               java.lang.String&nbsp;moduleName)
+               java.lang.Object&nbsp;rowId)
         throws <a href="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</a></pre>
 <div class="block">Начало длинной транзакции записи файла в LOB.</div>
 <dl>
@@ -192,8 +194,6 @@ var activeTableTab = "activeTableTab";
 <dd><code>fileFieldName</code> - имя поля, в которое выполняется запись</dd>
 <dd><code>keyFieldName</code> - имя поля, идентифицирующего строку таблицы</dd>
 <dd><code>rowId</code> - идентификатор строки таблицы</dd>
-<dd><code>dataSourceJndiName</code> - JNDI-имя источника данных модуля</dd>
-<dd><code>moduleName</code> - имя модуля для передачи в DB</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>рекомендуемый размер буфера</dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
@@ -209,9 +209,9 @@ var activeTableTab = "activeTableTab";
 <h4>beginWrite</h4>
 <pre>int&nbsp;beginWrite(java.lang.Object&nbsp;rowId)
         throws <a href="../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</a></pre>
-<div class="block">Функция-обертка для <a href="../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#beginWrite-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-java.lang.String-java.lang.String-"><code>beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId, String dataSourceJndiName, String moduleName)</code></a>.
+<div class="block">Функция-обертка для <a href="../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#beginWrite-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-"><code>beginWrite(String tableName, String fileFieldName, String keyFieldName, Object rowId)</code></a>.
  В классе реализации в конкретном модуле данный метод перегружаем вызывая в нем 
- <a href="../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#beginWrite-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-java.lang.String-java.lang.String-"><code>beginWrite(String, String, String, Object, String, String)</code></a>
+ <a href="../../../../../../com/technology/jep/jepria/server/upload/FileUpload.html#beginWrite-java.lang.String-java.lang.String-java.lang.String-java.lang.Object-"><code>beginWrite(String, String, String, Object)</code></a>
  с подставленными из констант класса реализации параметрами:<br/>
  <code>
  tableName,<br/>
@@ -247,11 +247,21 @@ var activeTableTab = "activeTableTab";
 <a name="cancel--">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>cancel</h4>
 <pre>void&nbsp;cancel()</pre>
 <div class="block">Откат длинной транзакции.</div>
+</li>
+</ul>
+<a name="isCancelled--">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>isCancelled</h4>
+<pre>boolean&nbsp;isCancelled()</pre>
+<div class="block">Whether the writing has been cancelled (interrupted) or ended successfully (to decide whether to do rollback or commit at the end)</div>
 </li>
 </ul>
 </li>

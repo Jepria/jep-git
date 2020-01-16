@@ -18,7 +18,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":9,"i1":41,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9,"i9":9,"i10":9,"i11":9,"i12":9,"i13":9};
+var methods = {"i0":9,"i1":41,"i2":9,"i3":9,"i4":9,"i5":9,"i6":9,"i7":9,"i8":9,"i9":9,"i10":9,"i11":9,"i12":9,"i13":9,"i14":9,"i15":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"],32:["t6","Deprecated Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -220,17 +220,31 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/util/JepServerUtil.html#encode-java.lang.String-">encode</a></span>(java.lang.String&nbsp;source)</code>
+<div class="block">Возвращает исходную строку закодированную методом URLEncoder.encode(source, "UTF-8") 
+ без необходимости обрабатывать исключение, которое практически возникнуть не может 
+ - кодировка UTF-8 существует/стандарт.</div>
+</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>static java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/util/JepServerUtil.html#getApplicationName-javax.servlet.ServletContext-">getApplicationName</a></span>(javax.servlet.ServletContext&nbsp;context)</code>
 <div class="block">Возвращает имя приложения.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>static java.lang.String</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/util/JepServerUtil.html#getContent-java.lang.String-">getContent</a></span>(java.lang.String&nbsp;url)</code>
+<div class="block">Возвращает содержимое по заданному Url.</div>
+</td>
+</tr>
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/util/JepServerUtil.html#getEnvironmentValue-java.lang.String-">getEnvironmentValue</a></span>(java.lang.String&nbsp;name)</code>
 <div class="block">Получение значения переменной окружения.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>static java.util.Locale</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/util/JepServerUtil.html#getLocale-javax.servlet.http.HttpServletRequest-">getLocale</a></span>(javax.servlet.http.HttpServletRequest&nbsp;request)</code>
 <div class="block">Получение локали следующими шагами:<br/>
@@ -243,33 +257,35 @@ extends java.lang.Object</pre>
  Первая найденная локаль возвращается и сохраняется в сессию.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/util/JepServerUtil.html#getModuleName-javax.servlet.ServletConfig-">getModuleName</a></span>(javax.servlet.ServletConfig&nbsp;config)</code>
 <div class="block">Возвращает имя модуля, предназначенное для передачи в базу.</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>static java.lang.String</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/util/JepServerUtil.html#getServerUrl-javax.servlet.http.HttpServletRequest-">getServerUrl</a></span>(javax.servlet.http.HttpServletRequest&nbsp;request)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/util/JepServerUtil.html#getServerUrl-javax.servlet.http.HttpServletRequest-">getServerUrl</a></span>(javax.servlet.http.HttpServletRequest&nbsp;request)</code>
+<div class="block">Возвращает строку вида <протокол>://<сервер>:<порт>.</div>
+</td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>static boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/util/JepServerUtil.html#isLocalLang-javax.servlet.http.HttpServletRequest-">isLocalLang</a></span>(javax.servlet.http.HttpServletRequest&nbsp;request)</code>
 <div class="block">Проверяет, является ли текущий язык основным языком для пользователей.</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i12" class="altColor">
 <td class="colFirst"><code>static boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/util/JepServerUtil.html#isMobile-javax.servlet.http.HttpServletRequest-">isMobile</a></span>(javax.servlet.http.HttpServletRequest&nbsp;request)</code>
 <div class="block">Проверяет, является ли клиентский браузер мобильным.</div>
 </td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>static boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/util/JepServerUtil.html#isTomcat-javax.servlet.http.HttpServletRequest-">isTomcat</a></span>(javax.servlet.http.HttpServletRequest&nbsp;request)</code>&nbsp;</td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>static java.lang.Object</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/util/JepServerUtil.html#jndiLookup-java.lang.String-java.lang.String-java.lang.String-">jndiLookup</a></span>(java.lang.String&nbsp;username,
           java.lang.String&nbsp;password,
@@ -277,7 +293,7 @@ extends java.lang.Object</pre>
 <div class="block">Считывание объекта из JNDI по его полному имени.</div>
 </td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>static <a href="../../../../../../com/technology/jep/jepria/shared/record/lob/JepClob.html" title="class in com.technology.jep.jepria.shared.record.lob">JepClob</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../com/technology/jep/jepria/server/util/JepServerUtil.html#toJepClob-java.sql.Clob-">toJepClob</a></span>(java.sql.Clob&nbsp;clob)</code>
 <div class="block">Формирует <a href="../../../../../../com/technology/jep/jepria/shared/record/lob/JepClob.html" title="class in com.technology.jep.jepria.shared.record.lob"><code>JepClob</code></a> из <code>Types.CLOB</code>.</div>
@@ -534,15 +550,6 @@ extends java.lang.Object</pre>
 <pre>public static&nbsp;java.lang.String&nbsp;detectMimeType(java.lang.String&nbsp;fileExtension)</pre>
 </li>
 </ul>
-<a name="getServerUrl-javax.servlet.http.HttpServletRequest-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getServerUrl</h4>
-<pre>public static&nbsp;java.lang.String&nbsp;getServerUrl(javax.servlet.http.HttpServletRequest&nbsp;request)</pre>
-</li>
-</ul>
 <a name="getApplicationName-javax.servlet.ServletContext-">
 <!--   -->
 </a>
@@ -649,7 +656,7 @@ reader.read();
 <a name="isMobile-javax.servlet.http.HttpServletRequest-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>isMobile</h4>
 <pre>public static&nbsp;boolean&nbsp;isMobile(javax.servlet.http.HttpServletRequest&nbsp;request)</pre>
@@ -661,6 +668,56 @@ reader.read();
 <dd>true - клиентский барузер является мобильным, false - клиентский браузер не является мобильным</dd>
 <dt><span class="seeLabel">See Also:</span></dt>
 <dd><a href="https://deviceatlas.com/blog/mobile-browser-user-agent-strings" target="_blank">https://deviceatlas.com/blog/mobile-browser-user-agent-strings</a></dd>
+</dl>
+</li>
+</ul>
+<a name="getContent-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getContent</h4>
+<pre>public static&nbsp;java.lang.String&nbsp;getContent(java.lang.String&nbsp;url)</pre>
+<div class="block">Возвращает содержимое по заданному Url.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>url</code> - адрес запроса</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>содержимое по заданному Url</dd>
+</dl>
+</li>
+</ul>
+<a name="getServerUrl-javax.servlet.http.HttpServletRequest-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getServerUrl</h4>
+<pre>public static&nbsp;java.lang.String&nbsp;getServerUrl(javax.servlet.http.HttpServletRequest&nbsp;request)</pre>
+<div class="block">Возвращает строку вида <протокол>://<сервер>:<порт>.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>request</code> - запрос</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>строка вида <протокол>://<сервер>:<порт></dd>
+</dl>
+</li>
+</ul>
+<a name="encode-java.lang.String-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>encode</h4>
+<pre>public static&nbsp;java.lang.String&nbsp;encode(java.lang.String&nbsp;source)</pre>
+<div class="block">Возвращает исходную строку закодированную методом URLEncoder.encode(source, "UTF-8") 
+ без необходимости обрабатывать исключение, которое практически возникнуть не может 
+ - кодировка UTF-8 существует/стандарт.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>source</code> - исходная строка</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>закодированная методом URLEncoder.encode(source, "UTF-8") строка</dd>
 </dl>
 </li>
 </ul>

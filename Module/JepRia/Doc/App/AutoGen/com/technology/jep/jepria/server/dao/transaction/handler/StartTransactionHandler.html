@@ -153,8 +153,7 @@ var activeTableTab = "activeTableTab";
 <li class="blockList">
 <h4>handle</h4>
 <pre><a href="../../../../../../../../com/technology/jep/jepria/server/db/Db.html" title="class in com.technology.jep.jepria.server.db">Db</a>&nbsp;handle(java.lang.String&nbsp;dataSourceJndiName,
-          java.lang.String&nbsp;moduleName)
-   throws <a href="../../../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</a></pre>
+          java.lang.String&nbsp;moduleName)</pre>
 <div class="block">Метод, предваряющий транзакцию.<br/>
  Требование к кастомной реализации: необходимо вызвать <a href="../../../../../../../../com/technology/jep/jepria/server/dao/CallContext.html#begin-java.lang.String-java.lang.String-"><code>CallContext.begin(String, String)</code></a>,
  чтобы в <code>ThreadLocal</code> был размещён объект <a href="../../../../../../../../com/technology/jep/jepria/server/db/Db.html" title="class in com.technology.jep.jepria.server.db"><code>Db</code></a>.</div>
@@ -162,8 +161,6 @@ var activeTableTab = "activeTableTab";
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>dataSourceJndiName</code> - JNDI-имя источника данных</dd>
 <dd><code>moduleName</code> - имя модуля для передачи в DB.</dd>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</a></code> - в случае ошибки</dd>
 </dl>
 </li>
 </ul>

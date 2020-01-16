@@ -204,8 +204,7 @@ implements <a href="../../../../../../../../com/technology/jep/jepria/server/dao
 <li class="blockList">
 <h4>handle</h4>
 <pre>public&nbsp;<a href="../../../../../../../../com/technology/jep/jepria/server/db/Db.html" title="class in com.technology.jep.jepria.server.db">Db</a>&nbsp;handle(java.lang.String&nbsp;dataSourceJndiName,
-                 java.lang.String&nbsp;moduleName)
-          throws <a href="../../../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</a></pre>
+                 java.lang.String&nbsp;moduleName)</pre>
 <div class="block">Стандартная реализация обработки начала транзакции.<br/>
  Единственное действие &mdash; вызов <a href="../../../../../../../../com/technology/jep/jepria/server/dao/CallContext.html#begin-java.lang.String-java.lang.String-"><code>CallContext.begin(String, String)</code></a>.</div>
 <dl>
@@ -214,8 +213,6 @@ implements <a href="../../../../../../../../com/technology/jep/jepria/server/dao
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>dataSourceJndiName</code> - JNDI-имя источника данных</dd>
 <dd><code>moduleName</code> - имя модуля для передачи в DB.</dd>
-<dt><span class="throwsLabel">Throws:</span></dt>
-<dd><code><a href="../../../../../../../../com/technology/jep/jepria/shared/exceptions/ApplicationException.html" title="class in com.technology.jep.jepria.shared.exceptions">ApplicationException</a></code> - в случае ошибки</dd>
 </dl>
 </li>
 </ul>
