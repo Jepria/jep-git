@@ -11,6 +11,77 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
+/**
+ * Сервлет, обеспечивающий рендеринг интерфейса из файлов openapi-спецификаций приложения посредством библиотеки io.swagger-ui, с поддержкой динамических параметров.<br/><br/>
+ *
+ * Библиотека io.swagger-ui из коробки поддерживает рендеринг интерфейса из <i>статических</i> файлов openapi-спецификаций.
+ * При содержании файлов спецификаций внутри веб-приложения, они могут содержать параметры, зависящие от окружения, на которое приложение установлено
+ * (например, url эндпоинтов, которые они описывают).
+ * Сервлет совместно с кастомизированной библиотекой io.swagger-ui поддерживают задание динамических параметров в исходных openapi-файлах
+ * и динамическую подстановку значений этих параметров в рантайме (то есть при обращении к спецификации через web).<br/><br/>
+ *
+ * Пример использования.<br/>
+ * <ol>
+ *   <li>
+ *     Объявление сервлета в web.xml<br/>
+ *     Сервлет принимает и обрабатывает web-запросы отрендеренных openapi-спецификаций
+ *     <pre>
+ *      &lt;web-app&gt;
+ *        ...
+ *        &lt;servlet&gt;
+ *         &lt;servlet-name&gt;ApiDocs&lt;/servlet-name&gt;
+ *         &lt;servlet-class&gt;org.jepria.swagger.SpecServlet&lt;/servlet-class&gt;
+ *         &lt;init-param&gt;
+ *           &lt;!-- Путь к корневой папке со swagger-ui-ресурсами в веб-приложении --&gt;
+ *           &lt;param-name&gt;swagger-ui-root-path&lt;/param-name&gt;
+ *           &lt;param-value&gt;/swagger-ui&lt;/param-value&gt;
+ *         &lt;/init-param&gt;
+ *         &lt;init-param&gt;
+ *           &lt;!-- Путь к корневой папке со spec-ресурсами в веб-приложении --&gt;
+ *           &lt;param-name&gt;spec-root-path&lt;/param-name&gt;
+ *           &lt;param-value&gt;/WEB-INF/api-spec&lt;/param-value&gt;
+ *         &lt;/init-param&gt;
+ *         &lt;init-param&gt;
+ *           &lt;!-- Корневой (общий) URL-маппинг REST-сервисов в виде /*, соответствующий значению servlet-mapping/url-pattern Rest-сервлета --&gt;
+ *           &lt;param-name&gt;api-servlet-path&lt;/param-name&gt;
+ *           &lt;param-value&gt;/api&lt;/param-value&gt;
+ *         &lt;/init-param&gt;
+ *       &lt;/servlet&gt;
+ *       &lt;servlet-mapping&gt;
+ *         &lt;servlet-name&gt;ApiDocs&lt;/servlet-name&gt;
+ *         &lt;url-pattern&gt;/api-docs/*&lt;/url-pattern&gt;
+ *       &lt;/servlet-mapping&gt;
+ *       ...
+ *      &lt;/web-app&gt;
+ *     </pre>
+ *  </li>
+ *  <li>
+ *    При сборке приложения в папку {@code WEB-INF/api-spec} помещаются spec-ресурсы, описывающие API сущностей приложения.
+ *    Предполагается, что на API отдельных сущностей имеется отдельный spec-ресурс.
+ *    Spec-ресурс каждой сущности должен быть файлом с именем {@code swagger.json}, лежащим в папке с именем описываемой сущности.<br/>
+ *    Пример иерархии файлов для описания API двух сущностей user и contract:
+ *    <pre>
+ *      /WEB-INF
+ *        /api-spec
+ *          /user
+ *            swagger.json
+ *          /contract
+ *            swagger.json
+ *    </pre>
+ *  </li>
+ *  <li>
+ *    Для динамического определения сервера (части url), по которому swagger делает рантайм-обращения к собственно API из интерфейса,
+ *    необходимо указать шаблонное значение {@code /{appContextPath}/{apiEndpoint}} поля {@code /servers/url} в spec-ресурсе swagger.json.
+ *    При указании иного значения, в качестве сервера будет использовано собственно значение (например, {@code /application/api}).
+ *  </li>
+ *  <li>
+ *    Web-обращения к интерфейсу openapi происходят по url {@code /api-docs} (url определяется маппингом сервлета в web.xml).
+ *    В интерфейсе отображаются несколько независимых спецификаций (переключаемых комбо-боксом в правом верхнем углу),
+ *    при этом имя каждой спецификации совпадает с именем папки, в которую при сборке был помещён соответствующий spec-ресурс.
+ *  </li>
+ * </ol>
+ *
+ */
 public class SpecServlet extends HttpServlet {
 
   protected String swaggerUiRootPath;
