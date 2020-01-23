@@ -40,7 +40,7 @@
 	
   <target name="java-compile">
   	<mkdir dir="build" />
-    <javac debug="on" destdir="build" encoding="utf-8" includeantruntime="false" srcdir="src/java">
+    <javac debug="on" destdir="build" encoding="utf-8" includeantruntime="false" srcdir="src/main/java">
       <classpath refid="libs" />
     </javac>
   </target>
@@ -48,7 +48,7 @@
   <target name="jar" depends="java-compile, doc">
   	<jar destfile="${DISTR_DIR}/oauth-sdk-${CURRENT_VERSION}.jar">
       <fileset refid="classes-build" />
-      <fileset dir="src/java" includes="**/*.java" /> <!-- with source code -->
+      <fileset dir="src/main/java" includes="**/*.java" /> <!-- with source code -->
     </jar>
   </target>
   	
@@ -61,7 +61,19 @@
   </target>
 	
   <target name="doc">
-    <javadoc Doctitle="${MODULE_NAME} API Reference" Windowtitle="${MODULE_NAME} JavaDoc" access="private" additionalparam="-notimestamp -Xdoclint:none" charset="UTF-8" destdir="${JAVA_DOC_DIR}" docencoding="UTF-8" encoding="UTF-8" includenosourcepackages="true" overview="src/java/org/jepria/oauth/overview.html" packagenames="*" sourcepath="src/java">
+    <javadoc
+            Doctitle="${MODULE_NAME} API Reference"
+            Windowtitle="${MODULE_NAME} JavaDoc"
+            access="private"
+            additionalparam="-notimestamp -Xdoclint:none"
+            charset="UTF-8"
+            destdir="${JAVA_DOC_DIR}"
+            docencoding="UTF-8"
+            encoding="UTF-8"
+            includenosourcepackages="true"
+            overview="src/java/org/jepria/oauth/overview.html"
+            packagenames="*"
+            sourcepath="src/main/java">
       <classpath refid="libs" />
     </javadoc>
   </target>
