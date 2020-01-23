@@ -43,8 +43,9 @@ public class OAuthConstants {
    * Response constants
    */
 
-  public static final String ERROR = "error=";
-  public static final String ERROR_DESCRIPTION = "error_description=";
+  public static final String ERROR_QUERY_PARAM = "error=";
+  public static final String ERROR_ID_QUERY_PARAM = "error_id=";
+  public static final String ERROR_DESCRIPTION_QUERY_PARAM = "error_description=";
   public static final String INVALID_REQUEST = "invalid_request";
   public static final String UNAUTHORIZED_CLIENT = "unauthorized_client";
   public static final String UNSUPPORTED_RESPONSE_TYPE = "unsupported_response_type";
