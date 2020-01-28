@@ -140,6 +140,11 @@ public class SpecServlet extends HttpServlet {
 
     List<Spec> specs = collectSpecs(req.getServletContext(), specRootPath);
 
+    if (specs.isEmpty()) {
+      // this case will further cause a JavaScript error on the swagger-ui lib. Fail-fast here. TODO better to return status 404 or 500? (now 500 returned due to throw)
+      throw new IllegalStateException("No spec resources found on the path [" + specRootPath + "]"); // TODO whether or not to disclose the internal specRootPath to the client?
+    }
+
     if (specName != null && !"".equals(specName) && !"/".equals(specName)) {
       // select particular spec
       boolean specFound = false;
@@ -273,15 +278,18 @@ public class SpecServlet extends HttpServlet {
 
   protected void collectSpecPaths(ServletContext servletContext, String specRootPath, Set<String> target) {
     Set<String> paths = servletContext.getResourcePaths(specRootPath);
-    for (String path: paths) {
-      if (path.endsWith("/")) {
-        // this path represents a folder
-        collectSpecPaths(servletContext, path, target);
-      } else {
-        // this path represents a file
-        String filename = path.substring(path.lastIndexOf('/') + 1);
-        if (filename.equals("swagger.json")) {
-          target.add(path);
+
+    if (paths != null) {
+      for (String path : paths) {
+        if (path.endsWith("/")) {
+          // this path represents a folder
+          collectSpecPaths(servletContext, path, target);
+        } else {
+          // this path represents a file
+          String filename = path.substring(path.lastIndexOf('/') + 1);
+          if (filename.equals("swagger.json")) {
+            target.add(path);
+          }
         }
       }
     }
