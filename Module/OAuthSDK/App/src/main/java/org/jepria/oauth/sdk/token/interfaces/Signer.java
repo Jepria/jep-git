@@ -1,19 +1,18 @@
 package org.jepria.oauth.sdk.token.interfaces;
 
-import com.nimbusds.jose.util.Base64URL;
 
 /**
  * Token Signer interface. Provides methods for generation of Base64 signature for Token claims.
  */
 public interface Signer {
+
   /**
-   * Sign provided token {@link org.jepria.oauth.sdk.token.interfaces.Token}.</br>
-   * <b>Method MAY mutate incoming token entity.</b>
+   * Sign provided token payload.
    *
-   * @param token token entity {@link org.jepria.oauth.sdk.token.interfaces.Token}
-   * @return Base64 representation of signature
+   * @param payload Base64 URL encoded token payload
+   * @return Base64 URL encoded string array. Size is 3. [Header, Payload, Signature].
    */
-  Base64URL sign(Token token);
+  String[] sign(String payload);
 
   /**
    * Get name of Hash Algorithm for signature.

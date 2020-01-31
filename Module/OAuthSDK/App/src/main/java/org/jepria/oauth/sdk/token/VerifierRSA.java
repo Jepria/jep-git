@@ -21,26 +21,15 @@ import java.util.List;
  */
 public class VerifierRSA extends VerifierBase {
 
-  public static final String ALGORITHM = "RSA";
-  protected final RSAPublicKey key;
-  protected final JWSVerifier verifier;
+  private final SignatureVerifierRSA signatureVerifier;
 
-  public VerifierRSA(List<String> aud, String iss, Date expiryDate, String key) throws NoSuchAlgorithmException, InvalidKeySpecException {
+  public VerifierRSA(List<String> aud, String iss, Date expiryDate, String publicKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
     super(aud, iss, expiryDate);
-    byte[] byteKey = Base64.getDecoder().decode(key);
-    X509EncodedKeySpec spec = new X509EncodedKeySpec(byteKey);
-    KeyFactory kf = KeyFactory.getInstance(ALGORITHM);
-    this.key = (RSAPublicKey) kf.generatePublic(spec);
-    verifier = new RSASSAVerifier(this.key);
+    signatureVerifier = new SignatureVerifierRSA(publicKey);
   }
 
   @Override
   public boolean verify(Token token) {
-    SignedJWT tokenObject = (SignedJWT)  ((TokenImpl)token).token;
-    try {
-      return super.verify(token) && tokenObject.verify(verifier);
-    } catch (JOSEException e) {
-      return false;
-    }
+    return super.verify(token) && signatureVerifier.verify(token);
   }
 }

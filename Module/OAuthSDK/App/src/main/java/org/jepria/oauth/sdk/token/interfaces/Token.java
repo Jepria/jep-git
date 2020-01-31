@@ -52,11 +52,18 @@ public interface Token {
   String getIssuer();
 
   /**
-   * Get token expiry date.
+   * Get token expiration time.
    *
-   * @return expiry date
+   * @return expiration time
    */
-  Date getExpiryDate();
+  Date getExpirationTime();
+
+  /**
+   * Get token issue time.
+   *
+   * @return issue time
+   */
+  Date getIssueTime();
 
   /**
    * Check if token was previously signed.
@@ -77,4 +84,15 @@ public interface Token {
    * @return
    */
   String asString();
+
+  /**
+   * Check if token was previously encrypted.
+   *
+   * @return encrypted flag
+   */
+  boolean isEncrypted();
+
+  void decrypt(Decryptor decryptor);
+
+  void encrypt(Encryptor encryptor);
 }

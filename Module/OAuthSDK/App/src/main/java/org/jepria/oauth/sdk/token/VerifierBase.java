@@ -28,7 +28,7 @@ public class VerifierBase implements Verifier {
       return false;
     }
     return Objects.equals(token.getIssuer(), iss)
-      && (expiryDate != null ? expiryDate.before(token.getExpiryDate()) : true)
+      && (expiryDate != null ? expiryDate.before(token.getExpirationTime()) : true)
       && (aud != null && token.getAudience() != null ? aud.equals(token.getAudience()) || token.getAudience().containsAll(aud) : true);
   }
 }

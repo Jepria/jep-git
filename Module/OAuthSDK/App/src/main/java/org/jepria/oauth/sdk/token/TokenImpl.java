@@ -1,15 +1,14 @@
 package org.jepria.oauth.sdk.token;
 
-import com.nimbusds.jose.Algorithm;
-import com.nimbusds.jose.JWSAlgorithm;
-import com.nimbusds.jose.JWSHeader;
-import com.nimbusds.jwt.JWT;
-import com.nimbusds.jwt.JWTClaimsSet;
-import com.nimbusds.jwt.PlainJWT;
-import com.nimbusds.jwt.SignedJWT;
+import com.nimbusds.jose.*;
+import com.nimbusds.jose.util.Base64URL;
+import com.nimbusds.jwt.*;
 
+import org.jepria.oauth.sdk.token.interfaces.Decryptor;
+import org.jepria.oauth.sdk.token.interfaces.Encryptor;
 import org.jepria.oauth.sdk.token.interfaces.Signer;
 import org.jepria.oauth.sdk.token.interfaces.Token;
+
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
@@ -18,33 +17,54 @@ public class TokenImpl implements Token {
 
   JWT token;
   Algorithm algorithm;
+  Header header;
+  JWTClaimsSet claimsSet;
   protected String tokenString;
   protected String type;
   protected boolean isSigned = false;
   protected boolean isEncrypted = false;
 
-  private TokenImpl() {}
+  private TokenImpl() {
+  }
 
-  public TokenImpl(String tokenId, List<String> aud, String sub, String iss, Date expiryDate) {
-    if (tokenId == null || aud == null || aud.size() == 0 || sub == null || iss == null || expiryDate == null) {
+  public TokenImpl(String tokenId, List<String> aud, String sub, String iss, Date expiryDate, Date issuedAt) {
+    if (tokenId == null || sub == null || iss == null || expiryDate == null) {
       throw new IllegalArgumentException("All token claims must be not null and not empty");
     }
-    JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
+    claimsSet = new JWTClaimsSet.Builder()
       .jwtID(tokenId)
       .subject(sub)
       .issuer(iss)
       .audience(aud)
       .expirationTime(expiryDate)
+      .issueTime(issuedAt)
       .build();
     token = new PlainJWT(claimsSet);
     algorithm = Algorithm.NONE;
     type = "JWT";
   }
 
-  TokenImpl(JWT token, String tokenString) {
+  TokenImpl(JWT token, String tokenString) throws ParseException {
     if (token instanceof SignedJWT) {
+      header = token.getHeader();
+      algorithm = header.getAlgorithm();
+      claimsSet = token.getJWTClaimsSet();
+      isSigned = ((SignedJWT) token).getState().equals(JWSObject.State.SIGNED);
       type = "JWS";
+    }
+    if (token instanceof EncryptedJWT) {
+      EncryptedJWT jwt = (EncryptedJWT) token;
+      header = jwt.getHeader();
+      algorithm = header.getAlgorithm();
+      if (jwt.getState().equals(JWEObject.State.DECRYPTED) || jwt.getState().equals(JWEObject.State.UNENCRYPTED)) {
+        claimsSet = jwt.getJWTClaimsSet();
+        isEncrypted = false;
+      } else {
+        isEncrypted = true;
+      }
+      type = "JWE";
     } else {
+      claimsSet = token.getJWTClaimsSet();
       type = "JWT";
     }
     this.token = token;
@@ -63,52 +83,50 @@ public class TokenImpl implements Token {
 
   @Override
   public String getJti() {
-    try {
-      return token.getJWTClaimsSet().getJWTID();
-    } catch (ParseException e) {
-      e.printStackTrace();
+    if (claimsSet == null && isEncrypted) {
+      throw new IllegalStateException("Token is encrypted, decrypt token before getting claims");
     }
-    return null;
+    return claimsSet.getJWTID();
   }
 
   @Override
   public List<String> getAudience() {
-    try {
-      return token.getJWTClaimsSet().getAudience();
-    } catch (ParseException e) {
-      e.printStackTrace();
+    if (claimsSet == null && isEncrypted) {
+      throw new IllegalStateException("Token is encrypted, decrypt token before getting claims");
     }
-    return null;
+    return claimsSet.getAudience();
   }
 
   @Override
   public String getSubject() {
-    try {
-      return token.getJWTClaimsSet().getSubject();
-    } catch (ParseException e) {
-      e.printStackTrace();
+    if (claimsSet == null && isEncrypted) {
+      throw new IllegalStateException("Token is encrypted, decrypt token before getting claims");
     }
-    return null;
+    return claimsSet.getSubject();
   }
 
   @Override
   public String getIssuer() {
-    try {
-      return token.getJWTClaimsSet().getIssuer();
-    } catch (ParseException e) {
-      e.printStackTrace();
+    if (claimsSet == null && isEncrypted) {
+      throw new IllegalStateException("Token is encrypted, decrypt token before getting claims");
     }
-    return null;
+    return claimsSet.getIssuer();
   }
 
   @Override
-  public Date getExpiryDate() {
-    try {
-      return token.getJWTClaimsSet().getExpirationTime();
-    } catch (ParseException e) {
-      e.printStackTrace();
+  public Date getExpirationTime() {
+    if (claimsSet == null && isEncrypted) {
+      throw new IllegalStateException("Token is encrypted, decrypt token before getting claims");
     }
-    return null;
+    return claimsSet.getExpirationTime();
+  }
+
+  @Override
+  public Date getIssueTime() {
+    if (claimsSet == null && isEncrypted) {
+      throw new IllegalStateException("Token is encrypted, decrypt token before getting claims");
+    }
+    return claimsSet.getIssueTime();
   }
 
   @Override
@@ -116,6 +134,7 @@ public class TokenImpl implements Token {
     return isSigned;
   }
 
+  @Override
   public boolean isEncrypted() {
     return isEncrypted;
   }
@@ -141,7 +160,8 @@ public class TokenImpl implements Token {
     result = 37 * result + getAudience().hashCode();
     result = 37 * result + getSubject().hashCode();
     result = 37 * result + getIssuer().hashCode();
-    result = 37 * result + getExpiryDate().hashCode();
+    result = 37 * result + getExpirationTime().hashCode();
+    result = 37 * result + getIssueTime().hashCode();
     return result;
   }
 
@@ -150,11 +170,12 @@ public class TokenImpl implements Token {
     if (this == o) return true;
     if (!(o instanceof TokenImpl)) return false;
     TokenImpl tokenObject = (TokenImpl) o;
-    if (!this.token.equals(tokenObject.token)) return false;
+    if (this.token.equals(tokenObject.token)) return true;
     if (!this.getAudience().equals(tokenObject.getAudience())) return false;
     if (!this.getSubject().equals(tokenObject.getSubject())) return false;
     if (!this.getIssuer().equals(tokenObject.getIssuer())) return false;
-    if (!this.getExpiryDate().equals(tokenObject.getExpiryDate())) return false;
+    if (!this.getExpirationTime().equals(tokenObject.getExpirationTime())) return false;
+    if (!this.getIssueTime().equals(tokenObject.getIssueTime())) return false;
     return true;
   }
 
@@ -164,32 +185,129 @@ public class TokenImpl implements Token {
       return;
     }
     try {
-      token = new SignedJWT(
-        new JWSHeader.Builder(JWSAlgorithm.parse(signer.getAlgorithm())).build(),
-        token.getJWTClaimsSet());
-      signer.sign(this);
+      String[] parts = signer.sign(new Payload(claimsSet.toJSONObject()).toBase64URL().toString());
+      token = new SignedJWT(Base64URL.from(parts[0]),
+        Base64URL.from(parts[1]),
+        Base64URL.from(parts[2]));
       tokenString = token.serialize();
       isSigned = true;
-    } catch (Exception e) {
+    } catch (ParseException e) {
       e.printStackTrace();
+      throw new RuntimeException(e);
     }
   }
 
-  public static Token parseFromString(String tokenString) throws ParseException, IllegalArgumentException {
+  @Override
+  public void decrypt(Decryptor decryptor) {
+    if (!isEncrypted) {
+      return;
+    }
+    byte[] payload;
+    try {
+      if ("JWT".equals(header.getContentType())) {
+        /*
+         if JWE Contains JWS as payload
+         */
+        EncryptedJWT encryptedJWT = (EncryptedJWT) token;
+        payload = decryptor.decrypt(encryptedJWT.getHeader().toBase64URL().toString(), encryptedJWT.getEncryptedKey().toString(),
+          encryptedJWT.getIV().toString(), encryptedJWT.getCipherText().toString(), encryptedJWT.getAuthTag().toString());
+        token = new Payload(payload).toSignedJWT();
+        if (token == null) {
+          throw new IllegalStateException("Payload not a signed JWT");
+        }
+        header = token.getHeader();
+        type = "JWS";
+        isSigned = true;
+      } else {
+        EncryptedJWT encryptedJWT = (EncryptedJWT) token;
+        payload = decryptor.decrypt(encryptedJWT.getHeader().toBase64URL().toString(), encryptedJWT.getEncryptedKey().toString(),
+          encryptedJWT.getIV().toString(), encryptedJWT.getCipherText().toString(), encryptedJWT.getAuthTag().toString());
+        token = new PlainJWT(JWTClaimsSet.parse(new Payload(payload).toJSONObject()));
+        type = "JWT";
+        header = null;
+      }
+      claimsSet = token.getJWTClaimsSet();
+      isEncrypted = false;
+    } catch (Throwable th) {
+      th.printStackTrace();
+      throw new RuntimeException(th);
+    }
+  }
+
+  @Override
+  public void encrypt(Encryptor encryptor) {
+    if (isEncrypted) {
+      return;
+    }
+    String[] parts;
+    if (isSigned) {
+      /*
+      if JWE Contains JWS as payload
+       */
+      parts = encryptor.encrypt(new JWEHeader.Builder(JWEAlgorithm.parse(encryptor.getAlgorithm()), EncryptionMethod.parse(encryptor.getEncryptionMethod()))
+          .contentType("JWT")
+          .build()
+          .toBase64URL()
+          .toString(),
+        new Payload((SignedJWT) token)
+          .toBase64URL()
+          .toString());
+    } else {
+      parts = encryptor.encrypt(new JWEHeader.Builder(JWEAlgorithm.parse(encryptor.getAlgorithm()), EncryptionMethod.parse(encryptor.getEncryptionMethod()))
+          .build()
+          .toBase64URL()
+          .toString(),
+        ((PlainJWT) token).getPayload()
+          .toBase64URL()
+          .toString());
+    }
+    try {
+      token = new EncryptedJWT(Base64URL.from(parts[0]),
+        Base64URL.from(parts[1]),
+        Base64URL.from(parts[2]),
+        Base64URL.from(parts[3]),
+        Base64URL.from(parts[4]));
+    } catch (ParseException e) {
+      e.printStackTrace();
+      throw new RuntimeException(e);
+    }
+    type = "JWE";
+    tokenString = token.serialize();
+    isEncrypted = true;
+  }
+
+  /**
+   * Parse JWT token string
+   *
+   * @param tokenString
+   * @return {@link Token} parsed token object
+   * @throws NullPointerException     when tokenString is null
+   * @throws ParseException           when tokensString has wrong format
+   * @throws IllegalArgumentException when tokenString is invalid
+   */
+  public static Token parseFromString(String tokenString) throws NullPointerException, ParseException, IllegalArgumentException {
+    if (tokenString == null) {
+      throw new NullPointerException();
+    }
     int partsCount = 0;
     try {
       partsCount = tokenString.split("\\.").length;
     } catch (Throwable th) {
       th.printStackTrace();
     } finally {
-      if (partsCount == 0 || tokenString == null) {
-        throw new IllegalArgumentException("\\'" + tokenString + "\\'" + "\nThe string does not match the expected format.");
+      if (partsCount == 0) {
+        throw new IllegalArgumentException("\\'" + tokenString + "\\'" + "\nThe string is invalid.");
       }
-    }
-    switch (partsCount) {
-      case 2 : return new TokenImpl(PlainJWT.parse(tokenString), tokenString);
-      case 3 : return new TokenImpl(SignedJWT.parse(tokenString), tokenString);
-      default : return null;
+      switch (partsCount) {
+        case 2:
+          return new TokenImpl(PlainJWT.parse(tokenString), tokenString);
+        case 3:
+          return new TokenImpl(SignedJWT.parse(tokenString), tokenString);
+        case 5:
+          return new TokenImpl(EncryptedJWT.parse(tokenString), tokenString);
+        default:
+          return null;
+      }
     }
   }
 

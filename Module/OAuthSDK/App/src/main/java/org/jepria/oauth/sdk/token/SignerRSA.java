@@ -4,8 +4,11 @@ import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.RSASSASigner;
 import com.nimbusds.jose.util.Base64URL;
 
+import com.nimbusds.jwt.JWT;
 import org.jepria.oauth.sdk.token.interfaces.Signer;
 import org.jepria.oauth.sdk.token.interfaces.Token;
+
+import java.nio.charset.Charset;
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
 import java.security.interfaces.RSAPrivateKey;
@@ -30,14 +33,17 @@ public class SignerRSA implements Signer {
   }
 
   @Override
-  public Base64URL sign(Token token) {
-    Base64URL result = null;
+  public String[] sign(String payload) {
+    String[] result = new String[3];
     try {
-      JWSObject tokenObject = (JWSObject) ((TokenImpl) token).token;
-      tokenObject.sign(signer);
-      result = tokenObject.getSignature();
-    } catch (JOSEException e) {
+      JWSHeader header = new JWSHeader.Builder(JWSAlgorithm.RS256).build();
+      byte[] signingInput = (header.toBase64URL().toString() + '.' + Base64URL.from(payload).toString()).getBytes(Charset.forName("UTF-8"));
+      result[0] = header.toBase64URL().toString();
+      result[1] = payload;
+      result[2] = signer.sign(header, signingInput).toString();
+    } catch (Throwable e) {
       e.printStackTrace();
+      throw new RuntimeException(e);
     }
     return result;
   }
