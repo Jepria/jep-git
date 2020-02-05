@@ -27,6 +27,30 @@ public class State {
     }
   }
 
+  /**
+   * @param additionalValue string will be added to state like : base64Url(state~additionalValue)
+   */
+  public State(String additionalValue) {
+    String state = null;
+    try {
+      MessageDigest cryptoProvider = MessageDigest.getInstance("SHA-256");
+      UUID randomUuid = UUID.randomUUID();
+      cryptoProvider.update(randomUuid.toString().getBytes());
+      state = Base64
+        .getUrlEncoder()
+        .withoutPadding()
+        .encodeToString((Base64
+          .getUrlEncoder()
+          .withoutPadding()
+          .encodeToString(cryptoProvider.digest()) + "~" + additionalValue).getBytes());
+    } catch (NoSuchAlgorithmException e) {
+      e.printStackTrace();
+      state = null;
+    } finally {
+      this.state = state;
+    }
+  }
+
   @Override
   public String toString() {
     return state;

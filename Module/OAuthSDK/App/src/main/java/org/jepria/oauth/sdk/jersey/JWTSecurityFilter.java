@@ -45,16 +45,6 @@ public abstract class JWTSecurityFilter implements ContainerRequestFilter {
    */
   public void handleRequest(HttpServletRequest request, TokenInfoResponse tokenInfo){};
 
-  protected final String getTokenFromCookies() {
-    Cookie[] cookies = request.getCookies();
-    for (Cookie cookie: cookies) {
-      if (cookie.getName().equalsIgnoreCase(RFI_OAUTH_TOKEN)) {
-        return cookie.getValue();
-      }
-    }
-    return null;
-  }
-
   protected final String getTokenFromHeader() {
     String headerText = request.getHeader("Authorization");
     if (headerText != null && headerText.startsWith("Bearer")) {
@@ -85,16 +75,7 @@ public abstract class JWTSecurityFilter implements ContainerRequestFilter {
      */
     String tokenString = getTokenFromHeader();
     if (tokenString == null) {
-      /*
-       * If Authorization Header is empty, try to find token in Cookies.
-       */
-      tokenString = getTokenFromCookies();
-      /*
-       * Token is still empty return 401;
-       */
-      if (tokenString == null) {
         throw new WebApplicationException(Response.status(Response.Status.UNAUTHORIZED).build());
-      }
     }
     /*
      * Introspect token with OAuth provider endpoint

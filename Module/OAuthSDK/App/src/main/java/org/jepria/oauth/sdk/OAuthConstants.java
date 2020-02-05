@@ -8,15 +8,13 @@ public class OAuthConstants {
   /**
    * Cookie names
    */
-  public static final String RFI_OAUTH_TOKEN = "RFI_OAUTH_TOKEN";
-  public static final String RFI_OAUTH_PARAMS = "RFI_OAUTH_PARAMS";
-  public static final String RFI_OAUTH_CSRF_TOKEN = "RFI_OAUTH_STATE";
   public static final String SESSION_ID = "SID";
 
   /**
    * Endpoint entrance URI's
    */
   public static final String OAUTH_AUTHORIZATION_CONTEXT_PATH = "/oauth/api/authorize";
+  public static final String OAUTH_LOGIN_CONTEXT_PATH = "/oauth/login";
   public static final String OAUTH_TOKEN_CONTEXT_PATH = "/oauth/api/token";
   public static final String OAUTH_TOKENINFO_CONTEXT_PATH = "/oauth/api/tokeninfo";
   public static final String OAUTH_TOKENREVOKE_CONTEXT_PATH = "/oauth/api/token/revoke";
@@ -34,6 +32,8 @@ public class OAuthConstants {
   public static final String STATE = "state";
   public static final String CODE = "code";
   public static final String TOKEN = "token";
+  public static final String CODE_CHALLENGE = "code_challenge";
+  public static final String CODE_VERIFIER = "code_verifier";
 
   /**
    * Environment properties
