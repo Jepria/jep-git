@@ -8,4 +8,4 @@ import java.lang.annotation.Target;
 @javax.ws.rs.NameBinding
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
-public @interface JWTSecured {}
+public @interface OAuth {}

@@ -1,13 +1,7 @@
 package org.jepria.oauth.sdk.token;
 
 import com.nimbusds.jose.*;
-import com.nimbusds.jose.util.Base64URL;
 import com.nimbusds.jwt.*;
-
-import org.jepria.oauth.sdk.token.interfaces.Decryptor;
-import org.jepria.oauth.sdk.token.interfaces.Encryptor;
-import org.jepria.oauth.sdk.token.interfaces.Signer;
-import org.jepria.oauth.sdk.token.interfaces.Token;
 
 import java.text.ParseException;
 import java.util.Date;

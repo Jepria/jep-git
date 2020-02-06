@@ -1,14 +1,14 @@
-package org.jepria.oauth.sdk.token;
+package org.jepria.oauth.sdk.token.rsa;
 
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.RSASSASigner;
 import com.nimbusds.jose.util.Base64URL;
 
-import com.nimbusds.jwt.JWT;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
-import org.jepria.oauth.sdk.token.interfaces.Signer;
-import org.jepria.oauth.sdk.token.interfaces.Token;
+import org.jepria.oauth.sdk.token.TokenImpl;
+import org.jepria.oauth.sdk.token.Signer;
+import org.jepria.oauth.sdk.token.Token;
 
 import java.nio.charset.Charset;
 import java.security.KeyFactory;
@@ -72,7 +72,6 @@ public class SignerRSA implements Signer {
       jws.sign(signer);
       return TokenImpl.parseFromString(jws.serialize());
     } catch (JOSEException e) {
-      e.printStackTrace();
       throw new RuntimeException(e);
     }
   }

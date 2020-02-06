@@ -1,14 +1,14 @@
-package org.jepria.oauth.sdk.token;
+package org.jepria.oauth.sdk.token.rsa;
 
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.RSAEncrypter;
 import com.nimbusds.jose.util.Base64URL;
 import com.nimbusds.jwt.EncryptedJWT;
-import com.nimbusds.jwt.JWT;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
-import org.jepria.oauth.sdk.token.interfaces.Encryptor;
-import org.jepria.oauth.sdk.token.interfaces.Token;
+import org.jepria.oauth.sdk.token.TokenImpl;
+import org.jepria.oauth.sdk.token.Encryptor;
+import org.jepria.oauth.sdk.token.Token;
 
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
@@ -60,7 +60,6 @@ public class EncryptorRSA implements Encryptor {
         jweObject.encrypt(encrypter);
         return TokenImpl.parseFromString(jweObject.serialize());
       } catch (JOSEException e) {
-        e.printStackTrace();
         throw new RuntimeException(e);
       }
     } else {
@@ -73,7 +72,6 @@ public class EncryptorRSA implements Encryptor {
         jwe.encrypt(encrypter);
         return TokenImpl.parseFromString(jwe.serialize());
       } catch (JOSEException e) {
-        e.printStackTrace();
         throw new RuntimeException(e);
       }
     }

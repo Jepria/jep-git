@@ -1,18 +1,20 @@
-package org.jepria.oauth.sdk.token;
+package org.jepria.oauth.sdk.token.rsa;
 
 import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JWSVerifier;
 import com.nimbusds.jose.crypto.RSASSAVerifier;
 import com.nimbusds.jwt.SignedJWT;
-import org.jepria.oauth.sdk.token.interfaces.Token;
-import org.jepria.oauth.sdk.token.interfaces.Verifier;
+import org.jepria.oauth.sdk.token.Token;
+import org.jepria.oauth.sdk.token.Verifier;
 
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
+import java.text.ParseException;
 import java.util.Base64;
+import java.util.Objects;
 
 public class SignatureVerifierRSA implements Verifier {
 
@@ -39,12 +41,15 @@ public class SignatureVerifierRSA implements Verifier {
   }
 
   @Override
-  public boolean verify(Token token) {
-    SignedJWT tokenObject = (SignedJWT) ((TokenImpl)token).token;
+  public boolean verify(Token token) throws ParseException {
+    Objects.requireNonNull(token);
+    if (!token.isSigned()) {
+      throw new IllegalArgumentException("Token is not signed");
+    }
+    SignedJWT tokenObject = SignedJWT.parse(token.asString());
     try {
       return tokenObject.verify(verifier);
     } catch (JOSEException e) {
-      e.printStackTrace();
       throw new RuntimeException(e);
     }
   }

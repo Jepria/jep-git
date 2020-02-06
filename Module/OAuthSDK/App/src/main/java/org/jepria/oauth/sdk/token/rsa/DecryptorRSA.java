@@ -1,14 +1,13 @@
-package org.jepria.oauth.sdk.token;
+package org.jepria.oauth.sdk.token.rsa;
 
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.RSADecrypter;
-import com.nimbusds.jose.util.Base64URL;
-import com.nimbusds.jwt.EncryptedJWT;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.PlainJWT;
 import com.nimbusds.jwt.SignedJWT;
-import org.jepria.oauth.sdk.token.interfaces.Decryptor;
-import org.jepria.oauth.sdk.token.interfaces.Token;
+import org.jepria.oauth.sdk.token.TokenImpl;
+import org.jepria.oauth.sdk.token.Decryptor;
+import org.jepria.oauth.sdk.token.Token;
 
 import java.security.KeyFactory;
 import java.security.NoSuchAlgorithmException;
@@ -57,7 +56,6 @@ public class DecryptorRSA implements Decryptor {
     try {
       jweObject.decrypt(decrypter);
     } catch (JOSEException e) {
-      e.printStackTrace();
       throw new RuntimeException(e);
     }
     if ("JWT".equals(jweObject.getHeader().getContentType())) {
