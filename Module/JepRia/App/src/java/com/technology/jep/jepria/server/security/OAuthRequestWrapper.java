@@ -5,6 +5,7 @@ import com.technology.jep.jepria.server.security.module.JepSecurityModule;
 import oracle.jdbc.OracleTypes;
 import org.apache.log4j.Logger;
 import org.jepria.oauth.sdk.*;
+import org.jepria.server.env.EnvironmentPropertySupport;
 import org.jepria.ssoutils.JepPrincipal;
 
 import javax.servlet.ServletException;
@@ -31,10 +32,16 @@ public class OAuthRequestWrapper extends HttpServletRequestWrapper {
   private String tokenString = null;
   private JepPrincipal principal;
   private Db db;
+  private final String moduleName;
+  private final String clientId;
+  private final String clientSecret;
 
   public OAuthRequestWrapper(HttpServletRequest request) {
     super(request);
     delegate = request;
+    moduleName = delegate.getServletContext().getContextPath().replaceFirst("/", "");
+    clientId = EnvironmentPropertySupport.getInstance(delegate).getProperty(moduleName + "/" + CLIENT_ID_PROPERTY);
+    clientSecret = EnvironmentPropertySupport.getInstance(delegate).getProperty(moduleName + "/" + CLIENT_SECRET_PROPERTY);
   }
 
   public String getTokenFromRequest() {
@@ -42,6 +49,10 @@ public class OAuthRequestWrapper extends HttpServletRequestWrapper {
       return tokenString;
     }
     Cookie[] cookies = delegate.getCookies();
+    if (cookies == null) {
+      tokenString = null;
+      return tokenString;
+    }
     for (Cookie cookie: cookies) {
       if (cookie.getName().equalsIgnoreCase(OAUTH_TOKEN)) {
         tokenString = cookie.getValue();
@@ -116,8 +127,10 @@ public class OAuthRequestWrapper extends HttpServletRequestWrapper {
     logger.trace("BEGIN getTokenInfo()");
     TokenInfoRequest request = TokenInfoRequest.Builder()
       .resourceURI(URI.create(delegate.getRequestURL().toString().replaceFirst(delegate.getRequestURI(), OAUTH_TOKENINFO_CONTEXT_PATH)))
-      .clientId(delegate.getServletContext().getInitParameter(CLIENT_ID_PROPERTY))
-      .clientSecret(delegate.getServletContext().getInitParameter(CLIENT_SECRET_PROPERTY))
+      .clientId(clientId)
+      .clientSecret(clientSecret)
+//      .clientId(delegate.getServletContext().getInitParameter(CLIENT_ID_PROPERTY))
+//      .clientSecret(delegate.getServletContext().getInitParameter(CLIENT_SECRET_PROPERTY))
       .token(tokenString)
       .build();
     TokenInfoResponse response =  request.execute();
@@ -173,8 +186,10 @@ public class OAuthRequestWrapper extends HttpServletRequestWrapper {
       TokenRevocationRequest request = TokenRevocationRequest.Builder()
         .resourceURI(URI.create(delegate.getRequestURL().toString().replaceFirst(delegate.getRequestURI(), OAUTH_TOKENREVOKE_CONTEXT_PATH)))
         .token(tokenString)
-        .clientId(delegate.getServletContext().getInitParameter(CLIENT_ID_PROPERTY))
-        .clientSecret(delegate.getServletContext().getInitParameter(CLIENT_SECRET_PROPERTY))
+        .clientId(clientId)
+        .clientSecret(clientSecret)
+//        .clientId(delegate.getServletContext().getInitParameter(CLIENT_ID_PROPERTY))
+//        .clientSecret(delegate.getServletContext().getInitParameter(CLIENT_SECRET_PROPERTY))
         .build();
       try {
         request.execute();

@@ -4,6 +4,7 @@ import com.technology.jep.jepcommon.security.pkg_Operator;
 import com.technology.jep.jepria.server.security.OAuthRequestWrapper;
 import org.apache.log4j.Logger;
 import org.jepria.oauth.sdk.State;
+import org.jepria.server.env.EnvironmentPropertySupport;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,9 @@ import static org.jepria.oauth.sdk.OAuthConstants.*;
  */
 public class JepSecurityModuleImpl extends JepAbstractSecurityModule {
 
+  private static String moduleName;
+  private static String clientId;
+
   static {
     logger = Logger.getLogger(JepSecurityModuleImpl.class.getName());
   }
@@ -43,6 +47,8 @@ public class JepSecurityModuleImpl extends JepAbstractSecurityModule {
     HttpSession session = request.getSession();
     Principal principal = request.getUserPrincipal();
     JepSecurityModuleImpl securityModule;
+    moduleName = request.getServletContext().getContextPath().replaceFirst("/", "");
+    clientId = EnvironmentPropertySupport.getInstance(request).getProperty(moduleName + "/" + CLIENT_ID_PROPERTY);
     if(principal == null) { // Работает гость ?
       securityModule = (JepSecurityModuleImpl) session.getAttribute(JEP_SECURITY_MODULE_ATTRIBUTE_NAME);
       if(securityModule == null) { // Первый вход ?
@@ -76,7 +82,7 @@ public class JepSecurityModuleImpl extends JepAbstractSecurityModule {
       response.addCookie(stateCookie);
       String hostUrl = url.getProtocol() + "://" + url.getHost() + (url.getPort() != -1 ? (":" + url.getPort()) : "");
       currentUrl = hostUrl + OAUTH_LOGOUT_CONTEXT_PATH + "?"
-        + "&" + CLIENT_ID + "=" + request.getServletContext().getInitParameter(CLIENT_ID_PROPERTY)
+        + "&" + CLIENT_ID + "=" + clientId
         + "&" + REDIRECT_URI + "="
           + Base64.getUrlEncoder()
             .withoutPadding()

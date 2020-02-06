@@ -4,6 +4,7 @@ import com.technology.jep.jepria.server.security.OAuthRequestWrapper;
 import org.apache.log4j.Logger;
 import org.jepria.oauth.sdk.*;
 import org.jepria.oauth.sdk.util.URIUtil;
+import org.jepria.server.env.EnvironmentPropertySupport;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
@@ -31,10 +32,14 @@ import static org.jepria.oauth.sdk.OAuthConstants.*;
 public class OAuthEntrySecurityFilter extends MultiInstanceSecurityFilter {
 
   private static Logger logger = Logger.getLogger(OAuthEntrySecurityFilter.class.getName());
+  protected String clientId;
+  protected String clientSecret;
 
   @Override
   public void init(FilterConfig filterConfig) throws ServletException {
     super.init(filterConfig);
+    clientId = EnvironmentPropertySupport.getInstance(filterConfig.getServletContext()).getProperty(moduleName + "/" + CLIENT_ID_PROPERTY);
+    clientSecret = EnvironmentPropertySupport.getInstance(filterConfig.getServletContext()).getProperty(moduleName + "/" + CLIENT_SECRET_PROPERTY);
   }
 
   /**
@@ -45,8 +50,8 @@ public class OAuthEntrySecurityFilter extends MultiInstanceSecurityFilter {
     TokenRequest tokenRequest = TokenRequest.Builder()
       .resourceURI(URI.create(httpServletRequest.getRequestURL().toString().replaceFirst(httpServletRequest.getRequestURI(), OAUTH_TOKEN_CONTEXT_PATH)))
       .grantType(GrantType.AUTHORIZATION_CODE)
-      .clientId(httpServletRequest.getServletContext().getInitParameter(CLIENT_ID_PROPERTY))
-      .clientSecret(httpServletRequest.getServletContext().getInitParameter(CLIENT_SECRET_PROPERTY))
+      .clientId(clientId)
+      .clientSecret(clientSecret)
       .redirectionURI(URI.create(httpServletRequest.getRequestURL().toString()))
       .authorizationCode(code)
       .build();
@@ -70,7 +75,7 @@ public class OAuthEntrySecurityFilter extends MultiInstanceSecurityFilter {
       String authorizationRequestURI = AuthorizationRequest.Builder()
         .resourceURI(URI.create(httpServletRequest.getRequestURL().toString().replaceFirst(httpServletRequest.getRequestURI(), OAUTH_AUTHORIZATION_CONTEXT_PATH)))
         .responseType(ResponseType.AUTHORIZATION_CODE)
-        .clientId(httpServletRequest.getServletContext().getInitParameter(CLIENT_ID_PROPERTY))
+        .clientId(clientId)
         .redirectionURI(URI.create(httpServletRequest.getRequestURL().toString()))
         .state(state)
         .build()

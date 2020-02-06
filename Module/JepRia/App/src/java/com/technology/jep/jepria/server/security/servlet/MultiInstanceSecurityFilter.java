@@ -1,11 +1,15 @@
 package com.technology.jep.jepria.server.security.servlet;
 
 import com.google.gson.Gson;
+import org.jepria.server.env.EnvironmentPropertySupport;
 
 import javax.servlet.*;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static org.jepria.oauth.sdk.OAuthConstants.CLIENT_ID_PROPERTY;
+import static org.jepria.oauth.sdk.OAuthConstants.CLIENT_SECRET_PROPERTY;
 
 /**
  * <pre>
@@ -20,6 +24,7 @@ public abstract class MultiInstanceSecurityFilter implements Filter {
   protected Set<String> securityRoles;
   protected TreeSet<String> selfFilterMappings;
   protected TreeSet<String> otherFilterMappings = new TreeSet<>();
+  protected String moduleName;
 
   @Override
   public void init(FilterConfig filterConfig) throws ServletException {
@@ -64,6 +69,7 @@ public abstract class MultiInstanceSecurityFilter implements Filter {
       if (securityRolesString != null && securityRolesString.length() > 0) {
         Collections.addAll(securityRoles, securityRolesString.split("\\s+|\\s*,\\s*|\\s*;\\s*"));
       }
+      moduleName = filterConfig.getServletContext().getContextPath().replaceFirst("/", "");
     } catch (Throwable th) {
       th.printStackTrace();
       throw new ServletException(th);
