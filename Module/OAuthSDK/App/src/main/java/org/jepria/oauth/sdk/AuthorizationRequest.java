@@ -41,29 +41,18 @@ public final class AuthorizationRequest {
   private final State state;
 
   public AuthorizationRequest(URI resourceURI, String responseType, URI redirectionURI, String clientId, State state){
-    if (resourceURI == null) {
-      throw new IllegalArgumentException("Request URI must be not null");
-    }
+    Objects.requireNonNull(resourceURI, "Request URI must be not null");
     this.resourceURI = resourceURI;
-
-    if (responseType == null) {
-      throw new IllegalArgumentException("Response type must be not null");
+    Objects.requireNonNull(responseType, "Response type must be not null");
+    if (!ResponseType.implies(responseType)) {
+      throw new IllegalArgumentException("Response Type must have trusted value");
     }
     this.responseType = responseType;
-
-    if (redirectionURI == null) {
-      throw new IllegalArgumentException("Redirection URI must be not null");
-    }
+    Objects.requireNonNull(redirectionURI, "Redirection URI must be not null");
     this.redirectionURI = redirectionURI;
-
-    if (clientId == null) {
-      throw new IllegalArgumentException("Client Id must be not null");
-    }
+    Objects.requireNonNull(clientId, "Client Id must be not null");
     this.clientId = clientId;
-
-    if (state == null) {
-      throw new IllegalArgumentException("State must be not null");
-    }
+    Objects.requireNonNull(state, "State must be not null");
     this.state = state;
   }
 
@@ -115,61 +104,78 @@ public final class AuthorizationRequest {
     }
   }
 
+  public static Builder Builder() {
+    return new BuilderImpl();
+  }
 
-  public static final class Builder {
+  public interface Builder {
+    Builder clientId(String clientId);
+    Builder responseType(String responseType);
+    Builder redirectionURI(URI redirectionURI);
+    Builder state(State state);
+    Builder resourceURI(URI resourceURI);
+    AuthorizationRequest build();
+  }
+
+  private static final class BuilderImpl implements Builder {
 
     private URI resourceURI;
     private String responseType;
     private URI redirectionURI;
     private String clientId;
     private State state;
+    private boolean isBuilt = false;
 
-    public Builder(){}
-
+    @Override
     public Builder clientId(String clientId) {
-      if (clientId == null) {
-        throw new IllegalArgumentException("Client Id must be not null");
+      if (isBuilt) {
+        new IllegalStateException("Builder is finished");
       }
       this.clientId = clientId;
       return this;
     }
 
+    @Override
     public Builder responseType(String responseType) {
-      if (responseType == null) {
-        throw new IllegalArgumentException("Redirection URI must be not null");
-      }
-      if (!ResponseType.implies(responseType)) {
-        throw new IllegalArgumentException("Response Type must have trusted value");
+      if (isBuilt) {
+        new IllegalStateException("Builder is finished");
       }
       this.responseType = responseType;
       return this;
     }
 
+    @Override
     public Builder redirectionURI(URI redirectionURI) {
-      if (redirectionURI == null) {
-        throw new IllegalArgumentException("Redirection URI must be not null");
+      if (isBuilt) {
+        new IllegalStateException("Builder is finished");
       }
       this.redirectionURI = redirectionURI;
       return this;
     }
 
+    @Override
     public Builder state(State state) {
-      if (state == null) {
-        throw new IllegalArgumentException("State must be not null");
+      if (isBuilt) {
+        new IllegalStateException("Builder is finished");
       }
       this.state = state;
       return this;
     }
 
+    @Override
     public Builder resourceURI(URI resourceURI) {
-      if (resourceURI == null) {
-        throw new IllegalArgumentException("Resource URI must be not null");
+      if (isBuilt) {
+        new IllegalStateException("Builder is finished");
       }
       this.resourceURI = resourceURI;
       return this;
     }
 
+    @Override
     public AuthorizationRequest build() {
+      if (isBuilt) {
+        new IllegalStateException("Builder is finished");
+      }
       return new AuthorizationRequest(resourceURI, responseType, redirectionURI, clientId, state);
     }
   }

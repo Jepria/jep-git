@@ -73,13 +73,6 @@ public interface Token {
   boolean isSigned();
 
   /**
-   * Sign token token with provided Signer.
-   *
-   * @param signer
-   */
-  void sign(Signer signer);
-
-  /**
    * Get token in Base64 string representation
    * @return
    */
@@ -91,8 +84,4 @@ public interface Token {
    * @return encrypted flag
    */
   boolean isEncrypted();
-
-  void decrypt(Decryptor decryptor);
-
-  void encrypt(Encryptor encryptor);
 }

@@ -3,6 +3,7 @@ package org.jepria.oauth.sdk;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Base64;
+import java.util.Objects;
 import java.util.UUID;
 
 /**
@@ -13,7 +14,6 @@ public class State {
   private final String state;
 
   public State() {
-    String state = null;
     try {
       MessageDigest cryptoProvider = MessageDigest.getInstance("SHA-256");
       UUID randomUuid = UUID.randomUUID();
@@ -21,9 +21,7 @@ public class State {
       state = Base64.getUrlEncoder().withoutPadding().encodeToString(cryptoProvider.digest());
     } catch (NoSuchAlgorithmException e) {
       e.printStackTrace();
-      state = null;
-    } finally {
-      this.state = state;
+      throw new RuntimeException(e);
     }
   }
 
@@ -31,7 +29,6 @@ public class State {
    * @param additionalValue string will be added to state like : base64Url(state~additionalValue)
    */
   public State(String additionalValue) {
-    String state = null;
     try {
       MessageDigest cryptoProvider = MessageDigest.getInstance("SHA-256");
       UUID randomUuid = UUID.randomUUID();
@@ -45,9 +42,7 @@ public class State {
           .encodeToString(cryptoProvider.digest()) + "~" + additionalValue).getBytes());
     } catch (NoSuchAlgorithmException e) {
       e.printStackTrace();
-      state = null;
-    } finally {
-      this.state = state;
+      throw new RuntimeException(e);
     }
   }
 

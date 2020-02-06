@@ -3,14 +3,14 @@ package org.jepria.oauth.sdk;
 import java.util.List;
 
 public class TokenInfoResponse {
-  Boolean active;
-  String client_id;
-  String username;
-  String sub;
-  Long exp;
-  List<String> aud;
-  String iss;
-  String jti;
+  protected Boolean active;
+  protected String client_id;
+  protected String username;
+  protected String sub;
+  protected Long exp;
+  protected List<String> aud;
+  protected String iss;
+  protected String jti;
 
   public Boolean getActive() {
     return active;
@@ -20,11 +20,11 @@ public class TokenInfoResponse {
     this.active = active;
   }
 
-  public String getClient_id() {
+  public String getClientId() {
     return client_id;
   }
 
-  public void setClient_id(String client_id) {
+  public void setClientId(String client_id) {
     this.client_id = client_id;
   }
 

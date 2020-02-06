@@ -1,31 +1,31 @@
 package org.jepria.oauth.sdk;
 
 public class TokenResponse {
-  String token_type;
-  Integer expires_in;
-  String access_token;
+  protected String token_type;
+  protected Integer expires_in;
+  protected String access_token;
 
-  public String getToken_type() {
+  public String getTokenType() {
     return token_type;
   }
 
-  public void setToken_type(String token_type) {
+  public void setTokenType(String token_type) {
     this.token_type = token_type;
   }
 
-  public Integer getExpires_in() {
+  public Integer getExpiresIn() {
     return expires_in;
   }
 
-  public void setExpires_in(Integer expires_in) {
+  public void setExpiresIn(Integer expires_in) {
     this.expires_in = expires_in;
   }
 
-  public String getAccess_token() {
+  public String getAccessToken() {
     return access_token;
   }
 
-  public void setAccess_token(String access_token) {
+  public void setAccessToken(String access_token) {
     this.access_token = access_token;
   }
 

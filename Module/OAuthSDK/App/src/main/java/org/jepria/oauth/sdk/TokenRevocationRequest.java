@@ -11,6 +11,7 @@ import java.net.*;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import static org.jepria.oauth.sdk.OAuthConstants.TOKEN;
 
@@ -38,21 +39,13 @@ public class TokenRevocationRequest {
 
 
   public TokenRevocationRequest(URI resourceURI, String tokenString, String clientId, String clientSecret) {
-    if (resourceURI == null) {
-      throw new IllegalArgumentException("Request URI must be not null");
-    }
+    Objects.requireNonNull(resourceURI, "Request URI must be not null");
     this.resourceURI = resourceURI;
-    if (tokenString == null) {
-      throw new IllegalArgumentException("Token URI must be not null");
-    }
+    Objects.requireNonNull(tokenString, "Token URI must be not null");
     this.tokenString = tokenString;
-    if (clientId == null) {
-      throw new IllegalArgumentException("Client ID must be not null");
-    }
+    Objects.requireNonNull(clientId, "Client ID must be not null");
     this.clientId = clientId;
-    if (clientSecret == null) {
-      throw new IllegalArgumentException("Client Secret must be not null");
-    }
+    Objects.requireNonNull(clientSecret, "Client Secret must be not null");
     this.clientSecret = clientSecret;
   }
 
@@ -153,47 +146,67 @@ public class TokenRevocationRequest {
     }
   }
 
-  public static final class Builder {
+  public static Builder Builder() {
+    return new BuilderImpl();
+  }
+
+  public interface Builder {
+    Builder token(String tokenString);
+    Builder clientId(String clientId);
+    Builder clientSecret(String clientSecret);
+    Builder resourceURI(URI resourceURI);
+    TokenRevocationRequest build();
+  }
+
+  private static final class BuilderImpl implements Builder {
 
     private URI resourceURI;
     private String tokenString;
     private String clientId;
     private String clientSecret;
+    private boolean isBuilt = false;
 
+    @Override
     public Builder token(String tokenString) {
-      if (tokenString == null) {
-        throw new IllegalArgumentException("Token must be not null");
+      if (isBuilt) {
+        new IllegalStateException("Builder is finished");
       }
       this.tokenString = tokenString;
       return this;
     }
 
+    @Override
     public Builder clientId(String clientId) {
-      if (clientId == null) {
-        throw new IllegalArgumentException("Client Id must be not null");
+      if (isBuilt) {
+        new IllegalStateException("Builder is finished");
       }
       this.clientId = clientId;
       return this;
     }
 
+    @Override
     public Builder clientSecret(String clientSecret) {
-      if (clientSecret == null) {
-        throw new IllegalArgumentException("Client Secret must be not null");
+      if (isBuilt) {
+        new IllegalStateException("Builder is finished");
       }
       this.clientSecret = clientSecret;
       return this;
     }
 
+    @Override
     public Builder resourceURI(URI resourceURI) {
-      if (resourceURI == null) {
-        throw new IllegalArgumentException("Resource URI must be not null");
+      if (isBuilt) {
+        new IllegalStateException("Builder is finished");
       }
       this.resourceURI = resourceURI;
       return this;
     }
 
-
+    @Override
     public TokenRevocationRequest build() {
+      if (isBuilt) {
+        new IllegalStateException("Builder is finished");
+      }
       return new TokenRevocationRequest(resourceURI, tokenString, clientId, clientSecret);
     }
   }

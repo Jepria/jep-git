@@ -1,18 +1,21 @@
 package org.jepria.oauth.sdk.token.interfaces;
 
+import java.text.ParseException;
+
 /**
  * Token Object Decryptor
  */
 public interface Decryptor {
 
   /**
-   * Decrypt token parts.
-   * @param header JWE Header Base64 Url encoded String
-   * @param encryptedKey Base64 Url encoded String
-   * @param initializationVector Base64 Url encoded String
-   * @param cipherText Base64 Url encoded String
-   * @param authenticationTag Base64 Url encoded String
-   * @return token payload bytes
+   * Decrypt token
+   * @param token {@link Token}
+   * @return {@link Token}
+   * @throws ParseException if token is not valid
    */
-  byte[] decrypt(String header, String encryptedKey, String initializationVector, String cipherText, String authenticationTag);
+  Token decrypt(Token token) throws ParseException;
+
+  String getAlgorithm();
+
+  String getEncryptionMethod();
 }

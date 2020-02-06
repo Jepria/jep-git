@@ -20,12 +20,17 @@ public class SignatureVerifierRSA implements Verifier {
   protected final RSAPublicKey key;
   protected final JWSVerifier verifier;
 
-  public SignatureVerifierRSA(String publicKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
+  public SignatureVerifierRSA(String publicKey) {
     byte[] byteKey = Base64.getDecoder().decode(publicKey);
     X509EncodedKeySpec spec = new X509EncodedKeySpec(byteKey);
-    KeyFactory kf = KeyFactory.getInstance(ALGORITHM);
-    this.key = (RSAPublicKey) kf.generatePublic(spec);
-    verifier = new RSASSAVerifier(this.key);
+    try {
+      KeyFactory kf = KeyFactory.getInstance(ALGORITHM);
+      this.key = (RSAPublicKey) kf.generatePublic(spec);
+      verifier = new RSASSAVerifier(this.key);
+    } catch (InvalidKeySpecException | NoSuchAlgorithmException e) {
+      e.printStackTrace();
+      throw new RuntimeException(e);
+    }
   }
 
   public SignatureVerifierRSA(RSAPublicKey publicKey) {
@@ -39,7 +44,8 @@ public class SignatureVerifierRSA implements Verifier {
     try {
       return tokenObject.verify(verifier);
     } catch (JOSEException e) {
-      return false;
+      e.printStackTrace();
+      throw new RuntimeException(e);
     }
   }
 

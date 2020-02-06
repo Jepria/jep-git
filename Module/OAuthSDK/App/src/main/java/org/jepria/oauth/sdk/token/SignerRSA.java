@@ -5,6 +5,8 @@ import com.nimbusds.jose.crypto.RSASSASigner;
 import com.nimbusds.jose.util.Base64URL;
 
 import com.nimbusds.jwt.JWT;
+import com.nimbusds.jwt.JWTClaimsSet;
+import com.nimbusds.jwt.SignedJWT;
 import org.jepria.oauth.sdk.token.interfaces.Signer;
 import org.jepria.oauth.sdk.token.interfaces.Token;
 
@@ -14,6 +16,7 @@ import java.security.NoSuchAlgorithmException;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
+import java.text.ParseException;
 import java.util.Base64;
 
 /**
@@ -32,7 +35,10 @@ public class SignerRSA implements Signer {
     signer = new RSASSASigner(privateKey);
   }
 
-  @Override
+  public SignerRSA(RSAPrivateKey privateKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
+    signer = new RSASSASigner(privateKey);
+  }
+
   public String[] sign(String payload) {
     String[] result = new String[3];
     try {
@@ -46,6 +52,29 @@ public class SignerRSA implements Signer {
       throw new RuntimeException(e);
     }
     return result;
+  }
+
+  @Override
+  public Token sign(Token token) throws ParseException {
+    if (token == null) {
+      throw new NullPointerException();
+    }
+    if (token.isSigned()) {
+      throw new IllegalStateException("Token is already signed");
+    }
+    if (token.isEncrypted()) {
+      throw new IllegalStateException("Encrypted tokens are not available dor signing");
+    }
+    SignedJWT jws = new SignedJWT(
+      new JWSHeader.Builder(JWSAlgorithm.RS256).build(),
+      JWTClaimsSet.parse(new Payload(Base64URL.from(token.asString().split("\\.")[1])).toJSONObject()));
+    try {
+      jws.sign(signer);
+      return TokenImpl.parseFromString(jws.serialize());
+    } catch (JOSEException e) {
+      e.printStackTrace();
+      throw new RuntimeException(e);
+    }
   }
 
   @Override

@@ -27,7 +27,7 @@ import static org.jepria.oauth.sdk.OAuthConstants.CLIENT_SECRET_PROPERTY;
 public abstract class JWTSecurityFilter implements ContainerRequestFilter {
 
   @Context
-  HttpServletRequest request;
+  protected HttpServletRequest request;
 
   /**
    * Override this method, to create SecurityContext object based on special system requirements. E.G. getting roles, principal.
@@ -35,7 +35,7 @@ public abstract class JWTSecurityFilter implements ContainerRequestFilter {
    * @param tokenInfo Parsed {@link TokenInfoResponse}
    * @return
    */
-  public abstract SecurityContext getSecurityContext(TokenInfoResponse tokenInfo);
+  protected abstract SecurityContext getSecurityContext(TokenInfoResponse tokenInfo);
 
   /**
    * Override this method, to create specific manipulations with request object, or custom logic. E.G. session caching.
@@ -43,8 +43,16 @@ public abstract class JWTSecurityFilter implements ContainerRequestFilter {
    * @param request Incoming {@link HttpServletRequest}
    * @param tokenInfo Parsed {@link TokenInfoResponse}
    */
-  public void handleRequest(HttpServletRequest request, TokenInfoResponse tokenInfo){};
+  protected void handleRequest(HttpServletRequest request, TokenInfoResponse tokenInfo){};
 
+  protected String getTokenFromCookie() {
+    return null;
+  }
+
+  /**
+   * get Token string from Authorization HTTP Header
+   * @return token
+   */
   protected final String getTokenFromHeader() {
     String headerText = request.getHeader("Authorization");
     if (headerText != null && headerText.startsWith("Bearer")) {
@@ -55,13 +63,25 @@ public abstract class JWTSecurityFilter implements ContainerRequestFilter {
   }
 
   /**
+   * get OAuth client_id
+   * @return
+   */
+  protected abstract String getClientSecret();
+
+  /**
+   * get OAuth client_secret
+   * @return
+   */
+  protected abstract String getClientId();
+
+  /**
    * Request token information form OAuth server
    */
   private TokenInfoResponse getTokenInfo(String tokenString) throws IOException {
-    TokenInfoRequest tokenInfoRequest = new TokenInfoRequest.Builder()
+    TokenInfoRequest tokenInfoRequest = TokenInfoRequest.Builder()
       .resourceURI(URI.create(request.getRequestURL().toString().replaceFirst(request.getRequestURI(), OAUTH_TOKENINFO_CONTEXT_PATH)))
-      .clientId(request.getServletContext().getInitParameter(CLIENT_ID_PROPERTY))
-      .clientSecret(request.getServletContext().getInitParameter(CLIENT_SECRET_PROPERTY))
+      .clientId(getClientId())
+      .clientSecret(getClientSecret())
       .token(tokenString)
       .build();
     TokenInfoResponse response =  tokenInfoRequest.execute();
@@ -74,6 +94,12 @@ public abstract class JWTSecurityFilter implements ContainerRequestFilter {
      * Get token from Authorization Header
      */
     String tokenString = getTokenFromHeader();
+    if (tokenString == null) {
+      /*
+       * Get token from Cookies
+       */
+      tokenString = getTokenFromCookie();
+    }
     if (tokenString == null) {
         throw new WebApplicationException(Response.status(Response.Status.UNAUTHORIZED).build());
     }

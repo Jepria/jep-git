@@ -12,13 +12,14 @@ import org.jepria.oauth.sdk.token.interfaces.Token;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 public class TokenImpl implements Token {
 
-  JWT token;
-  Algorithm algorithm;
-  Header header;
-  JWTClaimsSet claimsSet;
+  protected JWT token;
+  protected Algorithm algorithm;
+  protected Header header;
+  protected JWTClaimsSet claimsSet;
   protected String tokenString;
   protected String type;
   protected boolean isSigned = false;
@@ -179,103 +180,6 @@ public class TokenImpl implements Token {
     return true;
   }
 
-  @Override
-  public void sign(Signer signer) {
-    if (isSigned) {
-      return;
-    }
-    try {
-      String[] parts = signer.sign(new Payload(claimsSet.toJSONObject()).toBase64URL().toString());
-      token = new SignedJWT(Base64URL.from(parts[0]),
-        Base64URL.from(parts[1]),
-        Base64URL.from(parts[2]));
-      tokenString = token.serialize();
-      isSigned = true;
-    } catch (ParseException e) {
-      e.printStackTrace();
-      throw new RuntimeException(e);
-    }
-  }
-
-  @Override
-  public void decrypt(Decryptor decryptor) {
-    if (!isEncrypted) {
-      return;
-    }
-    byte[] payload;
-    try {
-      if ("JWT".equals(header.getContentType())) {
-        /*
-         if JWE Contains JWS as payload
-         */
-        EncryptedJWT encryptedJWT = (EncryptedJWT) token;
-        payload = decryptor.decrypt(encryptedJWT.getHeader().toBase64URL().toString(), encryptedJWT.getEncryptedKey().toString(),
-          encryptedJWT.getIV().toString(), encryptedJWT.getCipherText().toString(), encryptedJWT.getAuthTag().toString());
-        token = new Payload(payload).toSignedJWT();
-        if (token == null) {
-          throw new IllegalStateException("Payload not a signed JWT");
-        }
-        header = token.getHeader();
-        type = "JWS";
-        isSigned = true;
-      } else {
-        EncryptedJWT encryptedJWT = (EncryptedJWT) token;
-        payload = decryptor.decrypt(encryptedJWT.getHeader().toBase64URL().toString(), encryptedJWT.getEncryptedKey().toString(),
-          encryptedJWT.getIV().toString(), encryptedJWT.getCipherText().toString(), encryptedJWT.getAuthTag().toString());
-        token = new PlainJWT(JWTClaimsSet.parse(new Payload(payload).toJSONObject()));
-        type = "JWT";
-        header = null;
-      }
-      claimsSet = token.getJWTClaimsSet();
-      isEncrypted = false;
-    } catch (Throwable th) {
-      th.printStackTrace();
-      throw new RuntimeException(th);
-    }
-  }
-
-  @Override
-  public void encrypt(Encryptor encryptor) {
-    if (isEncrypted) {
-      return;
-    }
-    String[] parts;
-    if (isSigned) {
-      /*
-      if JWE Contains JWS as payload
-       */
-      parts = encryptor.encrypt(new JWEHeader.Builder(JWEAlgorithm.parse(encryptor.getAlgorithm()), EncryptionMethod.parse(encryptor.getEncryptionMethod()))
-          .contentType("JWT")
-          .build()
-          .toBase64URL()
-          .toString(),
-        new Payload((SignedJWT) token)
-          .toBase64URL()
-          .toString());
-    } else {
-      parts = encryptor.encrypt(new JWEHeader.Builder(JWEAlgorithm.parse(encryptor.getAlgorithm()), EncryptionMethod.parse(encryptor.getEncryptionMethod()))
-          .build()
-          .toBase64URL()
-          .toString(),
-        ((PlainJWT) token).getPayload()
-          .toBase64URL()
-          .toString());
-    }
-    try {
-      token = new EncryptedJWT(Base64URL.from(parts[0]),
-        Base64URL.from(parts[1]),
-        Base64URL.from(parts[2]),
-        Base64URL.from(parts[3]),
-        Base64URL.from(parts[4]));
-    } catch (ParseException e) {
-      e.printStackTrace();
-      throw new RuntimeException(e);
-    }
-    type = "JWE";
-    tokenString = token.serialize();
-    isEncrypted = true;
-  }
-
   /**
    * Parse JWT token string
    *
@@ -286,9 +190,7 @@ public class TokenImpl implements Token {
    * @throws IllegalArgumentException when tokenString is invalid
    */
   public static Token parseFromString(String tokenString) throws NullPointerException, ParseException, IllegalArgumentException {
-    if (tokenString == null) {
-      throw new NullPointerException();
-    }
+    Objects.requireNonNull(tokenString);
     int partsCount = 0;
     try {
       partsCount = tokenString.split("\\.").length;

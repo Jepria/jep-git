@@ -1,18 +1,20 @@
 package org.jepria.oauth.sdk.token.interfaces;
 
 
+import java.text.ParseException;
+
 /**
  * Token Signer interface. Provides methods for generation of Base64 signature for Token claims.
  */
 public interface Signer {
 
   /**
-   * Sign provided token payload.
-   *
-   * @param payload Base64 URL encoded token payload
-   * @return Base64 URL encoded string array. Size is 3. [Header, Payload, Signature].
+   * Sign token
+   * @param token {@link Token}
+   * @return {@link Token}
+   * @throws ParseException if token is invalid
    */
-  String[] sign(String payload);
+  Token sign(Token token) throws ParseException;
 
   /**
    * Get name of Hash Algorithm for signature.

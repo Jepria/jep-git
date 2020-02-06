@@ -1,14 +1,16 @@
 package org.jepria.oauth.sdk.token.interfaces;
 
+import java.text.ParseException;
+
 public interface Encryptor {
 
   /**
    * Encrypt token object
-   * @param header Base64 URL encoded token header
-   * @param payload Base64 URL encoded token payload
-   * @return String array of Base64 URL encoded strings. Size of array is 5. [header, encryptedKey, initialization_vector, cipher_text, authentication_tag]
+   * @param token {@link Token}
+   * @return {@link Token}
+   * @throws ParseException if token is invalid object
    */
-  String[] encrypt(String header, String payload);
+  Token encrypt(Token token) throws ParseException;
 
   String getAlgorithm();
 

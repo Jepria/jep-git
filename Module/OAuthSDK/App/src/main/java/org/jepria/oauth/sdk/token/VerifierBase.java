@@ -24,11 +24,13 @@ public class VerifierBase implements Verifier {
 
   @Override
   public boolean verify(Token token) {
-    if (token == null) {
-      return false;
-    }
+    Objects.requireNonNull(token);
     return Objects.equals(token.getIssuer(), iss)
-      && (expiryDate != null ? expiryDate.before(token.getExpirationTime()) : true)
-      && (aud != null && token.getAudience() != null ? aud.equals(token.getAudience()) || token.getAudience().containsAll(aud) : true);
+      && (expiryDate != null ?
+        expiryDate.before(token.getExpirationTime())
+        : true)
+      && (aud != null && token.getAudience() != null ?
+        aud.equals(token.getAudience()) || token.getAudience().containsAll(aud)
+        : true);
   }
 }

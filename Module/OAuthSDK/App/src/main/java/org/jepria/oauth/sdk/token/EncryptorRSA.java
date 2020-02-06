@@ -3,7 +3,10 @@ package org.jepria.oauth.sdk.token;
 import com.nimbusds.jose.*;
 import com.nimbusds.jose.crypto.RSAEncrypter;
 import com.nimbusds.jose.util.Base64URL;
+import com.nimbusds.jwt.EncryptedJWT;
 import com.nimbusds.jwt.JWT;
+import com.nimbusds.jwt.JWTClaimsSet;
+import com.nimbusds.jwt.SignedJWT;
 import org.jepria.oauth.sdk.token.interfaces.Encryptor;
 import org.jepria.oauth.sdk.token.interfaces.Token;
 
@@ -14,6 +17,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 import java.text.ParseException;
 import java.util.Base64;
+import java.util.Objects;
 
 public class EncryptorRSA implements Encryptor {
 
@@ -21,12 +25,17 @@ public class EncryptorRSA implements Encryptor {
   private final RSAPublicKey key;
   private final RSAEncrypter encrypter;
 
-  public EncryptorRSA(String publicKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
+  public EncryptorRSA(String publicKey) {
     byte[] byteKey = Base64.getDecoder().decode(publicKey);
     X509EncodedKeySpec spec = new X509EncodedKeySpec(byteKey);
-    KeyFactory kf = KeyFactory.getInstance(ALGORITHM);
-    this.key = (RSAPublicKey) kf.generatePublic(spec);
-    encrypter = new RSAEncrypter(key);
+    try {
+      KeyFactory kf = KeyFactory.getInstance(ALGORITHM);
+      this.key = (RSAPublicKey) kf.generatePublic(spec);
+      encrypter = new RSAEncrypter(key);
+    } catch (InvalidKeySpecException | NoSuchAlgorithmException e) {
+      e.printStackTrace();
+      throw new RuntimeException(e);
+    }
   }
 
   public EncryptorRSA(RSAPublicKey publicKey) {
@@ -35,22 +44,39 @@ public class EncryptorRSA implements Encryptor {
   }
 
   @Override
-  public String[] encrypt(String header, String payload) {
-    JWECryptoParts parts;
-    try {
-      JWEHeader jweHeader = JWEHeader.parse(Base64URL.from(header));
-      parts = encrypter.encrypt(jweHeader, new Payload(Base64URL.from(payload)).toBytes());
-    } catch (Throwable th) {
-      th.printStackTrace();
-      throw new RuntimeException(th);
+  public Token encrypt(Token token) throws ParseException {
+    Objects.requireNonNull(token);
+    if (token.isEncrypted()) {
+      throw new IllegalStateException("Token is already encrypted");
     }
-    String[] result = new String[5];
-    result[0] = parts.getHeader().toBase64URL().toString();
-    result[1] = parts.getEncryptedKey().toString();
-    result[2] = parts.getInitializationVector().toString();
-    result[3] = parts.getCipherText().toString();
-    result[4] = parts.getAuthenticationTag().toString();
-    return result;
+    if (token.isSigned()) {
+      SignedJWT jws = SignedJWT.parse(token.asString());
+      JWEObject jweObject = new JWEObject(
+        new JWEHeader.Builder(JWEAlgorithm.RSA_OAEP_256, EncryptionMethod.A256GCM)
+          .contentType("JWT") // required to indicate nested JWT
+          .build(),
+        new Payload(jws));
+      try {
+        jweObject.encrypt(encrypter);
+        return TokenImpl.parseFromString(jweObject.serialize());
+      } catch (JOSEException e) {
+        e.printStackTrace();
+        throw new RuntimeException(e);
+      }
+    } else {
+      JWEHeader jweHeader = new JWEHeader.Builder(JWEAlgorithm.RSA_OAEP_256, EncryptionMethod.A256GCM)
+        .build();
+      String[] tokenParts = token.asString().split("\\.");
+      JWTClaimsSet claimsSet = JWTClaimsSet.parse(new Payload(Base64URL.from(tokenParts[1])).toJSONObject());
+      EncryptedJWT jwe = new EncryptedJWT(jweHeader, claimsSet);
+      try {
+        jwe.encrypt(encrypter);
+        return TokenImpl.parseFromString(jwe.serialize());
+      } catch (JOSEException e) {
+        e.printStackTrace();
+        throw new RuntimeException(e);
+      }
+    }
   }
 
   @Override

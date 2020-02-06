@@ -14,6 +14,7 @@ import java.security.spec.X509EncodedKeySpec;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Verifier for RSA signed JWS tokens.
@@ -23,13 +24,20 @@ public class VerifierRSA extends VerifierBase {
 
   private final SignatureVerifierRSA signatureVerifier;
 
-  public VerifierRSA(List<String> aud, String iss, Date expiryDate, String publicKey) throws NoSuchAlgorithmException, InvalidKeySpecException {
+  public VerifierRSA(List<String> aud, String iss, Date expiryDate, String publicKey) {
+    super(aud, iss, expiryDate);
+    signatureVerifier = new SignatureVerifierRSA(publicKey);
+  }
+
+  public VerifierRSA(List<String> aud, String iss, Date expiryDate, RSAPublicKey publicKey) {
     super(aud, iss, expiryDate);
     signatureVerifier = new SignatureVerifierRSA(publicKey);
   }
 
   @Override
   public boolean verify(Token token) {
-    return super.verify(token) && signatureVerifier.verify(token);
+    Objects.requireNonNull(token);
+    return super.verify(token)
+      && signatureVerifier.verify(token);
   }
 }

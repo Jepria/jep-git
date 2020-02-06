@@ -42,29 +42,36 @@ public class TokenRequest {
   private final URI redirectionURI;
   private final String authorizationCode;
 
-  public TokenRequest(URI resourceURI, String grantType, String clientId, String clientSecret, URI redirectionURI, String authorizationCode) {
-    if (resourceURI == null) {
-      throw new IllegalArgumentException("Request URI must be not null");
-    }
+  public TokenRequest(URI resourceURI,
+                      String grantType,
+                      String clientId,
+                      String clientSecret,
+                      URI redirectionURI,
+                      String authorizationCode) {
+    Objects.requireNonNull(resourceURI, "Request URI must be not null");
     this.resourceURI = resourceURI;
 
-    if (GrantType.AUTHORIZATION_CODE.equals(grantType)) {
-      if (authorizationCode == null) {
-        throw new IllegalArgumentException("Authorization Code must be not null");
-      }
-      if (redirectionURI == null) {
-        throw new IllegalArgumentException("Redirection URI must be not null");
-      }
-      if (clientId == null) {
-        throw new IllegalArgumentException("Client Id must be not null");
-      }
+    Objects.requireNonNull(grantType, "Grant Type must be not null");
+    this.grantType = grantType;
+
+    if (!GrantType.implies(grantType)) {
+      throw new IllegalArgumentException("Incorrect grant_type");
     }
 
-    this.grantType = grantType;
+    if (GrantType.AUTHORIZATION_CODE.equals(grantType)) {
+      Objects.requireNonNull(authorizationCode, "Authorization Code must be not null");
+      Objects.requireNonNull(redirectionURI, "Redirection URI must be not null");
+      Objects.requireNonNull(clientId, "Client Id must be not null");
+    }
+
     this.clientId = clientId;
     this.clientSecret = clientSecret;
     this.redirectionURI = redirectionURI;
     this.authorizationCode = authorizationCode;
+  }
+
+  public static Builder Builder() {
+    return new BuilderImpl();
   }
 
   public URI getResourceURI() {
@@ -205,7 +212,17 @@ public class TokenRequest {
     }
   }
 
-  public static final class Builder {
+  public interface Builder {
+    Builder grantType(String grantType);
+    Builder clientId(String clientId);
+    Builder clientSecret(String clientSecret);
+    Builder redirectionURI(URI redirectionURI);
+    Builder authorizationCode(String authorizationCode);
+    Builder resourceURI(URI resourceURI);
+    TokenRequest build();
+  }
+
+  private static final class BuilderImpl implements Builder {
 
     private String grantType;
     private String clientId;
@@ -213,56 +230,68 @@ public class TokenRequest {
     private URI redirectionURI;
     private String authorizationCode;
     private URI resourceURI;
+    private boolean isBuilt = false;
 
+    @Override
     public Builder grantType(String grantType) {
-      if (grantType == null) {
-        throw new IllegalArgumentException("Grant type must be not null");
+      if (isBuilt) {
+        new IllegalStateException("Builder is finished");
       }
       this.grantType = grantType;
       return this;
     }
 
+    @Override
     public Builder clientId(String clientId) {
-      if (clientId == null) {
-        throw new IllegalArgumentException("Client Id must be not null");
+      if (isBuilt) {
+        new IllegalStateException("Builder is finished");
       }
       this.clientId = clientId;
       return this;
     }
 
+    @Override
     public Builder clientSecret(String clientSecret) {
-      if (clientSecret == null) {
-        throw new IllegalArgumentException("Client Secret must be not null");
+      if (isBuilt) {
+        new IllegalStateException("Builder is finished");
       }
       this.clientSecret = clientSecret;
       return this;
     }
 
+    @Override
     public Builder redirectionURI(URI redirectionURI) {
-      if (redirectionURI == null) {
-        throw new IllegalArgumentException("Redirection URI must be not null");
+      if (isBuilt) {
+        new IllegalStateException("Builder is finished");
       }
       this.redirectionURI = redirectionURI;
       return this;
     }
 
+    @Override
     public Builder authorizationCode(String authorizationCode) {
-      if (authorizationCode == null) {
-        throw new IllegalArgumentException("Authorization code must be not null");
+      if (isBuilt) {
+        new IllegalStateException("Builder is finished");
       }
       this.authorizationCode = authorizationCode;
       return this;
     }
 
+    @Override
     public Builder resourceURI(URI resourceURI) {
-      if (resourceURI == null) {
-        throw new IllegalArgumentException("Resource URI must be not null");
+      if (isBuilt) {
+        new IllegalStateException("Builder is finished");
       }
       this.resourceURI = resourceURI;
       return this;
     }
 
+    @Override
     public TokenRequest build() {
+      if (isBuilt) {
+        new IllegalStateException("Builder is finished");
+      }
+      isBuilt = true;
       return new TokenRequest(resourceURI, grantType, clientId, clientSecret, redirectionURI, authorizationCode);
     }
   }
