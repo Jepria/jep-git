@@ -20,6 +20,14 @@ import static com.technology.jep.jepria.server.JepRiaServerConstant.OAUTH_TOKEN;
 import static javax.servlet.http.HttpServletResponse.SC_FORBIDDEN;
 import static org.jepria.oauth.sdk.OAuthConstants.*;
 
+/**
+ * <pre>
+ * Фильтр для GUI url-mapping.
+ * Применяется для *.jsp/Servlet'ов которые возвращают html-страницы.
+ * В первую очередь для Entry.jsp в GWT приложениях.
+ * @see <a href="http://google.com">https://github.com/Jepria/jepria-showcase</a>
+ * </pre>
+ */
 public class OAuthEntrySecurityFilter extends MultiInstanceSecurityFilter {
 
   private static Logger logger = Logger.getLogger(OAuthEntrySecurityFilter.class.getName());
