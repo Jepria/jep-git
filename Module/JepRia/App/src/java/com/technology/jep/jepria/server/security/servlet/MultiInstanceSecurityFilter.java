@@ -1,5 +1,7 @@
 package com.technology.jep.jepria.server.security.servlet;
 
+import com.google.gson.Gson;
+
 import javax.servlet.*;
 import java.util.*;
 import java.util.regex.Matcher;
@@ -16,7 +18,8 @@ public abstract class MultiInstanceSecurityFilter implements Filter {
 
   public static final String SECURITY_CONSTRAINT = "security-constraint";
   protected Set<String> securityRoles;
-  protected Set<String> subUrlPatterns = new HashSet<>();
+  protected TreeSet<String> selfFilterMappings;
+  protected TreeSet<String> otherFilterMappings = new TreeSet<>();
 
   @Override
   public void init(FilterConfig filterConfig) throws ServletException {
@@ -24,7 +27,7 @@ public abstract class MultiInstanceSecurityFilter implements Filter {
       String currentFilterName = filterConfig.getFilterName();
       Map<String, ? extends FilterRegistration> filterRegistrations = filterConfig.getServletContext().getFilterRegistrations();
       FilterRegistration currentFilterRegistration = filterRegistrations.get(currentFilterName);
-      Set<String> currentFilterMappings = new HashSet<>(currentFilterRegistration.getUrlPatternMappings());
+      selfFilterMappings = new TreeSet<>(currentFilterRegistration.getUrlPatternMappings());
       filterRegistrations
         .entrySet()
         .forEach(filterRegistration -> {
@@ -42,31 +45,17 @@ public abstract class MultiInstanceSecurityFilter implements Filter {
             /**
              * Найдем subPath в других инстансах фильтра
              */
-            currentFilterMappings.forEach(currentFilterMapping -> {
+            selfFilterMappings.forEach(selfFilterMapping -> {
               filterRegistration.getValue().getUrlPatternMappings().forEach(filterMapping -> {
-                Pattern pattern = Pattern.compile(currentFilterMapping);
+                Pattern pattern = Pattern.compile(selfFilterMapping);
                 Matcher matcher = pattern.matcher(filterMapping);
                 if (matcher.matches()) {
                   throw new IllegalStateException("Two filters matches at the same uri-pattern: " + filterMapping);
                 }
                 if (matcher.lookingAt()) {
-                  subUrlPatterns.add(filterMapping);
+                  otherFilterMappings.add(filterMapping);
                 }
               });
-            });
-            /**
-             * Удалим кольцевые зависимости
-             */
-            currentFilterMappings.forEach(currentFilterMapping -> {
-              Iterator<String> i = subUrlPatterns.iterator();
-              while (i.hasNext()) {
-                String value = i.next();
-                Pattern pattern = Pattern.compile(value);
-                Matcher matcher = pattern.matcher(currentFilterMapping);
-                if (matcher.lookingAt()) {
-                  i.remove();
-                }
-              }
             });
           }
         });
@@ -82,18 +71,44 @@ public abstract class MultiInstanceSecurityFilter implements Filter {
   }
 
   /**
-   * Проверить не содержится ли путь в списке игнорируемых
+   * Проверить нужно ли передать проверку другому фильтру
    * @param path
    * @return
    */
   public boolean isSubPath(String path) {
-    for (String mapping : subUrlPatterns) {
-      Pattern pattern = Pattern.compile(mapping);
-      Matcher matcher = pattern.matcher(path);
-      if (matcher.lookingAt() || matcher.matches()) {
-        return true;
+    Iterator<String> otherIterator = otherFilterMappings.descendingIterator();
+
+    while (otherIterator.hasNext()) {
+      String otherMapping = otherIterator.next();
+      Pattern otherPattern = Pattern.compile(otherMapping);
+      Matcher otherMatcher = otherPattern.matcher(path);
+      if (otherMatcher.lookingAt() || otherMatcher.matches()) {
+        /*
+         * если path присутствует в url-mapping другого зарегистрированного фильтра
+         */
+        Iterator<String> selfIterator = selfFilterMappings.descendingIterator();
+        boolean allSelf = true;
+        while (selfIterator.hasNext()) {
+          String selfMapping = selfIterator.next();
+          Pattern selfPattern = Pattern.compile(selfMapping);
+          Matcher selfMatcher = selfPattern.matcher(path);
+          if (selfMatcher.lookingAt() && !selfPattern.matcher(otherMapping).lookingAt()) {
+            /*
+             * если совпавший url-mapping другого фильтра < совпавшего url-mapping текущего фильтра то не пропускать обработку
+             */
+            allSelf = false;
+            break;
+          }
+        }
+        if (allSelf) {
+          /*
+           * если все совпавшие url-mapping текущего фильтра < совпавшего url-mapping другого зарегистрированного фильтра, то пропустить обработку
+           */
+          return true;
+        }
       }
     }
+
     return false;
   }
 
