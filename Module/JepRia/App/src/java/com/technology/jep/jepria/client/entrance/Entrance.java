@@ -29,7 +29,6 @@ public class Entrance {
       public void onSuccess(String logoutUrl) {
         if(logoutUrl != null) {
           goTo(logoutUrl);
-          reload();
         } else {
           reload();
         }
@@ -40,7 +39,7 @@ public class Entrance {
   /**
    * Перезагрузка страницы (с учётом окружения - с Navigation или без)
    */
-  private native static void reload() /*-{
+  public native static void reload() /*-{
     try {
       $wnd.parent.location.reload(true); // Сначала пробуем reload для фреймовой конфигурации
     } catch(error) {
@@ -53,7 +52,11 @@ public class Entrance {
    * 
    * @param url
    */
-  private native static void goTo(String url) /*-{
-    $wnd.location = url;
+  public native static void goTo(String url) /*-{
+    if ($wnd.parent) {
+      $wnd.parent.location.href = url;
+    } else {
+      $wnd.location.href = url;
+    }
   }-*/;
 }

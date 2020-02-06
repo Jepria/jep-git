@@ -1,17 +1,24 @@
 package com.technology.jep.jepria.server.security.module;
 
 import com.technology.jep.jepcommon.security.pkg_Operator;
+import com.technology.jep.jepria.server.security.OAuthRequestWrapper;
 import org.apache.log4j.Logger;
+import org.jepria.oauth.sdk.State;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.net.URI;
+import java.net.URL;
 import java.security.Principal;
 import java.sql.SQLException;
+import java.util.Base64;
 import java.util.Objects;
 
+import static com.technology.jep.jepria.server.JepRiaServerConstant.OAUTH_CSRF_TOKEN;
 import static com.technology.jep.jepria.server.security.JepSecurityConstant.JEP_SECURITY_MODULE_ATTRIBUTE_NAME;
+import static org.jepria.oauth.sdk.OAuthConstants.*;
 
 /**
  * Модуль поддержки безопасности для Tomcat
@@ -60,8 +67,25 @@ public class JepSecurityModuleImpl extends JepAbstractSecurityModule {
   @Override
   public String logout(HttpServletRequest request, HttpServletResponse response, String currentUrl) throws Exception {
     logger.info(this.getClass() + ".logout(request, response, " + currentUrl + ")");
+    if (request instanceof OAuthRequestWrapper) {
+      URL url = URI.create(currentUrl).toURL();
+      State state = new State(url.getQuery() + "#" + url.getRef());
+      Cookie stateCookie = new Cookie(OAUTH_CSRF_TOKEN, state.toString());
+      stateCookie.setPath("/");
+      stateCookie.setHttpOnly(true);
+      response.addCookie(stateCookie);
+      String hostUrl = url.getProtocol() + "://" + url.getHost() + (url.getPort() != -1 ? (":" + url.getPort()) : "");
+      currentUrl = hostUrl + OAUTH_LOGOUT_CONTEXT_PATH + "?"
+        + "&" + CLIENT_ID + "=" + request.getServletContext().getInitParameter(CLIENT_ID_PROPERTY)
+        + "&" + REDIRECT_URI + "="
+          + Base64.getUrlEncoder()
+            .withoutPadding()
+            .encodeToString((hostUrl + url.getPath()).getBytes())
+        + "&" + STATE + "=" + state.toString();
+    } else {
+      request.logout();
+    }
     request.getSession().invalidate();
-    request.logout();
     return currentUrl;
   }
   

@@ -35,7 +35,8 @@ public class ExceptionManagerImpl implements ExceptionManager {
        // logout на серверной стороне уже выполнен силами javasso, "закрепляем" состояние logout со стороны клиента
       Entrance.logout();
     } else if (hasTokenExpiredException(th)) {
-      Window.Location.reload();
+      Entrance.goTo(Window.Location.getHref());
+      Entrance.reload();
     } else if (is0StatusCodeException(th)) {
       Log.error(message, th);
       ErrorDialog errorDialog = new ErrorDialog(JepTexts.errors_dialog_title(), th, JepTexts.errors_client_statusCode0());
@@ -52,7 +53,7 @@ public class ExceptionManagerImpl implements ExceptionManager {
    * @return
    */
   private boolean hasTokenExpiredException(Throwable th) {
-    return th.getMessage().contains("<meta name=\"login\" content=\"login\">");
+    return th.getMessage().contains("access token is invalid or has expired");
   }
 
   /**

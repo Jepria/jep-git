@@ -5,7 +5,6 @@ import com.technology.jep.jepria.server.security.module.JepSecurityModule;
 import oracle.jdbc.OracleTypes;
 import org.apache.log4j.Logger;
 import org.jepria.oauth.sdk.*;
-import org.jepria.oauth.sdk.util.URIUtil;
 import org.jepria.ssoutils.JepPrincipal;
 
 import javax.servlet.ServletException;
@@ -17,17 +16,15 @@ import java.io.IOException;
 import java.net.URI;
 import java.security.Principal;
 import java.sql.CallableStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
 
-import static com.technology.jep.jepria.server.JepRiaServerConstant.DEFAULT_DATA_SOURCE_JNDI_NAME;
+import static com.technology.jep.jepria.server.JepRiaServerConstant.*;
 import static com.technology.jep.jepria.server.security.JepSecurityConstant.JEP_SECURITY_MODULE_ATTRIBUTE_NAME;
 import static org.jepria.oauth.sdk.OAuthConstants.*;
 
-public class TokenRequestWrapper extends HttpServletRequestWrapper {
+public class OAuthRequestWrapper extends HttpServletRequestWrapper {
 
-  private static Logger logger = Logger.getLogger(TokenRequestWrapper.class.getName());
+  private static Logger logger = Logger.getLogger(OAuthRequestWrapper.class.getName());
   public static final String AUTH_TYPE = "JWT";
 
   protected HttpServletRequest delegate;
@@ -35,7 +32,7 @@ public class TokenRequestWrapper extends HttpServletRequestWrapper {
   private JepPrincipal principal;
   private Db db;
 
-  public TokenRequestWrapper(HttpServletRequest request) {
+  public OAuthRequestWrapper(HttpServletRequest request) {
     super(request);
     delegate = request;
   }
@@ -46,9 +43,17 @@ public class TokenRequestWrapper extends HttpServletRequestWrapper {
     }
     Cookie[] cookies = delegate.getCookies();
     for (Cookie cookie: cookies) {
-      if (cookie.getName().equalsIgnoreCase(RFI_OAUTH_TOKEN)) {
+      if (cookie.getName().equalsIgnoreCase(OAUTH_TOKEN)) {
         tokenString = cookie.getValue();
         break;
+      }
+    }
+    if (tokenString == null) {
+      String headerText = delegate.getHeader("Authorization");
+      if (headerText != null && headerText.startsWith("Bearer")) {
+        tokenString = headerText.replaceFirst("Bearer ", "");
+      } else {
+        tokenString = null;
       }
     }
     return tokenString;
@@ -99,49 +104,6 @@ public class TokenRequestWrapper extends HttpServletRequestWrapper {
     }
   }
 
-  @Deprecated
-  public boolean isUserInRoles(String[] roles) {
-    logger.trace("BEGIN isUserInRoles(" + roles + ")");
-    JepSecurityModule securityModule = delegate.getSession().getAttribute(JEP_SECURITY_MODULE_ATTRIBUTE_NAME) != null ? (JepSecurityModule) delegate.getSession().getAttribute(JEP_SECURITY_MODULE_ATTRIBUTE_NAME) : null;
-    if (securityModule != null && securityModule.isAuthorizedBySso()) {
-      return Arrays.asList(roles).stream().anyMatch(role -> securityModule.getRoles().contains(role));
-    } else {
-      String rolesString = "";
-      for (String role : roles) {
-        rolesString += "'" + role + "',";
-      }
-      if (rolesString.length() > 0) {
-        rolesString = rolesString.trim().substring(0, rolesString.length() - 1);
-      }
-      //language=Oracle
-      String sqlQuery = "select decode(count(1), 0, 0, 1)" +
-        " from op_role opr" +
-        " inner join v_op_operator_role vopr" +
-        " on vopr.role_id = opr.role_id" +
-        " and vopr.operator_id = " + principal.getOperatorId() +
-        " and opr.SHORT_NAME in (" + rolesString + ")";
-
-      //Добавили индекс role_id + short_name в op_role т.к. больше никаких данных не используется, на выходе получим FAST INDEX FULL SCAN
-      Integer result = null;
-      try {
-        CallableStatement callableStatement = getDb().prepare(sqlQuery);
-
-        ResultSet resultSet = callableStatement.executeQuery();
-        if (resultSet.next()) {
-          result = new Integer(resultSet.getInt(1));
-        }
-        if (callableStatement.wasNull()) result = null;
-      } catch (SQLException e) {
-        e.printStackTrace();
-      } finally {
-        db.closeStatement(sqlQuery);
-      }
-
-      logger.trace("END isUserInRole()");
-      return result != null && result.intValue() == 1;
-    }
-  }
-
   @Override
   public Principal getUserPrincipal() {
     return principal;
@@ -152,7 +114,7 @@ public class TokenRequestWrapper extends HttpServletRequestWrapper {
    */
   private TokenInfoResponse getTokenInfo() throws IOException {
     logger.trace("BEGIN getTokenInfo()");
-    TokenInfoRequest request = new TokenInfoRequest.Builder()
+    TokenInfoRequest request = TokenInfoRequest.Builder()
       .resourceURI(URI.create(delegate.getRequestURL().toString().replaceFirst(delegate.getRequestURI(), OAUTH_TOKENINFO_CONTEXT_PATH)))
       .clientId(delegate.getServletContext().getInitParameter(CLIENT_ID_PROPERTY))
       .clientSecret(delegate.getServletContext().getInitParameter(CLIENT_SECRET_PROPERTY))
@@ -163,61 +125,25 @@ public class TokenRequestWrapper extends HttpServletRequestWrapper {
     return response;
   }
 
-  private void buildAuthorizationRequest(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
-    try {
-      /**
-       * Create state param and save it to Cookie for checking in future to prevent 'Replay attacks'
-       */
-      State state = new State();
-      Cookie stateCookie = new Cookie(RFI_OAUTH_CSRF_TOKEN, state.toString());
-      stateCookie.setPath("/");
-      stateCookie.setHttpOnly(true);
-      httpServletResponse.addCookie(stateCookie);
-
-      String authorizationRequestURI = new AuthorizationRequest.Builder()
-        .resourceURI(URI.create(httpServletRequest.getRequestURL().toString().replaceFirst(httpServletRequest.getRequestURI(), OAUTH_AUTHORIZATION_CONTEXT_PATH)))
-        .responseType(ResponseType.AUTHORIZATION_CODE)
-        .clientId(httpServletRequest.getServletContext().getInitParameter(CLIENT_ID_PROPERTY))
-        .redirectionURI(URI.create(URIUtil.removeQueryParameter(httpServletRequest.getRequestURL().toString() + "?" + httpServletRequest.getQueryString(), CODE, STATE)))
-        .state(state)
-        .build()
-        .toString();
-
-      httpServletResponse.sendRedirect(authorizationRequestURI);
-    } catch (Throwable e) {
-      e.printStackTrace();
-    }
-  }
-
-  public boolean authorize() throws IOException {
-    String tokenString = getTokenFromRequest();
-    if (tokenString != null) {
-      TokenInfoResponse tokenClaims = getTokenInfo();
-      if (tokenClaims != null && tokenClaims.getActive()) {
-        String[] userCredentials = tokenClaims.getSub().split(":");
-        principal = new JepPrincipal(userCredentials[0], Integer.valueOf(userCredentials[1]));
-        return true;
-      }
-    }
-    return false;
-  }
-
   @Override
-  public boolean authenticate(HttpServletResponse httpServletResponse) throws IOException {
+  public boolean authenticate(HttpServletResponse httpServletResponse) {
     logger.trace("BEGIN authenticate()");
     try {
       String tokenString = getTokenFromRequest();
       if (tokenString == null) {
-        logger.trace("ERROR authenticate() - token not found, redirecting to OAuth Server");
-        buildAuthorizationRequest(delegate, httpServletResponse);
+        logger.trace("ERROR authenticate() - token not found");
         return false;
       }
-      if (!authorize()) {
-        logger.trace("ERROR authenticate() - Токен не валиден");
+      TokenInfoResponse tokenClaims = getTokenInfo();
+      if (tokenClaims != null && tokenClaims.getActive()) {
+        String[] userCredentials = tokenClaims.getSub().split(":");
+        principal = new JepPrincipal(userCredentials[0], Integer.valueOf(userCredentials[1]));
+      } else {
+        logger.trace("ERROR authenticate() - token is invalid");
         Cookie[] cookies = delegate.getCookies();
-        for (Cookie cookie: cookies) {
-          if (cookie.getName().equalsIgnoreCase(RFI_OAUTH_TOKEN)) {
-            logger.trace("TRACE authenticate() - delete cookie");
+        for (Cookie cookie : cookies) {
+          if (cookie.getName().equalsIgnoreCase(OAUTH_TOKEN)) {
+            logger.trace("TRACE authenticate() - deleting token cookie");
             Cookie deletedCookie = new Cookie(cookie.getName(), cookie.getValue());
             deletedCookie.setMaxAge(0);
             deletedCookie.setPath("/");
@@ -225,12 +151,10 @@ public class TokenRequestWrapper extends HttpServletRequestWrapper {
             httpServletResponse.addCookie(deletedCookie);
           }
         }
-        buildAuthorizationRequest(delegate, httpServletResponse);
         return false;
       }
     } catch (Throwable e) {
       e.printStackTrace();
-      buildAuthorizationRequest(delegate, httpServletResponse);
       return false;
     }
     logger.trace("END authenticate()");
@@ -246,7 +170,7 @@ public class TokenRequestWrapper extends HttpServletRequestWrapper {
   public void logout() throws ServletException {
     String tokenString = getTokenFromRequest();
     if (tokenString != null) {
-      TokenRevocationRequest request = new TokenRevocationRequest.Builder()
+      TokenRevocationRequest request = TokenRevocationRequest.Builder()
         .resourceURI(URI.create(delegate.getRequestURL().toString().replaceFirst(delegate.getRequestURI(), OAUTH_TOKENREVOKE_CONTEXT_PATH)))
         .token(tokenString)
         .clientId(delegate.getServletContext().getInitParameter(CLIENT_ID_PROPERTY))
