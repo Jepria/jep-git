@@ -54,7 +54,7 @@ public class EntityServiceImpl implements EntityService {
     return record;
   }
 
-  private interface RecordIdParser {
+  protected interface RecordIdParser {
     /**
      * Parse recordId (simple or composite) into a primary key map with typed values, based on RecordDefinition
      * @param recordId
