@@ -3,7 +3,6 @@ package org.jepria.oauth.sdk.jersey;
 import org.jepria.oauth.sdk.TokenInfoRequest;
 import org.jepria.oauth.sdk.TokenInfoResponse;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.container.ContainerRequestContext;
@@ -15,16 +14,15 @@ import java.io.IOException;
 import java.net.URI;
 
 import static org.jepria.oauth.sdk.OAuthConstants.*;
-import static org.jepria.oauth.sdk.OAuthConstants.CLIENT_SECRET_PROPERTY;
 
-@JWTSecured
 /**
  * <p>
  *   Basic JWT security filter implementation.
  *   Allows to add custom token handling.
  * </p>
  */
-public abstract class JWTSecurityFilter implements ContainerRequestFilter {
+@OAuth
+public abstract class OAuthContainerRequestFilter implements ContainerRequestFilter {
 
   @Context
   protected HttpServletRequest request;

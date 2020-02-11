@@ -1,4 +1,4 @@
-package org.jepria.oauth.sdk.token.interfaces;
+package org.jepria.oauth.sdk.token;
 
 import java.util.Date;
 import java.util.List;

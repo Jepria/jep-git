@@ -12,6 +12,13 @@ import java.util.*;
 import static javax.servlet.http.HttpServletResponse.SC_FORBIDDEN;
 import static javax.servlet.http.HttpServletResponse.SC_UNAUTHORIZED;
 
+
+/**
+ * <pre>
+ * Фильтр для back-end сервлетов/сервисов.
+ * @see <a href="http://google.com">https://github.com/Jepria/jepria-showcase</a>
+ * </pre>
+ */
 public class OAuthServletSecurityFilter extends MultiInstanceSecurityFilter {
 
   private static Logger logger = Logger.getLogger(OAuthServletSecurityFilter.class.getName());

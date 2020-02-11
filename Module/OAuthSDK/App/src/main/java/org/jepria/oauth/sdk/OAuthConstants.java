@@ -38,8 +38,8 @@ public class OAuthConstants {
   /**
    * Environment properties
    */
-  public static final String CLIENT_ID_PROPERTY = "org.jepria.oauth.clientCode";
-  public static final String CLIENT_SECRET_PROPERTY = "org.jepria.oauth.clientSecret";
+  public static final String CLIENT_ID_PROPERTY = "oauthClientId";
+  public static final String CLIENT_SECRET_PROPERTY = "oauthClientSecret";
 
   /**
    * Response constants

@@ -1,7 +1,9 @@
 package org.jepria.oauth.sdk.token;
 
-import org.jepria.oauth.sdk.token.interfaces.Verifier;
-import org.jepria.oauth.sdk.token.interfaces.Token;
+import org.jepria.oauth.sdk.token.Verifier;
+import org.jepria.oauth.sdk.token.Token;
+
+import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -23,7 +25,7 @@ public class VerifierBase implements Verifier {
   }
 
   @Override
-  public boolean verify(Token token) {
+  public boolean verify(Token token) throws ParseException {
     Objects.requireNonNull(token);
     return Objects.equals(token.getIssuer(), iss)
       && (expiryDate != null ?
