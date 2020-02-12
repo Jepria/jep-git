@@ -1,9 +1,9 @@
 package org.jepria.server.service.rest.jersey;
 
-import org.jepria.server.service.security.JepSecurityContextAbstract;
 import org.jepria.server.service.security.Credential;
 import org.jepria.server.service.security.JaxrsCredential;
 import org.jepria.server.service.security.JepSecurityContext;
+import org.jepria.server.service.security.JepSecurityContextAbstract;
 
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.SecurityContext;
@@ -20,7 +20,13 @@ public class JepSecurityContextFactory implements Supplier<JepSecurityContext> {
     return new JepSecurityContextAbstract(securityContext) {
       @Override
       public Credential getCredential() {
-        return new JaxrsCredential(() -> securityContext);
+        if (securityContext.getUserPrincipal() == null) {
+          // the user has not been authenticated, thus no credential
+          return null;
+        } else {
+          // the user has been authenticated
+          return new JaxrsCredential(() -> securityContext);
+        }
       }
     };
 
