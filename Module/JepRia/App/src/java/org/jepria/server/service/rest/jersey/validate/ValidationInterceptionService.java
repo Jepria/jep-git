@@ -17,11 +17,10 @@ import java.util.function.Predicate;
 
 public class ValidationInterceptionService implements InterceptionService {
 
-  protected final MethodInterceptor methodInterceptor;
   protected final List<MethodInterceptor> methodInterceptors;
 
   public ValidationInterceptionService() {
-    methodInterceptor = new ValidationMethodInterceptor();
+    MethodInterceptor methodInterceptor = new ValidationMethodInterceptor();
     methodInterceptors = Collections.singletonList(methodInterceptor);
   }
   
