@@ -65,11 +65,4 @@ public class JepRiaServerConstant extends JepRiaConstant {
    * Кодировка по умолчанию: UTF-8.
    */
   public static final Charset DEFAULT_ENCODING = Charset.forName("UTF-8");
-
-  /**
-   * OAuth 2.0
-   */
-  public static final String OAUTH_TOKEN = "OAUTH_TOKEN";
-  public static final String OAUTH_PARAMS = "OAUTH_PARAMS";
-  public static final String OAUTH_CSRF_TOKEN = "OAUTH_STATE";
 }

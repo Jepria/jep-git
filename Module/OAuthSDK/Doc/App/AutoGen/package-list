@@ -1,5 +1,5 @@
 org.jepria.oauth.sdk
-org.jepria.oauth.sdk.jersey
+org.jepria.oauth.sdk.jaxrs
 org.jepria.oauth.sdk.token
-org.jepria.oauth.sdk.token.interfaces
+org.jepria.oauth.sdk.token.rsa
 org.jepria.oauth.sdk.util

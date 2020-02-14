@@ -17,8 +17,7 @@ import java.sql.SQLException;
 import java.util.Base64;
 import java.util.Objects;
 
-import static com.technology.jep.jepria.server.JepRiaServerConstant.OAUTH_CSRF_TOKEN;
-import static com.technology.jep.jepria.server.security.JepSecurityConstant.JEP_SECURITY_MODULE_ATTRIBUTE_NAME;
+import static com.technology.jep.jepria.server.security.JepSecurityConstant.*;
 import static org.jepria.oauth.sdk.OAuthConstants.*;
 
 /**
@@ -77,21 +76,32 @@ public class JepSecurityModuleImpl extends JepAbstractSecurityModule {
       URL url = URI.create(currentUrl).toURL();
       State state = new State(url.getQuery() + "#" + url.getRef());
       Cookie stateCookie = new Cookie(OAUTH_CSRF_TOKEN, state.toString());
-      stateCookie.setPath("/");
+      stateCookie.setPath(request.getContextPath());
       stateCookie.setHttpOnly(true);
       response.addCookie(stateCookie);
       String hostUrl = url.getProtocol() + "://" + url.getHost() + (url.getPort() != -1 ? (":" + url.getPort()) : "");
-      currentUrl = hostUrl + OAUTH_LOGOUT_CONTEXT_PATH + "?"
-        + "&" + CLIENT_ID + "=" + clientId
-        + "&" + REDIRECT_URI + "="
+      if (url.getPath().startsWith(request.getContextPath())) {
+        currentUrl = hostUrl + OAUTH_LOGOUT_CONTEXT_PATH + "?"
+          + "&" + CLIENT_ID + "=" + clientId
+          + "&" + REDIRECT_URI + "="
           + Base64.getUrlEncoder()
-            .withoutPadding()
-            .encodeToString((hostUrl + url.getPath()).getBytes())
-        + "&" + STATE + "=" + state.toString();
-    } else {
-      request.logout();
+          .withoutPadding()
+          .encodeToString((hostUrl + url.getPath()).getBytes())
+          + "&" + STATE + "=" + state.toString();
+      } else {
+        currentUrl = hostUrl + OAUTH_LOGOUT_CONTEXT_PATH + "?"
+          + "&" + CLIENT_ID + "=" + EnvironmentPropertySupport
+            .getInstance(request)
+            .getProperty(url.getPath().replaceFirst("/", "") + CLIENT_ID_PROPERTY)
+          + "&" + REDIRECT_URI + "="
+          + Base64.getUrlEncoder()
+          .withoutPadding()
+          .encodeToString((hostUrl + url.getPath()).getBytes())
+          + "&" + STATE + "=" + state.toString();
+      }
     }
     request.getSession().invalidate();
+    request.logout();
     return currentUrl;
   }
   

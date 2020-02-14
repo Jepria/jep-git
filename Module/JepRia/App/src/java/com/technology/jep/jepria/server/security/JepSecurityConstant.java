@@ -20,4 +20,15 @@ public class JepSecurityConstant {
    * Имя параметра http-запроса: mtSID.
    */
   public static final String HTTP_REQUEST_PARAMETER_MTSID = "mtSID";
+
+  /**
+   * SSO COOKIE NAME
+   */
+  public static final String SSO_COOKIE_NAME = "JSESSIONIDSSO";
+  /**
+   * OAuth 2.0
+   */
+  public static final String OAUTH_TOKEN = "OAUTH_TOKEN";
+  public static final String OAUTH_PARAMS = "OAUTH_PARAMS";
+  public static final String OAUTH_CSRF_TOKEN = "OAUTH_STATE";
 }

@@ -148,4 +148,29 @@ public final class URIUtil {
     }
     return sb.toString();
   }
+
+  /**
+   * Encode URI to match JavaScript encodeURIComponent
+   *
+   * @param str string
+   * @return encoded string
+   */
+  public static String encodeURIComponent(String str) {
+    if (str == null) {
+      return "";
+    }
+    String result = null;
+    try {
+      result = URLEncoder.encode(str, "UTF-8")
+        .replaceAll("\\+", "%20")
+        .replaceAll("\\%21", "!")
+        .replaceAll("\\%27", "'")
+        .replaceAll("\\%28", "(")
+        .replaceAll("\\%29", ")")
+        .replaceAll("\\%7E", "~");
+    } catch (UnsupportedEncodingException e) {
+      // Данное исключение не будет выброшено никогда.
+    }
+    return result;
+  }
 }
