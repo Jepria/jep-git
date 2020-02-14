@@ -33,7 +33,7 @@ public class EntityServiceImpl implements EntityService {
     }
 
     final Object record;
-    final List<?> records = dao.findByPrimaryKey(primaryKeyMap, credential.getOperatorId());
+    final List<?> records = dao.findByPrimaryKey(primaryKeyMap, credential == null ? null : credential.getOperatorId());
 
     // validate records
     if (records == null || records.size() == 0) {
@@ -54,7 +54,7 @@ public class EntityServiceImpl implements EntityService {
     return record;
   }
 
-  private interface RecordIdParser {
+  protected interface RecordIdParser {
     /**
      * Parse recordId (simple or composite) into a primary key map with typed values, based on RecordDefinition
      * @param recordId
@@ -136,7 +136,7 @@ public class EntityServiceImpl implements EntityService {
   public String create(Object record, Credential credential) {
     final Object daoResult;
 
-    daoResult = dao.create(record, credential.getOperatorId());
+    daoResult = dao.create(record, credential == null ? null : credential.getOperatorId());
 
     return daoResult.toString();// TODO convert like Parser
   }
@@ -151,7 +151,7 @@ public class EntityServiceImpl implements EntityService {
       throw new NoSuchElementException("The recordId [" + recordId + "] cannot be parsed against the primary key: incomplete");
     }
 
-    dao.delete(primaryKeyMap, credential.getOperatorId());
+    dao.delete(primaryKeyMap, credential == null ? null : credential.getOperatorId());
   }
 
   @Override
@@ -164,7 +164,7 @@ public class EntityServiceImpl implements EntityService {
       throw new NoSuchElementException("The recordId [" + recordId + "] cannot be parsed against the primary key: incomplete");
     }
     
-    dao.update(primaryKeyMap, newRecord, credential.getOperatorId());
+    dao.update(primaryKeyMap, newRecord, credential == null ? null : credential.getOperatorId());
   }
 
 }

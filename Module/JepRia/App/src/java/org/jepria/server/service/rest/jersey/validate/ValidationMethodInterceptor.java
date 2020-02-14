@@ -11,15 +11,14 @@ import java.util.*;
 public class ValidationMethodInterceptor implements MethodInterceptor {
 
   protected final Validator validatorInner;
-
-  { // TODO refactor to injection so that app layer could customize the validator
+  protected final DirectValidator validatorOuter;
+  
+  public ValidationMethodInterceptor() {
+    // TODO refactor to injection so that app layer could customize the validator
     ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
     validatorInner = factory.getValidator();
-  }
-
-  protected final DirectValidator validatorOuter;
-
-  { // TODO refactor to injection so that app layer could customize the validator
+  
+    // TODO refactor to injection so that app layer could customize the validator
     validatorOuter = new DirectValidatorImpl();
   }
 

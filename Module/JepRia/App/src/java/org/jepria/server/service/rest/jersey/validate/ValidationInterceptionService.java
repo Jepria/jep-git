@@ -17,9 +17,13 @@ import java.util.function.Predicate;
 
 public class ValidationInterceptionService implements InterceptionService {
 
-  private final static MethodInterceptor METHOD_INTERCEPTOR = new ValidationMethodInterceptor();
-  private final static List<MethodInterceptor> METHOD_INTERCEPTORS = Collections.singletonList(METHOD_INTERCEPTOR);
+  protected final List<MethodInterceptor> methodInterceptors;
 
+  public ValidationInterceptionService() {
+    MethodInterceptor methodInterceptor = new ValidationMethodInterceptor();
+    methodInterceptors = Collections.singletonList(methodInterceptor);
+  }
+  
   @Override
   public Filter getDescriptorFilter() {
     return new Filter() {
@@ -37,7 +41,7 @@ public class ValidationInterceptionService implements InterceptionService {
     if (mf != null && !mf.test(method)) {
       return null;
     } else {
-      return METHOD_INTERCEPTORS;
+      return methodInterceptors;
     }
   }
 

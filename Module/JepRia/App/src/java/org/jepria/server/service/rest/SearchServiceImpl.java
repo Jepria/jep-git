@@ -187,7 +187,7 @@ public class SearchServiceImpl implements SearchService {
 
     resultset = dao.find(
             searchRequest.getTemplate(),
-            credential.getOperatorId());
+            credential == null ? null : credential.getOperatorId());
 
     if (resultset == null) {
       resultset = new ArrayList<>();

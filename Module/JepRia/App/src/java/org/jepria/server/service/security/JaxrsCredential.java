@@ -21,20 +21,17 @@ public class JaxrsCredential implements Credential {
     if (principal != null) {
       if (principal instanceof PrincipalImpl) {
         return ((PrincipalImpl) principal).getOperatorId();
-
+    
       } else if (principal instanceof JepPrincipal) {
         // backward compat with ssoutils
         return ((JepPrincipal) principal).getOperatorId();
-
-      } else if (principal == null) {
-        throw new IllegalStateException("Null principal");
+    
       } else {
         throw new IllegalStateException("Unknown principal type: " + principal.getClass().getCanonicalName());
       }
+    } else {
+      throw new IllegalStateException("Principal expected no be not null");
     }
-
-    // TODO is it correct to return Server operiatorId if the user is not logged in?
-    return 1;// operatorId = Server
   }
 
   @Override
