@@ -3,10 +3,10 @@ package org.jepria.oauth.sdk.token;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.nimbusds.jwt.JWTClaimsSet;
-import com.nimbusds.jwt.PlainJWT;
-import org.jepria.oauth.sdk.token.*;
-import org.jepria.oauth.sdk.token.interfaces.*;
+import org.jepria.oauth.sdk.token.rsa.DecryptorRSA;
+import org.jepria.oauth.sdk.token.rsa.EncryptorRSA;
+import org.jepria.oauth.sdk.token.rsa.SignerRSA;
+import org.jepria.oauth.sdk.token.rsa.VerifierRSA;
 import org.junit.jupiter.api.Test;
 
 import java.security.KeyPair;

@@ -41,28 +41,28 @@ import com.technology.jep.jepria.client.widget.field.multistate.customized.JepDa
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 /**
- * Аналог GWT-класса {@link com.google.gwt.user.datepicker.client.DateBox}, 
+ * Аналог GWT-класса {@link com.google.gwt.user.datepicker.client.DateBox},
  * в котором виджет {@link com.google.gwt.user.client.ui.TextBox} заменён на {@link MaskedTextBox}.<br>
  * Имеет следующие особенности:
  * <ul>
  *   <li>Виджет {@link com.google.gwt.user.client.ui.TextBox} заменён на {@link MaskedTextBox}.</li>
- *   <li>Для парсинга даты используется класс {@link XDefaultFormat}, в котором дата парсится 
+ *   <li>Для парсинга даты используется класс {@link XDefaultFormat}, в котором дата парсится
  *   с помощью метода parseStrict(), что исключает значения наподобие 31.02.2013 55:66:77.</li>
  *   <li>В методе setValue() вместо {@link com.google.gwt.user.datepicker.client.DateChangeEvent}
  *   вызывается событие {@link com.google.gwt.event.logical.shared.ValueChangeEvent}.</li>
- *   <li>Во всех методах вместо интерфейса {@link com.google.gwt.user.datepicker.client.DateBox.Format} 
+ *   <li>Во всех методах вместо интерфейса {@link com.google.gwt.user.datepicker.client.DateBox.Format}
  *   используется класс {@link XDefaultFormat}.</li>
  *   <li> Спецификатор доступа метода {@link #parseDate(boolean)}
  *   изменён с private на protected.</li>
  *   <li> Значение параметра {@link #fireNullValues} по умолчанию true, а не false,
  *   что необходимо для корректной обработки обнуления даты с клавиатуры.</li>
- *   <li>Стиль в конструкторе задаётся не с помощью <code>setStyleName()</code>, а с помощью 
+ *   <li>Стиль в конструкторе задаётся не с помощью <code>setStyleName()</code>, а с помощью
  *   <code>addStyleName()</code>.</li>
  *   <li>Конструктор принимает дополнительный параметр - маску.</code>.</li>
  * </ul>
  */
 public class MaskedDateBox extends Composite implements HasEnabled,
-    HasValue<Date>, IsEditor<LeafValueEditor<Date>> {
+        HasValue<Date>, IsEditor<LeafValueEditor<Date>> {
 
   /**
    * Аналог GWT-класса {@link com.google.gwt.user.datepicker.client.DateBox.DefaultFormat}.<br>
@@ -110,8 +110,9 @@ public class MaskedDateBox extends Composite implements HasEnabled,
      * Метод, осуществляющий парсинг даты.<br>
      * Использует для этих целей метод {@link com.google.gwt.i18n.client.DateTimeFormat#parseStrict(String)}.
      * Может устанавливать на поле ввода стиль, сигнализирующий об ошибке.
-     * @param dateBox поле ввода
-     * @param dateText текстовое значение
+     *
+     * @param dateBox     поле ввода
+     * @param dateText    текстовое значение
      * @param reportError если true, сигнализировать об ошибке, в противном случае - нет
      * @return дата или null в случае ошибки
      */
@@ -141,8 +142,8 @@ public class MaskedDateBox extends Composite implements HasEnabled,
   }
 
   private class DateBoxHandler implements ValueChangeHandler<Date>,
-      FocusHandler, BlurHandler, ClickHandler, KeyDownHandler,
-      CloseHandler<PopupPanel> {
+          FocusHandler, BlurHandler, ClickHandler, KeyDownHandler,
+          CloseHandler<PopupPanel> {
 
     @Override
     public void onBlur(BlurEvent event) {
@@ -150,12 +151,12 @@ public class MaskedDateBox extends Composite implements HasEnabled,
         updateDateFromTextBox();
       }
     }
-  
+
     @Override
     public void onClick(ClickEvent event) {
-        showDatePicker();
+      showDatePicker();
     }
-  
+
     @Override
     public void onClose(CloseEvent<PopupPanel> event) {
       // If we are not closing because we have picked a new value, make sure the
@@ -164,14 +165,14 @@ public class MaskedDateBox extends Composite implements HasEnabled,
         updateDateFromTextBox();
       }
     }
-  
+
     @Override
     public void onFocus(FocusEvent event) {
       if (allowDPShow && isDatePickerShowing() == false) {
         showDatePicker();
       }
     }
-  
+
     @Override
     public void onKeyDown(KeyDownEvent event) {
       switch (event.getNativeKeyCode()) {
@@ -188,19 +189,19 @@ public class MaskedDateBox extends Composite implements HasEnabled,
           break;
       }
     }
-  
+
     @Override
     public void onValueChange(ValueChangeEvent<Date> event) {
       Date date = event.getValue();
       if (getDatePicker() instanceof JepDatePicker) {
-        Date dateTime = ((JepDatePicker)getDatePicker()).getActualDate();
+        Date dateTime = ((JepDatePicker) getDatePicker()).getActualDate();
         if (date != null && dateTime != null) {
           date.setHours(dateTime.getHours());
           date.setMinutes(dateTime.getMinutes());
           date.setSeconds(dateTime.getSeconds());
         }
         setValue(null, date, true, true);
-        if (((JepDatePicker)getDatePicker()).isVisibleDaysPanel()) {
+        if (((JepDatePicker) getDatePicker()).isVisibleDaysPanel()) {
           hideDatePicker();
         }
         preventDatePickerPopup();
@@ -213,7 +214,7 @@ public class MaskedDateBox extends Composite implements HasEnabled,
       }
     }
   }
-  
+
   /**
    * Default style name added when the date box has a format error.
    */
@@ -223,20 +224,20 @@ public class MaskedDateBox extends Composite implements HasEnabled,
    * Default style name.
    */
   public static final String DATE_BOX_DEFAULT_STYLE = "gwt-DateBox";
-  
+
   /**
    * Datebox popup style name.
    */
   public static final String DATE_BOX_POPUP_STYLE = "jepRia-dateBoxPopup";
-  
+
   private static final XDefaultFormat DEFAULT_FORMAT = GWT.create(XDefaultFormat.class);
   private final PopupPanel popup;
-  
+
   /**
    * Поддерживаем текущую клиентскую мобильную платформу ?
    */
   private boolean isSupportMobilePlatform = MaskedTextBoxMobile.isSupportedMobilePlatform() && JepClientUtil.isMobile();
-  
+
   /**
    * Текстовое поле с маской для ввода даты.
    */
@@ -253,15 +254,16 @@ public class MaskedDateBox extends Composite implements HasEnabled,
   public MaskedDateBox() {
     this(new DatePicker(), null, DEFAULT_FORMAT, new Mask(DEFAULT_DATE_FORMAT_MASK));
   }
-  
+
   /**
    * Создаёт поле для выбора даты.<br>
    * Метод отличается от оригинального использованием маски, а также
    * использованием <code>addStyleName()<code> вместо <code>setStyleName()</code>.
+   *
    * @param picker выпадающий виджет выбора даты
-   * @param date дата по умолчанию
+   * @param date   дата по умолчанию
    * @param format формат парсинга и представления даты
-   * @param mask маска для ввода даты (должна быть согласована с форматом)
+   * @param mask   маска для ввода даты (должна быть согласована с форматом)
    */
   public MaskedDateBox(DatePicker picker, Date date, XDefaultFormat format, Mask mask) {
     this.picker = picker;
@@ -291,26 +293,26 @@ public class MaskedDateBox extends Composite implements HasEnabled,
     box.getElement().addClassName(MAIN_FONT_STYLE);
     popup.addCloseHandler(handler);
     setValue(date);
-    
+
     Event.addNativePreviewHandler(new NativePreviewHandler() {
       @Override
-    public void onPreviewNativeEvent(NativePreviewEvent event) {
-      if (event.getTypeInt() == Event.ONMOUSEWHEEL || event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER){
-        if (isDatePickerShowing()) {
-          hideDatePicker();
+      public void onPreviewNativeEvent(NativePreviewEvent event) {
+        if (event.getTypeInt() == Event.ONMOUSEWHEEL || event.getNativeEvent().getKeyCode() == KeyCodes.KEY_ENTER) {
+          if (isDatePickerShowing()) {
+            hideDatePicker();
+          }
         }
       }
-    }
     });
-      
+
   }
-  
+
   public void setStyleClassName(String className) {
-      box.getElement().addClassName(className);
+    box.getElement().addClassName(className);
   }
 
   public HandlerRegistration addValueChangeHandler(
-      ValueChangeHandler<Date> handler) {
+          ValueChangeHandler<Date> handler) {
     return addHandler(handler, ValueChangeEvent.getType());
   }
 
@@ -328,7 +330,6 @@ public class MaskedDateBox extends Composite implements HasEnabled,
    * Gets the current cursor position in the date box.
    *
    * @return the cursor position
-   *
    */
   public int getCursorPos() {
     return box.getCursorPos();
@@ -350,7 +351,7 @@ public class MaskedDateBox extends Composite implements HasEnabled,
   public boolean getFireNullValues() {
     return fireNullValues;
   }
-  
+
   /**
    * Gets the format instance used to control formatting and parsing of this
    * {@link DateBox}.
@@ -414,6 +415,7 @@ public class MaskedDateBox extends Composite implements HasEnabled,
    * Проверяет, содержит ли поле корректную дату.<br>
    * Возвращает true, если значение пусто, либо если оно соответствует формату
    * и корректно распознаётся как дата.
+   *
    * @return true, если содержит, и false в противном случае
    */
   public boolean isValid() {
@@ -423,7 +425,7 @@ public class MaskedDateBox extends Composite implements HasEnabled,
       return box.isValid() && (JepRiaUtil.isEmpty(box.getValue()) || format.parse(this, box.getValue(), false) != null);
     }
   }
-  
+
   /**
    * Sets the date box's 'access key'. This key is used (in conjunction with a
    * browser-specific modifier key) to automatically focus the widget.
@@ -450,7 +452,7 @@ public class MaskedDateBox extends Composite implements HasEnabled,
   public void setFireNullValues(boolean fireNullValues) {
     this.fireNullValues = fireNullValues;
   }
-  
+
   /**
    * Explicitly focus/unfocus this widget. Only one widget can have focus at a
    * time, and the widget that does will receive all keyboard events.
@@ -504,16 +506,17 @@ public class MaskedDateBox extends Composite implements HasEnabled,
   }
 
   public void setValue(Date date, boolean fireEvents) {
-    Date currentDate = picker instanceof JepDatePicker ? ((JepDatePicker)picker).getActualDate() : picker.getValue();
+    Date currentDate = picker instanceof JepDatePicker ? ((JepDatePicker) picker).getActualDate() : picker.getValue();
     setValue(currentDate, date, fireEvents, true);
   }
-  
+
   /**
    * Необходимо управлять видимостью всплывающей панели
    */
   private boolean popupShowForceFireEvent = true;
+
   public void setVisiblePopup(boolean isShow) {
-      popupShowForceFireEvent = isShow;
+    popupShowForceFireEvent = isShow;
   }
 
   /**
@@ -525,13 +528,13 @@ public class MaskedDateBox extends Composite implements HasEnabled,
       current = new Date();
     }
     picker.setCurrentMonth(current);
-    
+
     if (popupShowForceFireEvent) {
-        popup.showRelativeTo(this);
+      popup.showRelativeTo(this);
     } else {
-        popup.hide();
+      popup.hide();
     }
-    
+
   }
 
   /**
@@ -558,24 +561,24 @@ public class MaskedDateBox extends Composite implements HasEnabled,
   }
 
   /**
-   * Данный метод отличается от оригинального метода 
+   * Данный метод отличается от оригинального метода
    * {@link com.google.gwt.user.datepicker.client.DateBox#setValue(Date)}
-   * вызовом события {@link com.google.gwt.event.logical.shared.ValueChangeEvent} 
+   * вызовом события {@link com.google.gwt.event.logical.shared.ValueChangeEvent}
    * вместо {@link com.google.gwt.user.datepicker.client.DateChangeEvent}.
    */
   private void setValue(Date oldDate, Date date, boolean fireEvents, boolean updateText) {
-      if (picker instanceof JepDatePicker) {
-        ((JepDatePicker) picker).refresh(date);
-      } else {
-        picker.setCurrentMonth(date != null ? date : new Date());
-        picker.setValue(date, false);
-      }
+    if (picker instanceof JepDatePicker && date != null) {
+      ((JepDatePicker) picker).refresh(date);
+    } else {
+      picker.setCurrentMonth(date != null ? date : new Date());
+      picker.setValue(date, false);
+    }
 
     if (updateText) {
       format.reset(this, false);
       box.setValue(getFormat().format(this, date));
     }
-    
+
     if (fireEvents) {
       // В оригинальной версии вызывалось событие DateChangeEvent
       ValueChangeEvent.fireIfNotEqual(this, oldDate, date);
@@ -585,7 +588,7 @@ public class MaskedDateBox extends Composite implements HasEnabled,
   private void updateDateFromTextBox() {
     Date parsedDate = parseDate(true);
     if (fireNullValues || parsedDate != null) {
-      Date currentDate = picker instanceof JepDatePicker ? ((JepDatePicker)picker).getActualDate() : picker.getValue();
+      Date currentDate = picker instanceof JepDatePicker ? ((JepDatePicker) picker).getActualDate() : picker.getValue();
       setValue(currentDate, parsedDate, true, false);
     }
   }

@@ -1,4 +1,4 @@
-package org.jepria.oauth.sdk.jersey;
+package org.jepria.oauth.sdk.jaxrs;
 
 import org.jepria.oauth.sdk.TokenInfoRequest;
 import org.jepria.oauth.sdk.TokenInfoResponse;
@@ -21,7 +21,6 @@ import static org.jepria.oauth.sdk.OAuthConstants.*;
  *   Allows to add custom token handling.
  * </p>
  */
-@OAuth
 public abstract class OAuthContainerRequestFilter implements ContainerRequestFilter {
 
   @Context

@@ -9,8 +9,9 @@ public class GrantType {
   public static final String IMPLICIT = "implicit";
   public static final String CLIENT_CREDENTIALS = "client_credentials";
   public static final String PASSWORD = "password";
+  public static final String REFRESH_TOKEN = "refresh_token";
 
   public static boolean implies(String grantType) {
-    return AUTHORIZATION_CODE.equals(grantType) || CLIENT_CREDENTIALS.equals(grantType) || PASSWORD.equals(grantType);
+    return AUTHORIZATION_CODE.equals(grantType) || CLIENT_CREDENTIALS.equals(grantType) || PASSWORD.equals(grantType) || REFRESH_TOKEN.equals(grantType);
   }
 }
