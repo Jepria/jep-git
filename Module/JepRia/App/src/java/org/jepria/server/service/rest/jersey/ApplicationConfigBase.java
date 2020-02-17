@@ -68,9 +68,28 @@ public class ApplicationConfigBase extends ResourceConfig {
     @Override
     public Response toResponse(JsonbException e) {
       e.printStackTrace();
-      return Response.status(Response.Status.BAD_REQUEST)
-              .entity(e.getClass().getCanonicalName() + ": " + e.getMessage())
-              .type("text/plain;charset=UTF-8").build();
+      
+      // The exception is triggered by the client data, so its stacktrace contains no private
+      
+      // Collect messages from every exception in the stack
+      // The top-level exception is just a wrapper (see org.jepria.server.service.rest.gson.GsonJsonb)
+      String clientErrorMessage;
+      {
+        StringBuilder sb = new StringBuilder();
+        Throwable th = e;
+        while (th != null) {
+          if (sb.length() > 0) {
+            sb.append("; ");
+          }
+          sb.append(th.getClass().getSimpleName()).append(": ").append(th.getMessage());
+          th = th.getCause();
+        }
+        clientErrorMessage = sb.toString();
+      }
+      
+      ErrorDto errorDto = ExceptionManager.newInstance().registerExceptionAndPrepareErrorDto(e);
+      errorDto.setErrorMessage(clientErrorMessage);
+      return Response.status(Response.Status.BAD_REQUEST).entity(errorDto).build();
     }
   }
 
