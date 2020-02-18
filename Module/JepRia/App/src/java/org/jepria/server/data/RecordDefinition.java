@@ -75,4 +75,84 @@ public interface RecordDefinition {
 
     return ret;
   }
+  
+  
+  /**
+   * Parse recordId (simple or composite) into a primary key map with typed values
+   * @param recordId
+   * @return
+   * @throws RecordDefinition.IncompletePrimaryKeyException
+   */
+  default Map<String, Object> parseRecordId(String recordId) throws IncompletePrimaryKeyException {
+    final String delimiter = "~"; // '.' and '~' are url-safe, but '~' has lower frequence; ',' and ';' are reserved; space is url-unsafe (see https://www.ietf.org/rfc/rfc3986.txt)
+    return parseRecordId(recordId, delimiter);
+  }
+  
+  /**
+   * Parse recordId (simple or composite) into a primary key map with typed values
+   * @param recordId
+   * @param delimiter between key=value pairs
+   * @return
+   * @throws RecordDefinition.IncompletePrimaryKeyException
+   */
+  default Map<String, Object> parseRecordId(String recordId, String delimiter) throws IncompletePrimaryKeyException {
+    Map<String, Object> ret = new HashMap<>();
+  
+    if (recordId != null) {
+      final List<String> primaryKey = getPrimaryKey();
+    
+      if (primaryKey.size() == 1) {
+        // simple primary key: "value"
+      
+        final String fieldName = primaryKey.get(0);
+        final Object fieldValue = getTypedValue(fieldName, recordId);
+      
+        ret.put(fieldName, fieldValue);
+      
+      } else if (primaryKey.size() > 1) {
+        // composite primary key: "key1=value1.key2=value2" or "key1=value1~key2=value2"
+      
+        Map<String, String> recordIdFieldMap = new HashMap<>();
+      
+        String[] recordIdParts = recordId.split(delimiter);
+        for (String recordIdPart: recordIdParts) {
+          if (recordIdPart != null) {
+            String[] recordIdPartKv = recordIdPart.split("="); // space is url-
+            if (recordIdPartKv.length != 2) {
+              throw new IllegalArgumentException("Could not split [" + recordIdPart + "] as a key-value pair with [=] delimiter");
+            }
+            recordIdFieldMap.put(recordIdPartKv[0], recordIdPartKv[1]);
+          }
+        }
+      
+        // check or throw
+        recordIdFieldMap = buildPrimaryKey(recordIdFieldMap);
+      
+      
+        // create typed values
+        for (final String fieldName: recordIdFieldMap.keySet()) {
+          final String fieldValueStr = recordIdFieldMap.get(fieldName);
+          final Object fieldValue = getTypedValue(fieldName, fieldValueStr);
+        
+          ret.put(fieldName, fieldValue);
+        }
+      }
+    }
+  
+    return ret;
+  }
+  
+  default Object getTypedValue(String fieldName, String strValue) {
+    Class<?> type = getFieldType(fieldName);
+    if (type == null) {
+      throw new IllegalArgumentException("Could not determine type for the field '" + fieldName + "'");
+    } else if (type == Integer.class) {
+      return Integer.parseInt(strValue);
+    } else if (type == String.class) {
+      return strValue;
+    } else {
+      // TODO add support?
+      throw new UnsupportedOperationException("The type '" + type + "' is unsupported for getting typed values");
+    }
+  }
 }
