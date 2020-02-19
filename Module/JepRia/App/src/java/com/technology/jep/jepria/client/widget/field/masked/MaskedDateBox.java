@@ -11,15 +11,7 @@ import com.google.gwt.core.client.Scheduler.ScheduledCommand;
 import com.google.gwt.editor.client.IsEditor;
 import com.google.gwt.editor.client.LeafValueEditor;
 import com.google.gwt.editor.client.adapters.TakesValueEditor;
-import com.google.gwt.event.dom.client.BlurEvent;
-import com.google.gwt.event.dom.client.BlurHandler;
-import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
-import com.google.gwt.event.dom.client.FocusEvent;
-import com.google.gwt.event.dom.client.FocusHandler;
-import com.google.gwt.event.dom.client.KeyCodes;
-import com.google.gwt.event.dom.client.KeyDownEvent;
-import com.google.gwt.event.dom.client.KeyDownHandler;
+import com.google.gwt.event.dom.client.*;
 import com.google.gwt.event.logical.shared.CloseEvent;
 import com.google.gwt.event.logical.shared.CloseHandler;
 import com.google.gwt.event.logical.shared.ValueChangeEvent;
@@ -142,7 +134,7 @@ public class MaskedDateBox extends Composite implements HasEnabled,
   }
 
   private class DateBoxHandler implements ValueChangeHandler<Date>,
-          FocusHandler, BlurHandler, ClickHandler, KeyDownHandler,
+          FocusHandler, BlurHandler, ClickHandler, KeyDownHandler, KeyUpHandler,
           CloseHandler<PopupPanel> {
 
     @Override
@@ -211,6 +203,15 @@ public class MaskedDateBox extends Composite implements HasEnabled,
         hideDatePicker();
         preventDatePickerPopup();
         box.setFocus(true);
+      }
+    }
+
+    @Override
+    public void onKeyUp(KeyUpEvent event) {
+      if ((event.getNativeKeyCode() == KeyCodes.KEY_BACKSPACE
+              || event.getNativeKeyCode() == KeyCodes.KEY_DELETE)
+              && box.isEmpty()) {
+        setValue(null, null, true, true);
       }
     }
   }
