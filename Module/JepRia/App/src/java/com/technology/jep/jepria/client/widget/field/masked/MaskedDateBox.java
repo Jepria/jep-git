@@ -289,6 +289,7 @@ public class MaskedDateBox extends Composite implements HasEnabled,
     box.addBlurHandler(handler);
     box.addClickHandler(handler);
     box.addKeyDownHandler(handler);
+    box.addKeyUpHandler(handler);
     box.setDirectionEstimator(false);
     box.setMask(mask);
     box.getElement().addClassName(MAIN_FONT_STYLE);
