@@ -4,19 +4,19 @@ import org.jepria.ssoutils.JepPrincipal;
 
 import javax.ws.rs.core.SecurityContext;
 import java.security.Principal;
-import java.util.function.Supplier;
+
 
 public class JaxrsCredential implements Credential {
 
-  protected final Supplier<SecurityContext> securityContext;
+  protected final SecurityContext securityContext;
 
-  public JaxrsCredential(Supplier<SecurityContext> securityContext) {
+  public JaxrsCredential(SecurityContext securityContext) {
     this.securityContext = securityContext;
   }
 
   @Override
   public int getOperatorId() {
-    final Principal principal = securityContext.get().getUserPrincipal();
+    final Principal principal = securityContext.getUserPrincipal();
 
     if (principal != null) {
       if (principal instanceof PrincipalImpl) {
@@ -36,14 +36,12 @@ public class JaxrsCredential implements Credential {
 
   @Override
   public String getUsername() {
-    final Principal principal = securityContext.get().getUserPrincipal();
+    final Principal principal = securityContext.getUserPrincipal();
     return principal == null ? null : principal.getName();
   }
 
   @Override
   public boolean isUserInRole(String roleShortName) {
-    return securityContext.get().isUserInRole(roleShortName);
+    return securityContext.isUserInRole(roleShortName);
   }
-
-
 }

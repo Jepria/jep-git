@@ -25,7 +25,7 @@ public class JepSecurityContextFactory implements Supplier<JepSecurityContext> {
           return null;
         } else {
           // the user has been authenticated
-          return new JaxrsCredential(() -> securityContext);
+          return new JaxrsCredential(securityContext);
         }
       }
     };
