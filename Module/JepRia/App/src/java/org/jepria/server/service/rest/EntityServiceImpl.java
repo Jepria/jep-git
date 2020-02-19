@@ -5,7 +5,6 @@ import org.jepria.server.data.RecordDefinition;
 import org.jepria.server.data.RecordDefinition.IncompletePrimaryKeyException;
 import org.jepria.server.service.security.Credential;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -27,7 +26,7 @@ public class EntityServiceImpl implements EntityService {
 
     final Map<String, ?> primaryKeyMap;
     try {
-      primaryKeyMap = getRecordIdParser().parse(recordId);
+      primaryKeyMap = recordDefinition.parseRecordId(recordId);
     } catch (IncompletePrimaryKeyException e) {
       throw new IllegalArgumentException("The recordId [" + recordId + "] cannot be parsed against the primary key: incomplete");
     }
@@ -54,84 +53,6 @@ public class EntityServiceImpl implements EntityService {
     return record;
   }
 
-  protected interface RecordIdParser {
-    /**
-     * Parse recordId (simple or composite) into a primary key map with typed values, based on RecordDefinition
-     * @param recordId
-     * @return
-     * @throws IncompletePrimaryKeyException 
-     */
-    Map<String, ?> parse(String recordId) throws IncompletePrimaryKeyException;
-  }
-
-  protected RecordIdParser getRecordIdParser() {
-    return new RecordIdParserImpl();
-  }
-
-  private class RecordIdParserImpl implements RecordIdParser {
-    @Override
-    public Map<String, Object> parse(String recordId) throws IncompletePrimaryKeyException {
-      Map<String, Object> ret = new HashMap<>();
-
-      if (recordId != null) {
-        final List<String> primaryKey = recordDefinition.getPrimaryKey();
-
-        if (primaryKey.size() == 1) {
-          // simple primary key: "value"
-
-          final String fieldName = primaryKey.get(0);
-          final Object fieldValue = getTypedValue(fieldName, recordId);
-
-          ret.put(fieldName, fieldValue);
-
-        } else if (primaryKey.size() > 1) {
-          // composite primary key: "key1=value1.key2=value2" or "key1=value1~key2=value2"
-
-          Map<String, String> recordIdFieldMap = new HashMap<>();
-
-          String[] recordIdParts = recordId.split("~");// '.' and '~' are url-safe, but '~' has lower frequence; ',' and ';' are reserved; space is url-unsafe (see https://www.ietf.org/rfc/rfc3986.txt)
-          for (String recordIdPart: recordIdParts) {
-            if (recordIdPart != null) {
-              String[] recordIdPartKv = recordIdPart.split("="); // space is url-
-              if (recordIdPartKv.length != 2) {
-                throw new IllegalArgumentException("Could not split [" + recordIdPart + "] as a key-value pair with [=] delimiter");
-              }
-              recordIdFieldMap.put(recordIdPartKv[0], recordIdPartKv[1]);
-            }
-          }
-
-          // check or throw
-          recordIdFieldMap = recordDefinition.buildPrimaryKey(recordIdFieldMap);
-
-
-          // create typed values
-          for (final String fieldName: recordIdFieldMap.keySet()) {
-            final String fieldValueStr = recordIdFieldMap.get(fieldName);
-            final Object fieldValue = getTypedValue(fieldName, fieldValueStr);
-
-            ret.put(fieldName, fieldValue);
-          }
-        }
-      }
-
-      return ret;
-    }
-
-    private Object getTypedValue(String fieldName, String strValue) {
-      Class<?> type = recordDefinition.getFieldType(fieldName);
-      if (type == null) {
-        throw new IllegalArgumentException("Could not determine type for the field '" + fieldName + "'");
-      } else if (type == Integer.class) {
-        return Integer.parseInt(strValue);
-      } else if (type == String.class) {
-        return strValue;
-      } else {
-        // TODO add support?
-        throw new UnsupportedOperationException("The type '" + type + "' is unsupported for getting typed values");
-      }
-    }
-  }
-
   @Override
   public String create(Object record, Credential credential) {
     final Object daoResult;
@@ -146,7 +67,7 @@ public class EntityServiceImpl implements EntityService {
 
     final Map<String, ?> primaryKeyMap;
     try {
-      primaryKeyMap = getRecordIdParser().parse(recordId);
+      primaryKeyMap = recordDefinition.parseRecordId(recordId);
     } catch (IncompletePrimaryKeyException e) {
       throw new NoSuchElementException("The recordId [" + recordId + "] cannot be parsed against the primary key: incomplete");
     }
@@ -159,7 +80,7 @@ public class EntityServiceImpl implements EntityService {
     
     final Map<String, ?> primaryKeyMap;
     try {
-      primaryKeyMap = getRecordIdParser().parse(recordId);
+      primaryKeyMap = recordDefinition.parseRecordId(recordId);
     } catch (IncompletePrimaryKeyException e) {
       throw new NoSuchElementException("The recordId [" + recordId + "] cannot be parsed against the primary key: incomplete");
     }

@@ -21,7 +21,7 @@ public class Entrance {
    * Выход из приложения
    */
   public static void logout() {
-    mainService.logout(Window.Location.getHref(), new AsyncCallback<String>() {
+    mainService.logout(getLocation(), new AsyncCallback<String>() {
       public void onFailure(Throwable caught) {
         reload();
       }
@@ -35,6 +35,14 @@ public class Entrance {
       }
     });
   }
+
+  public native static String getLocation()/*-{
+      if ($wnd.parent) {
+        return $wnd.parent.location.href;
+      } else {
+        return $wnd.location.href;
+      }
+  }-*/;
 
   /**
    * Перезагрузка страницы (с учётом окружения - с Navigation или без)

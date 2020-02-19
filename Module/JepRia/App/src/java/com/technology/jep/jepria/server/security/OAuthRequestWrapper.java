@@ -4,7 +4,9 @@ import com.technology.jep.jepria.server.db.Db;
 import com.technology.jep.jepria.server.security.module.JepSecurityModule;
 import oracle.jdbc.OracleTypes;
 import org.apache.log4j.Logger;
-import org.jepria.oauth.sdk.*;
+import org.jepria.oauth.sdk.TokenInfoRequest;
+import org.jepria.oauth.sdk.TokenInfoResponse;
+import org.jepria.oauth.sdk.TokenRevocationRequest;
 import org.jepria.server.env.EnvironmentPropertySupport;
 import org.jepria.ssoutils.JepPrincipal;
 
@@ -19,8 +21,9 @@ import java.security.Principal;
 import java.sql.CallableStatement;
 import java.sql.SQLException;
 
-import static com.technology.jep.jepria.server.JepRiaServerConstant.*;
+import static com.technology.jep.jepria.server.JepRiaServerConstant.DEFAULT_DATA_SOURCE_JNDI_NAME;
 import static com.technology.jep.jepria.server.security.JepSecurityConstant.JEP_SECURITY_MODULE_ATTRIBUTE_NAME;
+import static com.technology.jep.jepria.server.security.JepSecurityConstant.OAUTH_TOKEN;
 import static org.jepria.oauth.sdk.OAuthConstants.*;
 
 public class OAuthRequestWrapper extends HttpServletRequestWrapper {
@@ -129,8 +132,6 @@ public class OAuthRequestWrapper extends HttpServletRequestWrapper {
       .resourceURI(URI.create(delegate.getRequestURL().toString().replaceFirst(delegate.getRequestURI(), OAUTH_TOKENINFO_CONTEXT_PATH)))
       .clientId(clientId)
       .clientSecret(clientSecret)
-//      .clientId(delegate.getServletContext().getInitParameter(CLIENT_ID_PROPERTY))
-//      .clientSecret(delegate.getServletContext().getInitParameter(CLIENT_SECRET_PROPERTY))
       .token(tokenString)
       .build();
     TokenInfoResponse response =  request.execute();
@@ -188,8 +189,6 @@ public class OAuthRequestWrapper extends HttpServletRequestWrapper {
         .token(tokenString)
         .clientId(clientId)
         .clientSecret(clientSecret)
-//        .clientId(delegate.getServletContext().getInitParameter(CLIENT_ID_PROPERTY))
-//        .clientSecret(delegate.getServletContext().getInitParameter(CLIENT_SECRET_PROPERTY))
         .build();
       try {
         request.execute();

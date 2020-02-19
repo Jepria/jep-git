@@ -3,21 +3,20 @@ package com.technology.jep.jepria.server.security.servlet;
 import com.technology.jep.jepria.server.security.OAuthRequestWrapper;
 import org.apache.log4j.Logger;
 import org.jepria.oauth.sdk.*;
-import org.jepria.oauth.sdk.util.URIUtil;
 import org.jepria.server.env.EnvironmentPropertySupport;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.*;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.ConnectException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Base64;
 
-import static com.technology.jep.jepria.server.JepRiaServerConstant.OAUTH_CSRF_TOKEN;
-import static com.technology.jep.jepria.server.JepRiaServerConstant.OAUTH_TOKEN;
+import static com.technology.jep.jepria.server.security.JepSecurityConstant.OAUTH_CSRF_TOKEN;
+import static com.technology.jep.jepria.server.security.JepSecurityConstant.OAUTH_TOKEN;
 import static javax.servlet.http.HttpServletResponse.SC_FORBIDDEN;
 import static org.jepria.oauth.sdk.OAuthConstants.*;
 
@@ -68,7 +67,8 @@ public class OAuthEntrySecurityFilter extends MultiInstanceSecurityFilter {
        */
       State state = new State(httpServletRequest.getQueryString());
       Cookie stateCookie = new Cookie(OAUTH_CSRF_TOKEN, state.toString());
-      stateCookie.setPath("/");
+      stateCookie.setSecure(httpServletRequest.isSecure());
+      stateCookie.setPath(httpServletRequest.getContextPath());
       stateCookie.setHttpOnly(true);
       httpServletResponse.addCookie(stateCookie);
 
@@ -112,6 +112,7 @@ public class OAuthEntrySecurityFilter extends MultiInstanceSecurityFilter {
           if (tokenObject != null) {
             String token = tokenObject.getAccessToken();
             Cookie tokenCookie = new Cookie(OAUTH_TOKEN, token);
+            tokenCookie.setSecure(request.isSecure());
             tokenCookie.setPath("/");
             tokenCookie.setHttpOnly(true);
             response.addCookie(tokenCookie);
