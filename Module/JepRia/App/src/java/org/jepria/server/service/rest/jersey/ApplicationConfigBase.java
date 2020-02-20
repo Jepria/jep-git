@@ -73,7 +73,7 @@ public class ApplicationConfigBase extends ResourceConfig {
       // The exception is triggered by the client data, so its stacktrace contains no private
       
       // Collect messages from every exception in the stack
-      String clientErrorMessage;
+      final String clientErrorMessage;
       {
         StringBuilder sb = new StringBuilder();
         Throwable th = e;
@@ -84,7 +84,11 @@ public class ApplicationConfigBase extends ResourceConfig {
           sb.append(th.getClass().getSimpleName()).append(": ").append(th.getMessage());
           th = th.getCause();
         }
-        clientErrorMessage = sb.toString();
+        if (sb.length() > 0) {
+          clientErrorMessage = sb.toString();
+        } else {
+          clientErrorMessage = "Json parse exception (no details attached)"; // default client message
+        }
       }
       
       ErrorDto errorDto = ExceptionManager.newInstance().registerExceptionAndPrepareErrorDto(e);
