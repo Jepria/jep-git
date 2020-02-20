@@ -182,6 +182,7 @@ public class MaskedDateBox extends Composite implements HasEnabled,
       }
     }
 
+
     @Override
     public void onValueChange(ValueChangeEvent<Date> event) {
       Date date = event.getValue();
@@ -209,7 +210,8 @@ public class MaskedDateBox extends Composite implements HasEnabled,
     @Override
     public void onKeyUp(KeyUpEvent event) {
       if ((event.getNativeKeyCode() == KeyCodes.KEY_BACKSPACE
-              || event.getNativeKeyCode() == KeyCodes.KEY_DELETE)
+              || event.getNativeKeyCode() == KeyCodes.KEY_DELETE
+              || (event.isControlKeyDown() && event.getNativeKeyCode() == KeyCodes.KEY_X))
               && box.isEmpty()) {
         setValue(null, null, true, true);
       }
@@ -306,7 +308,6 @@ public class MaskedDateBox extends Composite implements HasEnabled,
         }
       }
     });
-
   }
 
   public void setStyleClassName(String className) {
