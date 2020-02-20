@@ -40,6 +40,10 @@ public interface RecordDefinition {
   
   class IncompletePrimaryKeyException extends Exception {
     private static final long serialVersionUID = 1L;
+    
+    public IncompletePrimaryKeyException(String message) {
+      super(message);
+    }
   }
   
   /**
@@ -51,7 +55,7 @@ public interface RecordDefinition {
    */
   default <X> Map<String, X> buildPrimaryKey(Map<String, X> record) throws IncompletePrimaryKeyException {
     if (record == null) {
-      throw new IllegalArgumentException();
+      throw new IllegalArgumentException("record is null");
     }
 
     final List<String> primaryKey = getPrimaryKey();
@@ -70,7 +74,7 @@ public interface RecordDefinition {
 
     // Проверяем, что все поля первичного ключа присутствуют в записи (здесь осталось достаточным проверить размер)
     if (ret.size() != primaryKey.size()) {
-      throw new IncompletePrimaryKeyException();
+      throw new IncompletePrimaryKeyException("primary key: " + primaryKey + ", record: " + record);
     }
 
     return ret;

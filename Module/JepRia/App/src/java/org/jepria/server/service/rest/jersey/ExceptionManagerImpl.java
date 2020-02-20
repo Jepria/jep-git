@@ -43,15 +43,24 @@ public class ExceptionManagerImpl implements ExceptionManager {
       e2 = runtimeSQLException.getSQLException();
     }
 
+    String message = null;
+    
     if (e2 instanceof SQLException) {
 
       SQLException sqlException = (SQLException)e2;
-      errorDto.setErrorMessage(getErrorMessage(sqlException));
+      
+      message = getErrorMessage(sqlException);
       errorDto.setErrorCode(sqlException.getErrorCode());
 
     } else {
-      errorDto.setErrorMessage(e2.getMessage());
+      message = e2.getMessage();
     }
+  
+    if (message == null || "".equals(message)) {
+      message = e2.getClass().getSimpleName() + " (no details attached)"; // default message
+    }
+  
+    errorDto.setErrorMessage(message);
 
     return errorDto;
   }
