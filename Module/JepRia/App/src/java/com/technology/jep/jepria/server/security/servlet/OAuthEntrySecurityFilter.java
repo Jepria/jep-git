@@ -74,7 +74,7 @@ public class OAuthEntrySecurityFilter extends MultiInstanceSecurityFilter {
 
       String authorizationRequestURI = AuthorizationRequest.Builder()
         .resourceURI(URI.create(httpServletRequest.getRequestURL().toString().replaceFirst(httpServletRequest.getRequestURI(), OAUTH_AUTHORIZATION_CONTEXT_PATH)))
-        .responseType(ResponseType.AUTHORIZATION_CODE)
+        .responseType(ResponseType.CODE)
         .clientId(clientId)
         .redirectionURI(URI.create(httpServletRequest.getRequestURL().toString()))
         .state(state)
