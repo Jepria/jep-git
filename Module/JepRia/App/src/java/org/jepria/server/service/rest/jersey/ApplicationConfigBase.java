@@ -165,15 +165,6 @@ public class ApplicationConfigBase extends ResourceConfig {
   }
 
   protected void registerValidation() {
-    register(new AbstractBinder() {
-      @Override
-      protected void configure() {
-        bind(ValidationInterceptionService.class)
-                .to(InterceptionService.class)
-                .in(Singleton.class);
-      }
-    });
-
     register(new ExceptionMapperValidation());
   }
 

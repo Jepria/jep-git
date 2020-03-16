@@ -1,23 +1,26 @@
 package org.jepria.server.service.rest.jersey.validate;
 
 import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
-public class ExceptionMapperValidation implements ExceptionMapper<ValidationException> {
+public class ExceptionMapperValidation implements ExceptionMapper<ConstraintViolationException> {
 
   @Override
-  public Response toResponse(ValidationException e) {
-    List<ConstraintViolationDto> violationsDto = new ArrayList<>();
-
-    Collection<ConstraintViolation<?>> violations = e.getViolations();
+  public Response toResponse(ConstraintViolationException e) {
+    List<ConstraintViolationDto> violationsDto = new ArrayList();
+    Collection<ConstraintViolation<?>> violations = e.getConstraintViolations();
     if (violations != null) {
+      Iterator it = violations.iterator();
 
-      for (ConstraintViolation<?> violation: violations) {
-        ConstraintViolationDto violationDto = new ConstraintViolationDto();
+      while(it.hasNext()) {
+        ConstraintViolation<?> violation = (ConstraintViolation)it.next();
+        ExceptionMapperValidation.ConstraintViolationDto violationDto = new ExceptionMapperValidation.ConstraintViolationDto();
         violationDto.setPropertyPath(String.valueOf(violation.getPropertyPath()));
         violationDto.setViolationDescription(violation.getMessage());
         violationsDto.add(violationDto);
