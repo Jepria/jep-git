@@ -8,7 +8,9 @@ import org.jepria.oauth.sdk.jaxrs.OAuthContainerRequestFilter;
 import org.jepria.server.env.EnvironmentPropertySupport;
 import org.jepria.server.service.rest.MetaInfoResource;
 
+import javax.annotation.Priority;
 import javax.servlet.http.HttpServletRequest;
+import javax.ws.rs.Priorities;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.DynamicFeature;
 import javax.ws.rs.container.ResourceInfo;
@@ -25,6 +27,7 @@ import static org.jepria.oauth.sdk.OAuthConstants.CLIENT_ID_PROPERTY;
 import static org.jepria.oauth.sdk.OAuthConstants.CLIENT_SECRET_PROPERTY;
 
 public class JepOAuthDynamicFeature implements DynamicFeature {
+
   @Override
   public void configure(ResourceInfo resourceInfo, FeatureContext context) {
 
@@ -33,10 +36,10 @@ public class JepOAuthDynamicFeature implements DynamicFeature {
     OAuth resourceAnnotation = resourceInfo.getResourceClass().getAnnotation(OAuth.class);
     OAuth methodAnnotation = am.getAnnotation(OAuth.class);
     if (resourceAnnotation != null) {
-      context.register(new JepOAuthContainerRequestFilter());
+      context.register(JepOAuthContainerRequestFilter.class);
       return;
     } else if (methodAnnotation != null) {
-      context.register(new JepOAuthContainerRequestFilter());
+      context.register(JepOAuthContainerRequestFilter.class);
       return;
     } else if (MetaInfoResource.class.equals(resourceInfo.getResourceClass())) {
       // регистрируем фильтр для ресурса MetaInfoResource так, как будто на нём есть аннотация @OAuth
@@ -47,22 +50,30 @@ public class JepOAuthDynamicFeature implements DynamicFeature {
       // @Protected просто говорит о том, что ресурс защищён (неважно каким образом).
       // Далее ресурс MetaInfoResource можно пометить такой аннотацией и убрать его регистрацию отсюда
 
-      context.register(new JepOAuthContainerRequestFilter());
+      context.register(JepOAuthContainerRequestFilter.class);
     }
   }
 
+  @Priority(Priorities.AUTHENTICATION)
   public static class JepOAuthContainerRequestFilter extends OAuthContainerRequestFilter {
 
     public static final String AUTHENTICATION_SCHEME = "BEARER";
-
-    @Context
-    HttpServletRequest request;
     private String moduleName;
+    HttpServletRequest request;
+
+    public JepOAuthContainerRequestFilter(@Context HttpServletRequest request) {
+      this.request = request;
+    }
 
     @Override
     protected SecurityContext getSecurityContext(TokenInfoResponse tokenInfo) {
       String[] credentials = tokenInfo.getSub().split(":");
       return new SecurityContext(credentials[0], Integer.valueOf(credentials[1]));
+    }
+
+    @Override
+    protected HttpServletRequest getRequest() {
+      return request;
     }
 
     @Override
