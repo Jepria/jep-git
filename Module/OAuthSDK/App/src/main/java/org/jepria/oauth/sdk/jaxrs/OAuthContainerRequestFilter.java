@@ -23,9 +23,6 @@ import static org.jepria.oauth.sdk.OAuthConstants.*;
  */
 public abstract class OAuthContainerRequestFilter implements ContainerRequestFilter {
 
-  @Context
-  protected HttpServletRequest request;
-
   /**
    * Override this method, to create SecurityContext object based on special system requirements. E.G. getting roles, principal.
    *
@@ -46,12 +43,13 @@ public abstract class OAuthContainerRequestFilter implements ContainerRequestFil
     return null;
   }
 
+  protected abstract HttpServletRequest getRequest();
   /**
    * get Token string from Authorization HTTP Header
    * @return token
    */
   protected final String getTokenFromHeader() {
-    String headerText = request.getHeader("Authorization");
+    String headerText = getRequest().getHeader("Authorization");
     if (headerText != null && headerText.startsWith("Bearer")) {
       return headerText.replaceFirst("Bearer ", "");
     } else {
@@ -76,7 +74,7 @@ public abstract class OAuthContainerRequestFilter implements ContainerRequestFil
    */
   private TokenInfoResponse getTokenInfo(String tokenString) throws IOException {
     TokenInfoRequest tokenInfoRequest = TokenInfoRequest.Builder()
-      .resourceURI(URI.create(request.getRequestURL().toString().replaceFirst(request.getRequestURI(), OAUTH_TOKENINFO_CONTEXT_PATH)))
+      .resourceURI(URI.create(getRequest().getRequestURL().toString().replaceFirst(getRequest().getRequestURI(), OAUTH_TOKENINFO_CONTEXT_PATH)))
       .clientId(getClientId())
       .clientSecret(getClientSecret())
       .token(tokenString)
@@ -105,7 +103,7 @@ public abstract class OAuthContainerRequestFilter implements ContainerRequestFil
      */
     TokenInfoResponse tokenClaims = getTokenInfo(tokenString);
     if (tokenClaims != null && tokenClaims.getActive()) {
-      handleRequest(request, tokenClaims);
+      handleRequest(getRequest(), tokenClaims);
       containerRequestContext.setSecurityContext(getSecurityContext(tokenClaims));
     } else {
       throw new WebApplicationException(Response.status(Response.Status.UNAUTHORIZED).build());
