@@ -1,7 +1,5 @@
 package org.jepria.server.service.rest.jersey;
 
-import org.glassfish.hk2.api.InterceptionService;
-import org.glassfish.jersey.internal.inject.AbstractBinder;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 import org.glassfish.jersey.spi.ExceptionMappers;
@@ -10,13 +8,11 @@ import org.jepria.server.service.rest.MetaInfoResource;
 import org.jepria.server.service.rest.XCacheControlFilter;
 import org.jepria.server.service.rest.gson.JsonBindingProvider;
 import org.jepria.server.service.rest.jersey.validate.ExceptionMapperValidation;
-import org.jepria.server.service.rest.jersey.validate.ValidationInterceptionService;
 import org.jepria.server.service.security.CorsResponseFilter;
 import org.jepria.server.service.security.HttpBasicDynamicFeature;
 
 import javax.inject.Inject;
 import javax.inject.Provider;
-import javax.inject.Singleton;
 import javax.json.bind.JsonbException;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Response;
@@ -26,7 +22,11 @@ import java.lang.reflect.UndeclaredThrowableException;
 public class ApplicationConfigBase extends ResourceConfig {
   
   @Inject
-  // for finding proper ExceptionMappers at runtime
+  // populated with ExceptionMappers registered by register() method
+  /**
+   * For finding proper ExceptionMappers at runtime
+   */
+  // private to avoid anyone else using @Injection mechanism
   private Provider<ExceptionMappers> mappers;
   
   public ApplicationConfigBase() {
