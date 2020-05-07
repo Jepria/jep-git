@@ -10,7 +10,6 @@ import org.jepria.server.service.rest.gson.JsonBindingProvider;
 import org.jepria.server.service.rest.jersey.validate.ExceptionMapperValidation;
 import org.jepria.server.service.security.CorsFilter;
 import org.jepria.server.service.security.HttpBasicDynamicFeature;
-
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.json.bind.JsonbException;
@@ -22,7 +21,11 @@ import java.lang.reflect.UndeclaredThrowableException;
 public class ApplicationConfigBase extends ResourceConfig {
   
   @Inject
-  // for finding proper ExceptionMappers at runtime
+  // populated with ExceptionMappers registered by register() method
+  /**
+   * For finding proper ExceptionMappers at runtime
+   */
+  // private to avoid anyone else using @Injection mechanism
   private Provider<ExceptionMappers> mappers;
   
   public ApplicationConfigBase() {
