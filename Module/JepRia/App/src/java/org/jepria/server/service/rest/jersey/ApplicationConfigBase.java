@@ -8,9 +8,8 @@ import org.jepria.server.service.rest.MetaInfoResource;
 import org.jepria.server.service.rest.XCacheControlFilter;
 import org.jepria.server.service.rest.gson.JsonBindingProvider;
 import org.jepria.server.service.rest.jersey.validate.ExceptionMapperValidation;
-import org.jepria.server.service.security.CorsResponseFilter;
+import org.jepria.server.service.security.CorsFilter;
 import org.jepria.server.service.security.HttpBasicDynamicFeature;
-
 import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.json.bind.JsonbException;
@@ -179,6 +178,6 @@ public class ApplicationConfigBase extends ResourceConfig {
    * Регистрация обработчика CORS
    */
   protected void registerCorsHandler() {
-    register(CorsResponseFilter.class);
+    register(CorsFilter.class);
   }
 }

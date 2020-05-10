@@ -84,9 +84,9 @@ public class HttpBasicDynamicFeature implements DynamicFeature {
     public void filter(ContainerRequestContext requestContext) throws IOException {
       String authString = requestContext.getHeaderString("authorization");
       if (authString == null) {
-        throw new WebApplicationException(
-          Response.status(Response.Status.UNAUTHORIZED)
+        requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED)
             .header(HttpHeaders.WWW_AUTHENTICATE, "Basic").build());
+        return;
       }
       authString = authString.replaceFirst("[Bb]asic ", "");
       String[] credentials = new String(Base64.getDecoder().decode(authString)).split(":");
@@ -100,9 +100,9 @@ public class HttpBasicDynamicFeature implements DynamicFeature {
         }
         requestContext.setSecurityContext(new JerseySecurityContext(credentials[0], operatorId));
       } catch (SQLException e) {
-        throw new WebApplicationException(
-          Response.status(Response.Status.UNAUTHORIZED)
+        requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED)
             .header(HttpHeaders.WWW_AUTHENTICATE, "Basic").build());
+        return;
       } finally {
         db.closeAll();
       }
