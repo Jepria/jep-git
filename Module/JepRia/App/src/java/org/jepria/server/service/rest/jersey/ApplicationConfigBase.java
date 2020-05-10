@@ -56,7 +56,7 @@ public class ApplicationConfigBase extends ResourceConfig {
     
     registerMetaInfoResource();
     
-    registerValidation();
+    registerExceptionMapperValidation();
     
     registerCorsHandler();
   }
@@ -164,7 +164,7 @@ public class ApplicationConfigBase extends ResourceConfig {
     register(MetaInfoResource.class);
   }
 
-  protected void registerValidation() {
+  protected void registerExceptionMapperValidation() {
     register(new ExceptionMapperValidation());
   }
 
