@@ -15,5 +15,5 @@ public class DefaultGsonBuilder implements Supplier<GsonBuilder> {
     return get().create();
   }
 
-  public static final String DEFAULT_DATE_FORMAT = "dd.MM.yyyy";
+  public static final String DEFAULT_DATE_FORMAT = "yyyy-MM-dd"; // iso 8601
 }
