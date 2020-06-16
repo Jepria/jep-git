@@ -14,6 +14,7 @@ import javax.inject.Inject;
 import javax.inject.Provider;
 import javax.json.bind.JsonbException;
 import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;
 import java.lang.reflect.UndeclaredThrowableException;
@@ -92,7 +93,11 @@ public class ApplicationConfigBase extends ResourceConfig {
       
       ErrorDto errorDto = ExceptionManager.newInstance().registerExceptionAndPrepareErrorDto(e);
       errorDto.setErrorMessage(clientErrorMessage);
-      return Response.status(Response.Status.BAD_REQUEST).entity(errorDto).build();
+      return Response
+          .status(Response.Status.BAD_REQUEST)
+          .type(MediaType.APPLICATION_JSON + ";charset=utf-8")
+          .entity(errorDto)
+          .build();
     }
   }
   
@@ -121,7 +126,11 @@ public class ApplicationConfigBase extends ResourceConfig {
     
       } else {
         ErrorDto errorDto = ExceptionManager.newInstance().registerExceptionAndPrepareErrorDto(e);
-        return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(errorDto).build();
+        return Response
+            .status(Response.Status.INTERNAL_SERVER_ERROR)
+            .type(MediaType.APPLICATION_JSON + ";charset=utf-8")
+            .entity(errorDto)
+            .build();
     
       }
     }
