@@ -17,22 +17,6 @@ Module/cas-client-3.1.12_customized/bin/
 /Module/cas-server-4.0.1_customized/App/log/
 /Module/cas-server-4.0.1_customized/App/temp-war/
 
-# JepRia specific
-Module/JepRia/.classpath
-Module/JepRia/.project
-Module/JepRia/.settings/
-Module/JepRia/App/build/
-Module/JepRia/App/build-auto/
-Module/JepRia/App/build-test/
-Module/JepRia/App/lib/jepria-auto.jar
-Module/JepRia/App/lib/jepria-ejb.jar
-Module/JepRia/App/lib/jepria-oc4j.jar
-Module/JepRia/App/lib/jepria-test.jar
-Module/JepRia/App/lib/jepria-weblogic.jar
-Module/JepRia/App/lib/jepria.jar
-Module/JepRia/App/log/
-Module/JepRia/bin/
-
 # JepRiaReport specific
 Module/JepRiaReport/.classpath
 Module/JepRiaReport/.project
