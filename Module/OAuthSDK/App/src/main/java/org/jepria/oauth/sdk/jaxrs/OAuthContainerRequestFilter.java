@@ -96,7 +96,7 @@ public abstract class OAuthContainerRequestFilter implements ContainerRequestFil
       tokenString = getTokenFromCookie();
     }
     if (tokenString == null) {
-        throw new WebApplicationException(Response.status(Response.Status.UNAUTHORIZED).build());
+        containerRequestContext.abortWith(Response.status((Response.Status.UNAUTHORIZED)).build());
     }
     /*
      * Introspect token with OAuth provider endpoint
@@ -106,7 +106,7 @@ public abstract class OAuthContainerRequestFilter implements ContainerRequestFil
       handleRequest(getRequest(), tokenClaims);
       containerRequestContext.setSecurityContext(getSecurityContext(tokenClaims));
     } else {
-      throw new WebApplicationException(Response.status(Response.Status.UNAUTHORIZED).build());
+      containerRequestContext.abortWith(Response.status((Response.Status.UNAUTHORIZED)).build());
     }
   }
 }

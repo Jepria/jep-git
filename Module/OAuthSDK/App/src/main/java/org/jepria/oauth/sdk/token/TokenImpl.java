@@ -202,7 +202,7 @@ public class TokenImpl implements Token {
         case 5:
           return new TokenImpl(EncryptedJWT.parse(tokenString), tokenString);
         default:
-          return null;
+          throw new IllegalArgumentException();
       }
     }
   }

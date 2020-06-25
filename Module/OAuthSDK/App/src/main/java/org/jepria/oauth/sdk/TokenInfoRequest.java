@@ -42,7 +42,7 @@ public class TokenInfoRequest {
   public TokenInfoRequest(URI resourceURI, String tokenString, String clientId, String clientSecret) {
     Objects.requireNonNull(resourceURI, "Request URI must be not null");
     this.resourceURI = resourceURI;
-    Objects.requireNonNull(tokenString, "Token URI must be not null");
+    Objects.requireNonNull(tokenString, "Token must be not null");
     this.tokenString = tokenString;
     Objects.requireNonNull(clientId, "Client ID must be not null");
     this.clientId = clientId;
