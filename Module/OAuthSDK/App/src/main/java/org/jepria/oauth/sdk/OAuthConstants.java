@@ -33,6 +33,9 @@ public class OAuthConstants {
   public static final String STATE = "state";
   public static final String CODE = "code";
   public static final String TOKEN = "token";
+  public static final String USERNAME = "username";
+  public static final String PASSWORD = "password";
+  public static final String REFRESH_TOKEN = "refresh_token";
   public static final String CODE_CHALLENGE = "code_challenge";
   public static final String CODE_VERIFIER = "code_verifier";
 

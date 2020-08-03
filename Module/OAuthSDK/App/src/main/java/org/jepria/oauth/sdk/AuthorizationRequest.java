@@ -3,6 +3,8 @@ package org.jepria.oauth.sdk;
 import org.jepria.oauth.sdk.util.URIUtil;
 
 import java.net.URI;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 import static org.jepria.oauth.sdk.OAuthConstants.*;
@@ -94,7 +96,7 @@ public final class AuthorizationRequest {
       Map<String, String> params = new HashMap<>();
       params.put(RESPONSE_TYPE, responseType);
       params.put(CLIENT_ID, clientId);
-      params.put(REDIRECT_URI, Base64.getUrlEncoder().withoutPadding().encodeToString(redirectionURI.toString().getBytes()));
+      params.put(REDIRECT_URI, URLEncoder.encode(redirectionURI.toString(), StandardCharsets.UTF_8.name()).replaceAll("\\+", "%20"));
       params.put(STATE, state.toString());
       result = new URI(resourceURI.getScheme(), resourceURI.getAuthority(), resourceURI.getPath(), URIUtil.serializeParameters(params, null), resourceURI.getFragment());
     } catch (Throwable e) {
