@@ -1,7 +1,7 @@
 package com.technology.jep.jepria.server.dao.transaction.handler;
 
 import com.technology.jep.jepria.server.dao.CallContext;
-import com.technology.jep.jepria.server.db.Db;
+import com.technology.jep.jepria.server.db.DbOld;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 
 /**
@@ -14,7 +14,7 @@ public class StartTransactionHandlerImpl implements StartTransactionHandler {
    * Единственное действие &mdash; вызов {@link CallContext#begin(String, String)}.
    */
   @Override
-  public Db handle(String dataSourceJndiName, String moduleName) throws ApplicationException {
+  public DbOld handle(String dataSourceJndiName, String moduleName) throws ApplicationException {
     CallContext.begin(dataSourceJndiName, moduleName);
     return CallContext.getDb();
   }

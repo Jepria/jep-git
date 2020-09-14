@@ -1,14 +1,8 @@
 package com.technology.jep.jepcommon.security;
 
-import java.sql.CallableStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Types;
+import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import oracle.jdbc.OracleTypes;
 
@@ -16,14 +10,13 @@ import org.apache.log4j.Logger;
 
 import com.technology.jep.jepcommon.security.authorization.AuthorizationHelper;
 import com.technology.jep.jepria.server.db.Db;
-import com.technology.jep.jepria.shared.util.JepRiaUtil;
 
 /**
  * Обеспечивает доступ к некоторым методам пакета pkg_Operator в базе данных.
  */
 public class pkg_Operator {
-  private static Logger logger = Logger.getLogger(pkg_Operator.class.getName());  
-  
+  private static Logger logger = Logger.getLogger(pkg_Operator.class.getName());
+
   /**
    * Регистрация оператора в базе данных.<br/>
    * Функция осуществляет последовательный вызов функций базы данных:<br/>
@@ -31,7 +24,7 @@ public class pkg_Operator {
    * pkg_Operator.Login(login, password);<br/>
    * pkg_Operator.GetCurrentUserID();<br/>
    * </code>
-   * 
+   *
    * @param db        соединение с базой данных
    * @param login     логин пользователя
    * @param password  пароль пользователя
@@ -49,7 +42,7 @@ public class pkg_Operator {
    * pkg_Operator.Login(login);<br/>
    * pkg_Operator.GetCurrentUserID();<br/>
    * </code>
-   * 
+   *
    * @param db        соединение с базой данных
    * @param login     логин пользователя
    * @return идентификатор текущего пользователя
@@ -61,27 +54,29 @@ public class pkg_Operator {
 
   /**
    * Функция определяет необходимость смены пользователем пароля.
-   * 
+   *
    * @param operatorId  идентификатор пользователя
    * @return true - если пользователю необходимо сменить пароль, false - в противном случае.
    * @throws SQLException
    */
   public static final boolean isChangePassword(Db db, Integer operatorId) throws SQLException {
     logger.trace("isChangePassword(Db db, " + operatorId + ")");
-    
-    
-    Integer result = null;
-    String sqlQuery = 
-      " begin" 
-      + "  ? := pkg_Operator.IsChangePassword(" 
-        + " operatorId => ?" 
-      + ");" 
-      + " end;";
-    try {
-      CallableStatement callableStatement = db.prepare(sqlQuery);
 
-      if(operatorId != null) callableStatement.setInt(2, operatorId);  
-      else callableStatement.setNull(2, Types.INTEGER); 
+
+    Integer result = null;
+    String sqlQuery =
+      " begin"
+      + "  ? := pkg_Operator.IsChangePassword("
+        + " operatorId => ?"
+      + ");"
+      + " end;";
+    Connection connection = null;
+    try {
+      connection = db.getConnection();
+      CallableStatement callableStatement = db.prepare(connection, sqlQuery);
+
+      if(operatorId != null) callableStatement.setInt(2, operatorId);
+      else callableStatement.setNull(2, Types.INTEGER);
 
       callableStatement.registerOutParameter(1, Types.INTEGER);
 
@@ -89,9 +84,12 @@ public class pkg_Operator {
 
       result = new Integer(callableStatement.getInt(1));
       if(callableStatement.wasNull())result = null;
-
+      callableStatement.close();
     } finally {
-      db.closeStatement(sqlQuery);
+      if (connection != null)
+        try {
+          connection.close();
+        } catch (Exception ignore) {}
     }
 
     return result != null && result.intValue() == 1;
@@ -99,7 +97,7 @@ public class pkg_Operator {
 
   /**
    * Изменение пароля пользователя.
-   * 
+   *
    * @param db                  соединение с базой данных
    * @param operatorId          идентификатор пользователя, пароль которого необходимо изменить
    * @param password            пароль пользователя
@@ -112,22 +110,24 @@ public class pkg_Operator {
     , Integer operatorId
     , String password
     , String newPassword
-    , String newPasswordConfirm) 
+    , String newPasswordConfirm)
     throws SQLException {
     logger.trace("changePassword()");
-    
-    String sqlQuery = 
-      " begin" 
-      + "  pkg_Operator.ChangePassword(" 
-        + " operatorId => ?" 
-        + ", password => ?" 
-        + ", newPassword => ?" 
-        + ", newPasswordConfirm => ?" 
-      + ");" 
+
+    String sqlQuery =
+      " begin"
+      + "  pkg_Operator.ChangePassword("
+        + " operatorId => ?"
+        + ", password => ?"
+        + ", newPassword => ?"
+        + ", newPasswordConfirm => ?"
+      + ");"
       + " end;";
+    Connection connection = null;
     try {
-      CallableStatement callableStatement = db.prepare(sqlQuery);
-      
+      connection = db.getConnection();
+      CallableStatement callableStatement = db.prepare(connection, sqlQuery);
+
       if(operatorId != null) callableStatement.setInt(1, operatorId.intValue());
       else callableStatement.setNull(1, Types.INTEGER);
 
@@ -141,15 +141,18 @@ public class pkg_Operator {
       else callableStatement.setNull(4, Types.VARCHAR);
 
       callableStatement.execute();
-
+      callableStatement.close();
     } finally {
-      db.closeStatement(sqlQuery);
+      if (connection != null)
+        try {
+          connection.close();
+        } catch (Exception ignore) {}
     }
   }
 
   /**
    * Получение списка ролей пользователя.
-   * 
+   *
    * @param db соединение с базой данных
    * @param login логин пользователя
    * @return список ролей пользователя в виде java.util.List&lt;String&gt;
@@ -157,36 +160,43 @@ public class pkg_Operator {
    */
   public static final List<String> getRoles(Db db, String login) throws SQLException {
     logger.trace("getRoles(Db db, " + login + ")");
-    
+
     List<String> result = new ArrayList<String>();
 
-    String sqlQuery = 
+    String sqlQuery =
       " begin"
       + " ? := pkg_Operator.getRolesShortName("
         + " login => ?"
       + " );"
       + " end;";
+
+    Connection connection = null;
     try {
-      
-      CallableStatement callableStatement = db.prepare(sqlQuery);
+      connection = db.getConnection();
+      CallableStatement callableStatement = db.prepare(connection, sqlQuery);
 
       callableStatement.registerOutParameter(1, OracleTypes.CURSOR);
 
       // Установим Логин.
-      if(login != null) callableStatement.setString(2, login);  
-      else callableStatement.setNull(2, Types.VARCHAR); 
+      if(login != null) callableStatement.setString(2, login);
+      else callableStatement.setNull(2, Types.VARCHAR);
 
       // Выполнение запроса.
       callableStatement.execute();
 
       //Получим набор.
-      ResultSet resultSet = (ResultSet) callableStatement.getObject(1);     
+      ResultSet resultSet = (ResultSet) callableStatement.getObject(1);
 
       while (resultSet.next()) {
         result.add(resultSet.getString("short_name"));
       }
+      callableStatement.close();
+      resultSet.close();
     } finally {
-      db.closeStatement(sqlQuery);
+      if (connection != null)
+        try {
+          connection.close();
+        } catch (Exception ignore) {}
     }
 
     return result;
@@ -195,7 +205,7 @@ public class pkg_Operator {
 
   /**
    * Получение списка ролей пользователя.
-   * 
+   *
    * @param db соединение с базой данных
    * @param operatorId  идентификатор пользователя
    * @return список ролей пользователя в виде java.util.List&lt;String&gt;
@@ -203,34 +213,41 @@ public class pkg_Operator {
    */
   public static final List<String> getRoles(Db db, Integer operatorId) throws SQLException {
     logger.trace("getRoles(Db db, " + operatorId + ")");
-    
+
     List<String> result = new ArrayList<String>();
 
-    String sqlQuery = 
+    String sqlQuery =
       " begin"
       + " ? := pkg_Operator.getRolesShortName("
         + " operatorID => ?"
       + " );"
       + " end;";
+    Connection connection = null;
     try {
-      CallableStatement callableStatement = db.prepare(sqlQuery);
+      connection = db.getConnection();
+      CallableStatement callableStatement = db.prepare(connection, sqlQuery);
       callableStatement.registerOutParameter(1, OracleTypes.CURSOR);
-  
+
       // Установим Логин.
       if(operatorId != null) callableStatement.setInt(2, operatorId);
-      else callableStatement.setNull(2, Types.VARCHAR); 
-  
+      else callableStatement.setNull(2, Types.VARCHAR);
+
       // Выполнение запроса.
       callableStatement.execute();
-  
+
       //Получим набор.
-      ResultSet resultSet = (ResultSet) callableStatement.getObject(1);     
-  
+      ResultSet resultSet = (ResultSet) callableStatement.getObject(1);
+
       while (resultSet.next()) {
         result.add(resultSet.getString("short_name"));
       }
+      callableStatement.close();
+      resultSet.close();
     } finally {
-      db.closeStatement(sqlQuery);
+      if (connection != null)
+        try {
+          connection.close();
+        } catch (Exception ignore) {}
     }
   
     return result;

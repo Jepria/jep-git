@@ -1,6 +1,7 @@
 package com.technology.jep.jepcommon.security.authorization;
 
 import java.sql.CallableStatement;
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Types;
 
@@ -41,8 +42,10 @@ public class LoginAuthorization extends AuthorizationProvider {
         + "  );" 
         + "  ? := pkg_Operator.GetCurrentUserID;" 
         + " end;";
+    Connection connection = null;
       try {
-        CallableStatement callableStatement = db.prepare(sqlQuery);
+        connection = db.getConnection();
+        CallableStatement callableStatement = db.prepare(connection, sqlQuery);
         // Установим Логин.
         callableStatement.setString(2, login); 
 
@@ -53,9 +56,12 @@ public class LoginAuthorization extends AuthorizationProvider {
 
         result = callableStatement.getInt(3);
         if(callableStatement.wasNull()) result = null;
-
+        callableStatement.close();
       } finally {
-        db.closeStatement(sqlQuery);
+        if (connection != null)
+          try {
+            connection.close();
+          } catch (Exception ignore) {}
       }
 
       return result;

@@ -37,6 +37,7 @@ public class JepSecurityModule_Tomcat extends JepAbstractSecurityModule {
    * TODO Попробовать уменьшить размер синхронизируемого кода (synchronized). Точно ли нужна синхронизация ?
    */
   public static synchronized JepSecurityModule getInstance(HttpServletRequest request) {
+    logger.info("getInstance() BEGIN");
     HttpSession session = request.getSession();
     Principal principal = request.getUserPrincipal();
     JepSecurityModule_Tomcat securityModule;
@@ -55,6 +56,7 @@ public class JepSecurityModule_Tomcat extends JepAbstractSecurityModule {
         securityModule.updateSubject(principal);
       }
     }
+    logger.info("getInstance() END");
     return securityModule;
   }
   
@@ -63,10 +65,11 @@ public class JepSecurityModule_Tomcat extends JepAbstractSecurityModule {
    */
   @Override
   public String logout(HttpServletRequest request, HttpServletResponse response, String currentUrl) throws Exception {
-    logger.info(this.getClass() + ".logout(request, response, " + currentUrl + ")");
-        request.getSession().invalidate();
-        request.logout();
-        return currentUrl;
+    logger.info("logout(request, response, " + currentUrl + ") BEGIN");
+    request.getSession().invalidate();
+    request.logout();
+    logger.info("logout(request, response, " + currentUrl + " END)");
+    return currentUrl;
   }
   
   /**
@@ -74,6 +77,7 @@ public class JepSecurityModule_Tomcat extends JepAbstractSecurityModule {
    */
   @Override
   public Integer getJepPrincipalOperatorId(Principal principal) {
+    logger.info("getJepPrincipalOperatorId() BEGIN");
     Integer result = null;
     try {
       if(isObsolete(principal)) { // Обновить свойства, если изменился информация об операторе
@@ -84,6 +88,7 @@ public class JepSecurityModule_Tomcat extends JepAbstractSecurityModule {
       db.closeAll(); // освобождение соединения, берущегося в logon->db.prepare
     }
 
+    logger.info("getJepPrincipalOperatorId() END");
     return result;
   }
 
@@ -92,7 +97,7 @@ public class JepSecurityModule_Tomcat extends JepAbstractSecurityModule {
    */
   @Override
   protected void updateSubject(Principal principal) {
-    logger.trace(this.getClass() + ".updateSubject() BEGIN");
+    logger.info("updateSubject() BEGIN");
     String principalName = principal.getName();
     logger.trace("principalName = " + principalName);
     this.username = principalName;
@@ -111,7 +116,7 @@ public class JepSecurityModule_Tomcat extends JepAbstractSecurityModule {
       db.closeAll(); // освобождение соединения, берущегося в logon->db.prepare
     }
     
-    logger.trace(this.getClass() + ".updateSubject() END");
+    logger.info("updateSubject() END");
   }
 
   /**
@@ -122,6 +127,10 @@ public class JepSecurityModule_Tomcat extends JepAbstractSecurityModule {
    * @return true, если объект jepSecurityModule устарел, иначе - false
    */
   protected boolean isObsolete(Principal principal) {
-    return !Objects.equals(this.username, principal == null ? null : principal.getName());
+    boolean result;
+    logger.info("isObsolete() BEGIN");
+    result = !Objects.equals(this.username, principal == null ? null : principal.getName());
+    logger.info("isObsolete() END");
+    return result;
   }
 }

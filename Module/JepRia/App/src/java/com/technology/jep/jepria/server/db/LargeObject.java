@@ -9,7 +9,7 @@ public abstract class LargeObject {
   protected String sqlClearLob;
   protected String sqlObtainOutputStream;
   protected String sqlObtainInputStream;
-  protected Db database;
+  protected DbOld database;
   
   // Параметры, идентифицирующие изменяемое поле Blob
   protected String tableName = null;

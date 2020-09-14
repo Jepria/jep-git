@@ -1,21 +1,17 @@
 package com.technology.jep.jepria.server.db;
 
-import java.sql.CallableStatement;
-import java.sql.Connection;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import com.technology.jep.jepria.shared.exceptions.NotImplementedYetException;
+import com.technology.jep.jepria.shared.exceptions.SystemException;
+import org.apache.log4j.Logger;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
-
-import org.apache.log4j.Logger;
-
-import com.technology.jep.jepria.server.dao.OracleCallableStatementWrapper;
-import com.technology.jep.jepria.shared.exceptions.SystemException;
+import java.sql.CallableStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Обёртка для доступа к БД.
@@ -23,28 +19,22 @@ import com.technology.jep.jepria.shared.exceptions.SystemException;
  */
 public class Db {
   private static Logger logger = Logger.getLogger(Db.class.getName());
-  
+
   /**
    * Хэш-таблица источников данных по их JNDI-именам.
    */
   private static Map<String, DataSource> dataSourceMap = new ConcurrentHashMap<String, DataSource>();
-  
-  /**
-   * Объект соединения.
-   * Не должен быть доступен извне.
-   */
-  private Connection connection;
-  
+
   /**
    * JNDI-имя источника данных.
    */
   private String dataSourceJndiName;
-  
+
   /**
    * Хэш-таблица statement'ов по SQL-тексту.
    * Необходима для хранения открытых курсоров.
    */
-  private Map<String, CallableStatement> statementsMap = new ConcurrentHashMap<String, CallableStatement>();
+//  private Map<String, CallableStatement> statementsMap = new ConcurrentHashMap<String, CallableStatement>();
 
   /**
    * Создаёт объект соединения с базой с автоматическим коммитом.
@@ -53,87 +43,43 @@ public class Db {
   public Db(String dataSourceJndiName) {
     this(dataSourceJndiName, true);
   }
-  
+
   /**
    * Создаёт объект соединения с базой.
    * @param dataSourceJndiName JNDI-имя источника данных
    * @param autoCommit если true, все изменения автоматически коммитятся
    */
   public Db(String dataSourceJndiName, boolean autoCommit) {
+    logger.info("Db(" + "dataSourceJndiName" + ", " + autoCommit + ") BEGIN");
     this.dataSourceJndiName = dataSourceJndiName;
+    logger.info("Db() END");
   }
 
   /**
-   * Извлекает statement из хэш-таблицы или создаёт при отсутствии.
+   * Создаёт CallableStatement для шаблону запроса по dataSourceJndiName экземпляра.
    * @param sql SQL-шаблон
    * @return объект statement
    */
-  public CallableStatement prepare(String sql) {
-    CallableStatement cs = (CallableStatement) statementsMap.get(sql);
-    if (cs == null) {
-      try {
-        cs = OracleCallableStatementWrapper.wrap(getConnection().prepareCall(sql));
-      } catch(SQLException th) {
-        throw new SystemException("PrepareCall Error for query '" + sql + "'", th);
-      }
-
-      statementsMap.put(sql, cs);
+  public CallableStatement prepare(Connection connection, String sql) {
+    try {
+      logger.info("prepare(" + sql + ") BEGIN");
+      CallableStatement cs = connection.prepareCall(sql);
+      return cs;
+    } catch(SQLException th) {
+      throw new SystemException("PrepareCall Error for query '" + sql + "'", th);
+    } finally {
+      logger.info("prepare(" + sql + ") END");
     }
-    return cs;
   }
+
 
   /**
    * Метод закрывает все ресурсы, связанные с данным Db: connection и все курсоры из statementsMap.
    * Должен вызываться в конце сессии пользователя.
+   * @deprecated соединения должны закрываться в коде, их создающем
    */
   public void closeAll() {
-    logger.trace("closeAll()");
-    
-    Iterator<String> it = statementsMap.keySet().iterator();
-    while (it.hasNext()) {
-      CallableStatement cs = (CallableStatement) statementsMap.get(it.next());
-      try {
-        cs.close();
-      } catch (Exception e) {
-        logger.error(e.getMessage(), e);
-      }
-    }
-    statementsMap.clear();
-    try {
-      if(connection != null) {
-        connection.close();
-      }
-    } catch (Exception e) {
-      logger.error(e.getMessage(), e);
-    }
-    connection = null;
-  }
-
-  /**
-   * Закрытие statement.<br/>
-   * При возникновении исключения <code>SQLException</code> оно лишь логгируется.
-   * @param sql SQL-код
-   * @return <code>true</code>, если соединение существовало, <code>false</code> в противном случае
-   */
-  public boolean closeStatement(String sql) {
-    logger.trace("closeStatement()");
-    
-    Statement st = statementsMap.get(sql);
-    boolean existsFlag = st != null;
-    try {
-      /*
-       * TODO: Если statement не удалось найти, вероятно, это свидетельствует об ошибке
-       * в вызывающем коде. Возможно, в данной ситуации нужно выбрасывать IllegalArgumentException,
-       * а тип метода изменить на void.
-       */
-      if(existsFlag) {
-        st.close();
-      }
-    } catch (SQLException e) {
-      logger.error(e);
-    }
-    statementsMap.remove(sql);
-    return existsFlag;
+    throw new NotImplementedYetException();
   }
 
   /**
@@ -146,35 +92,12 @@ public class Db {
   }
 
   /**
-   * Откат (rollback) транзакции.<br/>
-   * В случае возникновения ошибки исключение не выбрасывается, а лишь записывается в лог.
-   * Откат сам по себе происходит в результате некоей ошибки. Если вызов отката
-   * привёл ещё к одному исключению, не остаётся уже ничего, кроме как закрыть соединение.
-   */
-  public void rollback() {
-    logger.trace("rollback()");
-    try {
-      /*
-       * Соединение может ещё не быть инициализировано, если вызвавшая rollback ошибка
-       * возникла до выполнения первого запроса.
-       */
-      if (connection != null) {
-        connection.rollback();
-      }
-    } catch (SQLException ex) {
-      logger.error(ex);
-    }
-  }
-  
-  /**
    * Получение соединения JDBC.<br/>
    * Если соединение закрыто или не создано, оно создаётся.
    * @return соединение JDBC
    */
-  private Connection getConnection() {
-    if(this.isClosed()) {
-      connection = createConnection(dataSourceJndiName);
-    }
+  public Connection getConnection() {
+    Connection connection = createConnection(dataSourceJndiName);
     return connection;
   }
 
@@ -215,18 +138,6 @@ public class Db {
       throw new SystemException("Connection creation error for '" + dataSourceJndiName + "' dataSource", ex);
     } finally {
       logger.trace("END createConnection(" + dataSourceJndiName + ")");
-    }
-  }
-
-  /**
-   * Проверяет, содержит ли данный объект открытое подключение JDBC.
-   * @return <code>true</code>, если соединение не создано или закрыто, <code>false</code> в противном случае
-   */
-  private boolean isClosed() {
-    try {
-      return connection == null || connection.isClosed();
-    } catch (SQLException ex) {
-      throw new SystemException("Check Db connection error", ex);
     }
   }
 

@@ -2,7 +2,7 @@ package com.technology.jep.jepria.server.dao;
 
 import java.sql.SQLException;
 
-import com.technology.jep.jepria.server.db.Db;
+import com.technology.jep.jepria.server.db.DbOld;
 
 /**
  * Класс, реализующий получение соединения, управление транзакцией и освобождение ресурсов.<br/>
@@ -17,7 +17,7 @@ public class CallContext {
   /**
    * Обёртка соединения с базой.
    */
-  private Db db;
+  private DbOld db;
   
   /**
    * Имя модуля для передачи в DB.
@@ -30,7 +30,7 @@ public class CallContext {
    * @param moduleName имя модуля
    */
   private CallContext(String dataSourceJndiName, String moduleName) {
-    db = new Db(dataSourceJndiName, false);
+    db = new DbOld(dataSourceJndiName, false);
     this.moduleName = moduleName;
   }
   
@@ -48,7 +48,7 @@ public class CallContext {
    * Возвращает объект соединения.
    * @return объект соединения
    */
-  public static Db getDb() {
+  public static DbOld getDb() {
     CallContext c = (CallContext) context.get();
     return c.db;
   }

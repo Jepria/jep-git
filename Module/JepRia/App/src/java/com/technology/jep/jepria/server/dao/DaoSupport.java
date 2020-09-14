@@ -15,7 +15,7 @@ import oracle.jdbc.OracleTypes;
 
 import org.apache.log4j.Logger;
 
-import com.technology.jep.jepria.server.db.Db;
+import com.technology.jep.jepria.server.db.DbOld;
 import com.technology.jep.jepria.shared.exceptions.ApplicationException;
 import com.technology.jep.jepria.shared.record.lob.JepClob;
 import com.technology.jep.jepria.shared.util.JepRiaUtil;
@@ -130,7 +130,7 @@ public class DaoSupport {
     T result = null;
 
     try {
-      Db db = CallContext.getDb();
+      DbOld db = CallContext.getDb();
       
       CallableStatement callableStatement = db.prepare(query);
       
@@ -177,7 +177,7 @@ public class DaoSupport {
       throws ApplicationException {
 
     try {
-      Db db = CallContext.getDb();
+      DbOld db = CallContext.getDb();
       
       CallableStatement callableStatement = db.prepare(query);
       
@@ -233,7 +233,7 @@ public class DaoSupport {
     T result = null;
 
     try {
-      Db db = CallContext.getDb();
+      DbOld db = CallContext.getDb();
       
       CallableStatement callableStatement = db.prepare(query);
       
@@ -415,7 +415,7 @@ public class DaoSupport {
     ResultSet resultSet = null;
     
     try {
-      Db db = CallContext.getDb();
+      DbOld db = CallContext.getDb();
       
       CallableStatement callableStatement = db.prepare(query);
     
@@ -479,7 +479,7 @@ public class DaoSupport {
               + "client_info => null "
           + ");"
        + " end;";
-    Db db = CallContext.getDb();
+    DbOld db = CallContext.getDb();
     CallableStatement callableStatement = db.prepare(query);
     setInputParamsToStatement(callableStatement, 1, moduleName, actionName);
     callableStatement.execute();
