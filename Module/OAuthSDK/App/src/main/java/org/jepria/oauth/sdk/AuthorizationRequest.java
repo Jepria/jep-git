@@ -96,7 +96,7 @@ public final class AuthorizationRequest {
       Map<String, String> params = new HashMap<>();
       params.put(RESPONSE_TYPE, responseType);
       params.put(CLIENT_ID, clientId);
-      params.put(REDIRECT_URI, URLEncoder.encode(redirectionURI.toString(), StandardCharsets.UTF_8.name()).replaceAll("\\+", "%20"));
+      params.put(REDIRECT_URI, redirectionURI.toString());
       params.put(STATE, state.toString());
       result = new URI(resourceURI.getScheme(), resourceURI.getAuthority(), resourceURI.getPath(), URIUtil.serializeParameters(params, null), resourceURI.getFragment());
     } catch (Throwable e) {

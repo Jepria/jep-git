@@ -4,21 +4,19 @@ import org.jepria.oauth.sdk.TokenInfoRequest;
 import org.jepria.oauth.sdk.TokenInfoResponse;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.SecurityContext;
 import java.io.IOException;
 import java.net.URI;
 
-import static org.jepria.oauth.sdk.OAuthConstants.*;
+import static org.jepria.oauth.sdk.OAuthConstants.OAUTH_TOKENINFO_CONTEXT_PATH;
 
 /**
  * <p>
- *   Basic JWT security filter implementation.
- *   Allows to add custom token handling.
+ * Basic JWT security filter implementation.
+ * Allows to add custom token handling.
  * </p>
  */
 public abstract class OAuthContainerRequestFilter implements ContainerRequestFilter {
@@ -34,18 +32,21 @@ public abstract class OAuthContainerRequestFilter implements ContainerRequestFil
   /**
    * Override this method, to create specific manipulations with request object, or custom logic. E.G. session caching.
    *
-   * @param request Incoming {@link HttpServletRequest}
+   * @param request   Incoming {@link HttpServletRequest}
    * @param tokenInfo Parsed {@link TokenInfoResponse}
    */
-  protected void handleRequest(HttpServletRequest request, TokenInfoResponse tokenInfo){};
+  protected void handleRequest(HttpServletRequest request, TokenInfoResponse tokenInfo) {
+  }
 
   protected String getTokenFromCookie() {
     return null;
   }
 
   protected abstract HttpServletRequest getRequest();
+
   /**
    * get Token string from Authorization HTTP Header
+   *
    * @return token
    */
   protected final String getTokenFromHeader() {
@@ -59,12 +60,14 @@ public abstract class OAuthContainerRequestFilter implements ContainerRequestFil
 
   /**
    * get OAuth client_id
+   *
    * @return
    */
   protected abstract String getClientSecret();
 
   /**
    * get OAuth client_secret
+   *
    * @return
    */
   protected abstract String getClientId();
@@ -74,12 +77,12 @@ public abstract class OAuthContainerRequestFilter implements ContainerRequestFil
    */
   private TokenInfoResponse getTokenInfo(String tokenString) throws IOException {
     TokenInfoRequest tokenInfoRequest = TokenInfoRequest.Builder()
-      .resourceURI(URI.create(getRequest().getRequestURL().toString().replaceFirst(getRequest().getRequestURI(), OAUTH_TOKENINFO_CONTEXT_PATH)))
-      .clientId(getClientId())
-      .clientSecret(getClientSecret())
-      .token(tokenString)
-      .build();
-    TokenInfoResponse response =  tokenInfoRequest.execute();
+        .resourceURI(URI.create(getRequest().getRequestURL().toString().replaceFirst(getRequest().getRequestURI(), OAUTH_TOKENINFO_CONTEXT_PATH)))
+        .clientId(getClientId())
+        .clientSecret(getClientSecret())
+        .token(tokenString)
+        .build();
+    TokenInfoResponse response = tokenInfoRequest.execute();
     return response;
   }
 
@@ -96,7 +99,8 @@ public abstract class OAuthContainerRequestFilter implements ContainerRequestFil
       tokenString = getTokenFromCookie();
     }
     if (tokenString == null) {
-        containerRequestContext.abortWith(Response.status((Response.Status.UNAUTHORIZED)).build());
+      containerRequestContext.abortWith(Response.status((Response.Status.UNAUTHORIZED)).build());
+      return;
     }
     /*
      * Introspect token with OAuth provider endpoint
@@ -107,6 +111,7 @@ public abstract class OAuthContainerRequestFilter implements ContainerRequestFil
       containerRequestContext.setSecurityContext(getSecurityContext(tokenClaims));
     } else {
       containerRequestContext.abortWith(Response.status((Response.Status.UNAUTHORIZED)).build());
+      return;
     }
   }
 }
