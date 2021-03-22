@@ -18,21 +18,21 @@ import static org.jepria.oauth.sdk.OAuthConstants.*;
 
 /**
  * <pre>
- * Token request builder.
- * Return entity for JSON object {@link org.jepria.oauth.sdk.TokenResponse}
+ *   Session approval request
  * </pre>
  * <p>Example:
  * <pre>
- *  SessionApprovalRequest tokenRequest = new SessionApprovalRequest.Builder()
- *       .resourceURI(URI.create("http://server/" + OAUTH_TOKEN_CONTEXT_PATH))
+ *  SessionApprovalRequest request = new SessionApprovalRequest.Builder()
+ *       .resourceURI(URI.create("http://server/session/{sessionId}"))
  *       .responseType(ResponseType.CODE)
  *       .clientId("clientID")
- *       .clientSecret("clientSecret")
+ *       .loginModuleClientId("loginModuleClientId")
+ *       .loginModuleClientSecret("loginModuleClientSecret")
  *       .operatorId(1234)
  *       .username("username")
  *       .state("state")
  *       .build();
- *  TokenResponse response = tokenRequest.execute();
+ *  URI response = SessionApprovalRequest.execute();
  * </pre>
  */
 public class SessionApprovalRequest {
