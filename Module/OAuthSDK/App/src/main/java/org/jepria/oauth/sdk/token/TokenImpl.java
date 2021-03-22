@@ -22,7 +22,8 @@ public class TokenImpl implements Token {
   private TokenImpl() {
   }
 
-  public TokenImpl(String tokenId, List<String> aud, String sub, String iss, Date expiryDate, Date issuedAt) {
+  public TokenImpl(String tokenId, List<String> aud, String sub, String iss, Date expiryDate, Date issuedAt,
+                   String username, String scope) {
     if (tokenId == null || sub == null || iss == null || expiryDate == null) {
       throw new IllegalArgumentException("All token claims must be not null and not empty");
     }
@@ -33,6 +34,8 @@ public class TokenImpl implements Token {
       .audience(aud)
       .expirationTime(expiryDate)
       .issueTime(issuedAt)
+      .claim("username", username)
+      .claim("scope", scope)
       .build();
     token = new PlainJWT(claimsSet);
     algorithm = Algorithm.NONE;
@@ -107,7 +110,23 @@ public class TokenImpl implements Token {
     }
     return claimsSet.getIssuer();
   }
-
+  
+  @Override
+  public String getUsername() {
+    if (claimsSet == null && isEncrypted) {
+      throw new IllegalStateException("Token is encrypted, decrypt token before getting claims");
+    }
+    return (String) claimsSet.getClaim("username");
+  }
+  
+  @Override
+  public String getScope() {
+    if (claimsSet == null && isEncrypted) {
+      throw new IllegalStateException("Token is encrypted, decrypt token before getting claims");
+    }
+    return (String) claimsSet.getClaim("username");
+  }
+  
   @Override
   public Date getExpirationTime() {
     if (claimsSet == null && isEncrypted) {

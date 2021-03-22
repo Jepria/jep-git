@@ -50,6 +50,20 @@ public interface Token {
    * @return issuer
    */
   String getIssuer();
+  
+  /**
+   * Get token username.
+   *
+   * @return username
+   */
+  String getUsername();
+  
+  /**
+   * Get token scope.
+   *
+   * @return scope with ',' delimiter
+   */
+  String getScope();
 
   /**
    * Get token expiration time.
