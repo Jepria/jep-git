@@ -51,7 +51,7 @@ public class TokenImplTest {
     Date issueDate = new Date();
 
     Token token = new TokenImpl(tokenId, Collections.EMPTY_LIST, subject,
-      issuer, expiryDate, issueDate);
+      issuer, expiryDate, issueDate, null, null);
 
     String tokenString = token.asString();
 
@@ -77,7 +77,7 @@ public class TokenImplTest {
     Date issueDate = new Date();
 
     Token token = new TokenImpl(tokenId, Collections.EMPTY_LIST, subject,
-      issuer, expiryDate, issueDate);
+      issuer, expiryDate, issueDate, null, null);
 
     /**
      * Sign token with private key
@@ -109,7 +109,7 @@ public class TokenImplTest {
     Date issueDate = new Date();
 
     Token token = new TokenImpl(tokenId, Collections.EMPTY_LIST, subject,
-      issuer, expiryDate, issueDate);
+      issuer, expiryDate, issueDate, null, null);
     Encryptor encryptor = new EncryptorRSA(publicKeyStr);
 
     token = encryptor.encrypt(token);
@@ -142,7 +142,7 @@ public class TokenImplTest {
     Date issueDate = new Date();
 
     Token token = new TokenImpl(tokenId, Collections.EMPTY_LIST, subject,
-      issuer, expiryDate, issueDate);
+      issuer, expiryDate, issueDate, null, null);
 
     /**
      * Sign token with private key
